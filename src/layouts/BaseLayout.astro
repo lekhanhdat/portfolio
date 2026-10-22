@@ -1,0 +1,33 @@
+---
+import '@/styles/global.css';
+import { withBase } from '@/lib/with-base';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Keep pages out of search results until launch (Phase 8). */
+  noindex?: boolean;
+  /** Error pages have no canonical URL. */
+  canonical?: boolean;
+}
+
+const { title, description, noindex = true, canonical: hasCanonical = true } = Astro.props;
+const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="min-h-dvh bg-bg font-sans text-text antialiased">
+    <slot />
+  </body>
+</html>

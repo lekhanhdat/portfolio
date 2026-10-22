@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens (PLAN §3). Full theme, fonts and dark-mode switching land in Phase 2;
+ * Phase 1 only defines the palette so the placeholder page uses tokens, not raw hex.
+ */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --surface-muted: #f2f2ee;
+  --border: #e3e3dd;
+  --text: #14161a;
+  --text-muted: #5a606b;
+  --accent: #2b4bc9;
+  --accent-subtle: #e9edfc;
+  --status-ok: #15803d;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #0d0f12;
+  --surface: #15181d;
+  --surface-muted: #1b1f25;
+  --border: #272b32;
+  --text: #e8e9eb;
+  --text-muted: #9ba1ab;
+  --accent: #8fa3ff;
+  --accent-subtle: #1c2340;
+  --status-ok: #4ade80;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-status-ok: var(--status-ok);
+}
+
+@layer base {
+  html {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}

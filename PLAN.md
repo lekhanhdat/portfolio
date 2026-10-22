@@ -113,7 +113,7 @@ Mọi đường dẫn đều nằm dưới base `/portfolio/`:
   /portfolio/personal-projects/da-nang-smart-tourism/   Case study
 /portfolio/resume.pdf
 /portfolio/404.html  (được dùng cho mọi đường dẫn sai dưới /portfolio/; xem §7.4)
-sitemap-index.xml · robots.txt · OG images
+sitemap-index.xml · OG images  (robots.txt không áp dụng: crawler chỉ đọc robots.txt ở gốc host)
 ```
 **Thứ tự cố định `[USR]`:**
 - Company: **C1 Data Lifecycle Management (AvePoint) → C2 Factory Manufacturing Monitoring → C3 Paper Mill OEE Monitoring → C4 Energy Management System**.
@@ -320,7 +320,9 @@ Capture / pick ─▶ Preview ─▶ Upload (/detect, timeout) ─▶ Visual sea
 ---
 
 ## 6. Technology Stack — ✅ CHỐT `[USR]`
-**Astro 7 + React 19 + TypeScript strict + Tailwind CSS v4 + MDX**, deploy GitHub Pages, Node 22 LTS, pnpm.
+**Astro 7 + React 19 + TypeScript strict + Tailwind CSS v4 + MDX**, deploy GitHub Pages, Node ≥ 22.23.4, pnpm.
+
+Phiên bản cài thực tế ở Phase 1: astro 7.4.2, react 19.3.1, tailwindcss 4.3.3, **typescript 6.0.3** (TS 7 chưa tương thích với `@astrojs/check` và `typescript-eslint`), eslint 10.13.0, pnpm 12.15.0.
 
 | Hạng mục | Lựa chọn |
 |---|---|
@@ -329,8 +331,8 @@ Capture / pick ─▶ Preview ─▶ Upload (/detect, timeout) ─▶ Visual sea
 | Styling | Tailwind v4 (`@tailwindcss/vite`) + CSS variable tokens; `clsx` + `tailwind-merge` |
 | Content | Content Collections (Zod) + MDX (`@astrojs/mdx`); `src/data/*.ts` |
 | Ảnh | `astro:assets` + sharp |
-| SEO | `<Seo>` tự viết, `@astrojs/sitemap`, robots, JSON-LD `Person`, OG PNG |
-| Quality | ESLint (TS, astro, jsx-a11y) + Prettier + `astro check`; Playwright + `@axe-core/playwright` |
+| SEO | `<Seo>` tự viết, `@astrojs/sitemap`, meta robots (noindex tới khi launch), JSON-LD `Person`, OG PNG. Không dùng `robots.txt` vì project site không có quyền với file ở gốc host |
+| Quality | ESLint 10 (typescript-eslint strict, eslint-plugin-astro + `jsx-a11y-strict`, `eslint-plugin-jsx-a11y-x`, react-hooks) + Prettier (astro, tailwind) + `astro check`; guard từ khoá cấm; Playwright + `@axe-core/playwright` (Phase 7) |
 
 **Lưu ý với `base: '/portfolio'`:**
 - Mọi link nội bộ và asset trong `public/` phải đi qua helper `withBase()`, dùng `import.meta.env.BASE_URL`. Ảnh dùng qua `astro:assets` thì Astro tự xử lý.
@@ -347,7 +349,8 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 ├─ .gitignore                    ✅ đã tạo
 ├─ PLAN.md · TASKLIST.md · PROGRESS.md · CLAUDE.md          ✅ commit (public-safe, chỉ dùng mã C1–C4)
 ├─ input/ · PROJECT_CONTENT.md · private/                   🔒 gitignored
-├─ public/  resume.pdf · robots.txt · favicon.svg · og/ · fonts/
+├─ public/  resume.pdf · favicon.svg · og/ · fonts/
+├─ scripts/check-confidential.mjs · .githooks/pre-commit · private/confidential-terms.txt (🔒)
 ├─ src/
 │  ├─ pages/
 │  │  ├─ index.astro

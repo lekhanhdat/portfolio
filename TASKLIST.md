@@ -10,21 +10,21 @@
 - [ ] P0.11 👤 Duyệt PLAN v3 và trả lời các câu hỏi còn mở (PROGRESS §4: Q-N1…Q-N5, Q-T7; không chặn Phase 1)
 
 ## Phase 1 — Foundation
-**Phụ thuộc:** P0.11, U.1 (Node 22), U.2 (repo public)
-- [ ] P1.1 🤖 Kiểm tra lại phiên bản và docs của Astro, Tailwind, Playwright; ghi vào PROGRESS
-- [ ] P1.2 🤖 Khởi tạo Astro (TS strict) bằng pnpm; thêm `@astrojs/react`, `@astrojs/mdx`, `@astrojs/sitemap`, Tailwind v4
-- [ ] P1.3 🤖 `astro.config.mjs`: `site`, **`base: '/portfolio'`**, `trailingSlash: 'always'`, `build.format: 'directory'`; alias `@/`
-- [ ] P1.4 🤖 Helper `withBase()` (link nội bộ và asset `public/`)
-- [ ] P1.5 🤖 ESLint (TS, astro, jsx-a11y) + Prettier; scripts `dev`, `build`, `preview`, `check`, `lint`, `format`
-- [ ] P1.6 🤖 Cây thư mục theo PLAN §7.1 (chỉ khung)
-- [ ] P1.7 🤖 Trang "coming soon" (`noindex`) + `404.astro`
-- [ ] P1.8 🤖 `.github/workflows/deploy.yml` (push `main` → Pages) và `ci.yml` (PR)
-- [ ] P1.9 🤖 Guard từ khoá cấm: `scripts/check-confidential` + pre-commit hook (đọc `private/confidential-terms.txt`) + bước CI (đọc secret `CONFIDENTIAL_TERMS`)
-- [ ] P1.9b 👤 Tạo `private/confidential-terms.txt` (mỗi dòng một từ khoá, Claude soạn sẵn nội dung) + thêm secret `CONFIDENTIAL_TERMS` trên GitHub
-- [ ] P1.9c 🤖 Kiểm tra `git status` và guard; trình bày danh sách file sẽ commit (gồm 4 planning docs) để anh duyệt
-- [ ] P1.10 👤 Commit và push (hoặc cho phép Claude commit); Settings → Pages → Source: GitHub Actions
-- [ ] P1.11 👤🤖 Xác nhận `https://lekhanhdat.github.io/portfolio/` hoạt động (CSS/asset đúng base)
-- [ ] P1.12 🤖 Cập nhật PROGRESS / TASKLIST
+**Phụ thuộc:** P0.11, U.1 (Node 22), U.2 (repo public) — ✅ · **Trạng thái: xong phần local; chờ push để deploy**
+- [x] P1.1 🤖 Kiểm tra phiên bản và peer dependencies (TS 7 không tương thích → dùng TS 6.0.3; ESLint 10 → dùng `eslint-plugin-jsx-a11y-x`)
+- [x] P1.2 🤖 Khởi tạo Astro 7.4.2 bằng pnpm; `@astrojs/react`, `@astrojs/mdx`, `@astrojs/sitemap`, Tailwind 4.3.3
+- [x] P1.3 🤖 `astro.config.mjs`: `site`, `base: '/portfolio'`, `trailingSlash: 'always'`, `build.format: 'directory'`; alias `@/`; tsconfig strict
+- [x] P1.4 🤖 `withBase()` (`src/lib/with-base.ts`) + `cn()`
+- [x] P1.5 🤖 ESLint 10 + Prettier; scripts `dev`, `build`, `preview`, `typecheck`, `lint`, `format`, `check`, `check:confidential`
+- [x] P1.6 🤖 Cây thư mục theo PLAN §7.1 (`.gitkeep`)
+- [x] P1.7 🤖 Trang "coming soon" (`noindex`) + `404.astro` (không có canonical); token màu cơ bản trong `global.css`
+- [x] P1.8 🤖 `.github/workflows/deploy.yml` (push `main` → Pages) và `ci.yml` (PR)
+- [x] P1.9 🤖 Guard `scripts/check-confidential.mjs` (không phân biệt hoa/thường và dấu, có word boundary, không in từ khoá ra log) + `.githooks/pre-commit` + bước CI
+- [~] P1.9b 🤖👤 Claude đã tạo `private/confidential-terms.txt` (local, gitignored) → 👤 **thêm secret `CONFIDENTIAL_TERMS`** trên GitHub (copy các dòng không có `#`)
+- [x] P1.9c 🤖 `git status` + guard sạch; danh sách file commit đã trình bày
+- [~] P1.10 🤖👤 Claude commit (theo yêu cầu) → 👤 push + Settings → Pages → Source: **GitHub Actions**
+- [ ] P1.11 👤🤖 Xác nhận `https://lekhanhdat.github.io/portfolio/` hoạt động sau khi push
+- [x] P1.12 🤖 Cập nhật PROGRESS / TASKLIST
 
 **Acceptance:** build/check sạch ở local và CI; trang coming soon live tại `/portfolio/` với asset load đúng; repo không có file private.
 
@@ -76,7 +76,7 @@
 - [ ] P6.4 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 7 — Quality
-- [ ] P7.1 🤖 `<Seo>`, JSON-LD, sitemap, robots, OG
+- [ ] P7.1 🤖 `<Seo>`, JSON-LD, sitemap, OG (meta robots; không có robots.txt cho project site)
 - [ ] P7.2 🤖 Playwright: mọi route, link đúng base, nav, theme, menu, copy email, gallery, trang 404
 - [ ] P7.3 🤖 axe cho cả 2 theme; thêm vào CI
 - [ ] P7.4 🤖 Lighthouse mobile ≥ 95

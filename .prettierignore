@@ -1,0 +1,8 @@
+dist/
+.astro/
+node_modules/
+pnpm-lock.yaml
+input/
+private/
+# Planning docs are hand-written Vietnamese notes; keep their formatting as authored.
+*.md

@@ -1,12 +1,12 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-22** · Phase hiện tại: **Phase 0 rev. 3 — HOÀN THÀNH, chờ duyệt** · Tiếp theo: **Phase 1 — Foundation** (khi có U.1, U.2 và lệnh bắt đầu)
+> Cập nhật: **2026-10-22** · Phase hiện tại: **Phase 1 — Foundation: XONG LOCAL, chờ push + bật Pages để xác minh deploy** · Tiếp theo: **Phase 2 — Design System**
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
 |---|---|
-| 0 Planning | ✅ rev. 3 xong; chờ P0.11 |
-| 1 Foundation | ⏳ chờ Node 22 + repo public |
+| 0 Planning | ✅ |
+| 1 Foundation | 🟡 code xong, check/build pass, đã commit local; chờ push + Pages + secret (P1.9b, P1.10, P1.11) |
 | 2–8 | ⏳ |
 
 ## 2. Lịch sử
@@ -16,6 +16,14 @@
   - Tạo `.gitignore`; gỡ `input/` và 5 planning docs khỏi git staging (`git rm --cached`, file trên đĩa giữ nguyên).
   - Xác minh chéo số liệu 9,3 triệu lượt khách qua Báo Đà Nẵng.
   - Viết lại PLAN (v3), TASKLIST; cập nhật PROJECT_CONTENT, CLAUDE.
+- **rev. 4:** planning docs được commit ở dạng public-safe (mã C1–C4).
+- **Phase 1 (2026-10-22):**
+  - Khởi tạo Astro 7.4.2 + React 19.3 + TS 6.0.3 strict + Tailwind 4.3.3 + MDX + sitemap; `base: '/portfolio'`; `withBase()`, `cn()`.
+  - ESLint 10 (ts strict, astro, jsx-a11y-strict, react-hooks) + Prettier; `.editorconfig`, `.gitattributes`, `.nvmrc`.
+  - Trang coming soon + 404; khung thư mục.
+  - Guard từ khoá cấm (pre-commit + CI); workflows `ci.yml`, `deploy.yml`.
+  - Kết quả kiểm tra: `pnpm check` → 0 errors / 0 warnings / 0 hints; ESLint sạch; Prettier sạch; `pnpm build` → 2 trang + sitemap; guard pass (12 từ khoá), test âm tính đúng.
+  - Preview local: `/portfolio/` 200, CSS 200, favicon 200, sitemap 200, đường dẫn sai → 404; có meta `noindex`.
 
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
@@ -36,6 +44,10 @@
 | D14 | ~~Planning docs gitignored~~ → **Commit PLAN/TASKLIST/PROGRESS/CLAUDE** ở dạng public-safe (mã C1–C4); chỉ `input/`, `PROJECT_CONTENT.md`, `private/` bị gitignore; thêm guard từ khoá cấm ở Phase 1 | ✅ Chốt (yêu cầu 2026-10-22) |
 | D15 | Open to Work: Hero + Contact, một cờ `availability` | Đề xuất |
 | D16 | Placeholder trung tính, không UI giả; company dùng SchematicFigure | ✅ Chốt |
+| D17 | **TypeScript 6.0.x** thay vì 7.x — `@astrojs/check` (^5 \|\| ^6) và `typescript-eslint` (<6.1) chưa hỗ trợ TS 7 | ✅ Phase 1 |
+| D18 | `eslint-plugin-jsx-a11y-x` thay cho `eslint-plugin-jsx-a11y` — Bản gốc chưa hỗ trợ ESLint 10; fork được `eslint-plugin-astro` công nhận | ✅ Phase 1 |
+| D19 | Không dùng `robots.txt`; dùng meta robots — Project site không kiểm soát được `/robots.txt` ở gốc host | ✅ Phase 1 |
+| D20 | Guard không in từ khoá ra log — Log Actions của repo public ai cũng xem được | ✅ Phase 1 |
 
 ## 4. Open Questions (không chặn Phase 1)
 | # | Câu hỏi | Mặc định nếu không trả lời |
@@ -48,14 +60,19 @@
 | Q-T7 | 2–4 thách thức kỹ thuật thật của Travel + lessons learned | Chặn mục 10 của case study (Phase 5) |
 
 ## 5. Ghi chú
-- Repo `lekhanhdat/portfolio`: **Public** ✓, branch `main`, chưa có commit. Chưa stage file nào.
-- Node v22.23.4 ✓ · pnpm 12.15.0 ✓ · git user `@datlk.21it <lekhanhdat03@gmail.com>` ✓ · remote chưa có branch nào.
+- Repo `lekhanhdat/portfolio`: Public. Branch làm việc: **`dev`** (Phase 0 `392b800` đã có trên `main` và `dev`). Commit Phase 1 nằm ở `dev` local, chưa push. Deploy chạy khi push vào `main`.
+- File React runtime (`dist/_astro/client.*.js`, khoảng 220 KB) được build ra nhưng không trang nào tải. Sẽ chỉ được dùng khi có island ở Phase 2.
+- Theme hiện chỉ có light; script chuyển theme (dark) làm ở Phase 2.
 - Các repo dự án cá nhân: anh sẽ refactor; portfolio link bình thường (U#3).
 - Ở Phase 5, đối chiếu lại source Travel về điểm nối chat UI ↔ RAG trước khi viết.
 
 ## 6. Next Steps
-1. 👤 Duyệt commit đầu tiên (5 file); backup PROJECT_CONTENT.md + input/; trả lời Q-N* nếu muốn khác mặc định.
-2. 🤖 Khi anh nói "bắt đầu Phase 1": thực hiện Phase 1 — Foundation, rồi dừng.
+1. 👤 Thêm secret `CONFIDENTIAL_TERMS` (Settings → Secrets and variables → Actions) = nội dung `private/confidential-terms.txt`, bỏ các dòng `#`.
+2. 👤 Settings → Pages → Source: **GitHub Actions**.
+3. 👤 Push `dev` (đã có commit `feat: Phase 1`) rồi merge `dev` → `main` (workflow deploy chỉ chạy trên `main`) → kiểm tra tab Actions → mở `https://lekhanhdat.github.io/portfolio/`. Có thể cho phép Claude làm bước này.
+4. 👤 Backup `PROJECT_CONTENT.md`, `input/`, `private/`.
+5. 🤖 Sau khi deploy được xác nhận: đánh dấu P1.11, rồi chờ lệnh bắt đầu Phase 2.
 
 ## 7. Môi trường
-Windows 10 · Git Bash · Node 22.23.4 · pnpm 12.15.0 · Python 3.12 · `pdftotext` có, `pdftoppm` không. Phiên bản npm (2026-10-22): astro 7.4.2 · @astrojs/react 7.1.1 · @astrojs/mdx 8.1.1 · @astrojs/sitemap 3.7.4 · react 19.3.1 · tailwindcss 4.3.3 · typescript 7.0.2 · @playwright/test 1.64.1.
+Windows 10 · Git Bash · Node 22.23.4 · pnpm 12.15.0 · Python 3.12 · `pdftotext` có, `pdftoppm` không.
+Đã cài (Phase 1): astro 7.4.2 · @astrojs/react 7.1.1 · @astrojs/mdx 8.1.1 · @astrojs/sitemap 3.7.4 · react/react-dom 19.3.1 · tailwindcss + @tailwindcss/vite 4.3.3 · typescript 6.0.3 · @astrojs/check 0.9.12 · eslint 10.13.0 · typescript-eslint 8.72.0 · eslint-plugin-astro 3.2.1 · eslint-plugin-jsx-a11y-x 0.2.0 · eslint-plugin-react-hooks 7.1.1 · prettier 3.9.10. Actions: checkout@v7 · setup-node@v7 · pnpm/action-setup@v6 · upload-pages-artifact@v5 · deploy-pages@v5.

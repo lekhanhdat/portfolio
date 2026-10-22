@@ -14,7 +14,8 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
     3. Paper Mill Production & OEE Monitoring (MIND Technology)
     4. Factory Energy Management System — web + mobile (MIND Technology; vai trò: mobile)
   - Khi gộp chung: Travel đứng đầu, sau đó theo thứ tự company ở trên.
-- Stack: **Astro 7 + React 19 (islands) + TypeScript strict + Tailwind v4 + MDX + Content Collections**, Node 22, pnpm.
+- Stack: **Astro 7 + React 19 (islands) + TypeScript 6 strict + Tailwind v4 + MDX + Content Collections**, Node ≥ 22.23.4 (`.nvmrc`), pnpm 12.
+- Lệnh chính: `pnpm dev` · `pnpm build` · `pnpm preview` · `pnpm check` (astro check + eslint + prettier) · `pnpm check:confidential` · `pnpm format`. Pre-commit hook (`.githooks/`, bật qua `pnpm install`) chạy guard từ khoá cấm.
 - Deploy: **GitHub Pages** từ repo `lekhanhdat/portfolio` → `https://lekhanhdat.github.io/portfolio/` (`base: '/portfolio'`). Không dùng custom domain.
 - Ngôn ngữ: site bằng tiếng Anh; trao đổi và tài liệu kế hoạch bằng tiếng Việt.
 
@@ -34,7 +35,7 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
    - **Được commit:** `PLAN.md`, `TASKLIST.md`, `PROGRESS.md`, `CLAUDE.md`. Các file này phải luôn "public-safe": chỉ dùng mã C1–C4, không tên khách hàng, không chi tiết source/kiến trúc nội bộ, không số liệu commit, không lỗ hổng bảo mật, không thông tin cá nhân ngoài những gì đã có trên site.
    - **Không bao giờ commit:** `input/`, `PROJECT_CONTENT.md`, `private/`, `.env*` (đã có trong `.gitignore`).
    - Mọi chi tiết nhạy cảm ghi vào `PROJECT_CONTENT.md`.
-   - Chạy `git status` + guard từ khoá cấm (Phase 1) trước mọi commit. Chỉ commit/push khi người dùng yêu cầu.
+   - Chạy `git status` + guard từ khoá cấm (Phase 1) trước mọi commit. Chỉ commit/push khi người dùng yêu cầu. Làm việc trên branch `dev`; `main` = production (push vào `main` sẽ deploy).
 8. **Travel:** phân biệt "at launch" và "now — migrating to Cloud Run + Neon PostgreSQL"; DevOps chỉ nói ngắn. Luồng AI phải khớp source (PROJECT_CONTENT §1.6). Không dùng "eliminates hallucinations".
 9. Không overengineering: không backend, DB, CMS, global state, animation hay 3D library. Dependency mới phải có lý do và ghi vào Decision Log.
 
