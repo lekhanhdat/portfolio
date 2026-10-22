@@ -1,0 +1,41 @@
+# --- Private: never publish (repo is public for GitHub Pages) ---
+# Source documents (CV with phone number, thesis slides)
+input/
+# Company source analysis & client names (backup elsewhere, see CLAUDE.md §6)
+PROJECT_CONTENT.md
+private/
+# Planning docs PLAN.md, TASKLIST.md, PROGRESS.md, CLAUDE.md ARE committed:
+# they must stay free of client names and confidential details.
+
+# --- Environment ---
+.env
+.env.*
+!.env.example
+
+# --- Dependencies ---
+node_modules/
+.pnpm-store/
+
+# --- Build output ---
+dist/
+.astro/
+
+# --- Testing ---
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+coverage/
+
+# --- Logs ---
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
