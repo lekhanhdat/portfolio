@@ -24,7 +24,6 @@ export function CaseStudyHeader({ project, showcase }: CaseStudyHeaderProps) {
           {data.platforms.map((platform) => (
             <Badge key={platform}>{platform}</Badge>
           ))}
-          {data.draft && <Badge>Draft</Badge>}
         </div>
         <h1 className="mt-5 text-display font-semibold">{data.title}</h1>
         <p className="mt-5 max-w-prose text-text-muted">{data.tagline}</p>

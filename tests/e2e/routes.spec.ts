@@ -18,7 +18,8 @@ test.describe('pages', () => {
       expect(response?.status()).toBe(200);
       await expect(page).toHaveTitle(/Le Khanh Dat/);
       await expect(page.locator('h1')).toHaveCount(1);
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      // Live pages are indexable; only 404 and the styleguide opt out.
+      await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
         `https://lekhanhdat.github.io${BASE_PATH}${route}`,
@@ -72,6 +73,7 @@ test('unknown paths show the custom 404 page with styles', async ({ page }) => {
   expect(response?.status()).toBe(404);
   await expect(page.locator('h1')).toHaveText('Page not found');
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   // Styles load from the base path even on a nested URL.
   const background = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
   expect(background).not.toBe('rgba(0, 0, 0, 0)');
@@ -86,4 +88,14 @@ test('Home has structured data for a person', async ({ page }) => {
     .evaluateAll((scripts) => scripts.map((script) => JSON.parse(script.textContent ?? '{}')));
   expect(data.map((item) => item['@type'])).toEqual(['Person', 'WebSite']);
   expect(data[0].jobTitle).toBe('Frontend Software Engineer');
+});
+
+test('the styleguide stays out of search results and the sitemap', async ({ page, request }) => {
+  await page.goto('styleguide/');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  const sitemap = await (await request.get('sitemap-0.xml')).text();
+  expect(sitemap).not.toContain('styleguide');
+  for (const route of routes) {
+    expect(sitemap).toContain(`<loc>https://lekhanhdat.github.io${BASE_PATH}${route}</loc>`);
+  }
 });

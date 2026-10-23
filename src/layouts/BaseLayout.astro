@@ -10,7 +10,7 @@ import Seo from '@/components/seo/Seo.astro';
 interface Props {
   title: string;
   description: string;
-  /** Keep pages out of search results until launch (Phase 8). */
+  /** Keep a page out of search results (404, internal styleguide). */
   noindex?: boolean;
   /** Error pages have no canonical URL. */
   canonical?: boolean;
@@ -23,7 +23,7 @@ interface Props {
 const {
   title,
   description,
-  noindex = true,
+  noindex = false,
   canonical: hasCanonical = true,
   showNav = true,
   type,

@@ -86,19 +86,21 @@
 - [x] P6.4 🤖 Cập nhật PROGRESS / TASKLIST; `resume.pdf` thay bằng bản mới (thêm link Portfolio)
 
 ## Phase 7 — Quality
-**Trạng thái: code xong, đã kiểm tra local; còn P7.5 (anh test thiết bị thật)**
+**Trạng thái: ✅ HOÀN THÀNH (2026-10-23)**
 - [x] P7.1 🤖 `Seo.astro` (title, description, canonical, robots, Open Graph, Twitter card) + JSON-LD (`src/lib/seo.ts`: Person + WebSite ở Home, CreativeWork ở trang dự án); ảnh OG `public/og/default.png` (1200×630); sitemap giữ nguyên
 - [x] P7.2 🤖 Playwright (`tests/e2e/`, desktop + Pixel 7): mọi route, link/asset đúng base và trả 200, nav + `aria-current`, theme, menu mobile, copy email, résumé, gallery, prev/next, trang 404, JSON-LD — chạy trên `dist/` qua `scripts/serve-dist.mjs` (giả lập GitHub Pages)
 - [x] P7.3 🤖 axe (WCAG 2.0/2.1/2.2 A–AA + best-practice) cho 9 trang × 2 theme × 2 thiết bị → 0 lỗi (đã sửa: tên link logo khớp chữ hiển thị); CI chạy check + build + e2e khi push `dev` và khi mở PR
 - [x] P7.4 🤖 Lighthouse mobile: Performance 98–100, Accessibility 100, Best practices 100, CLS 0; SEO 63–66 chỉ vì `noindex` (đạt khi bỏ ở P8.1)
-- [ ] P7.5 👤 Test trên thiết bị thật (điện thoại + máy tính, cả 2 theme)
+- [x] P7.5 👤 Test trên thiết bị thật (điện thoại + máy tính, cả 2 theme)
 - [x] P7.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 8 — Launch
-- [ ] P8.1 🤖 Bỏ `noindex`; đặt `SHOW_DRAFTS = false` (`src/lib/projects.ts`); kiểm tra cuối
-- [ ] P8.2 👤 Google Search Console + submit sitemap
+**Trạng thái: code sẵn sàng launch; chờ anh merge `main` (P8.0) rồi làm P8.2–P8.3**
+- [x] P8.1 🤖 Bỏ `noindex` ở mọi trang thật (404 + styleguide vẫn `noindex`); `SHOW_DRAFTS = false`; bỏ badge Draft; workflow deploy chạy thêm e2e + axe trước khi deploy; kiểm tra cuối: check 0/0/0, build 10 trang, 73 test pass, guard pass, sitemap 8 URL
+- [ ] P8.0 👤 Push `dev` → PR `dev` → `main` → merge (deploy tự chạy) → mở site live kiểm tra nhanh
+- [ ] P8.2 👤 Google Search Console: thêm property dạng **URL prefix** `https://lekhanhdat.github.io/portfolio/`, xác minh (meta tag — gửi tôi chuỗi `content` để thêm vào `<head>`; hoặc file HTML → bỏ vào `public/`), rồi submit sitemap `https://lekhanhdat.github.io/portfolio/sitemap-index.xml`
 - [ ] P8.3 👤 Cập nhật link trên LinkedIn, GitHub profile, CV; bật Open to Work trên LinkedIn
-- [ ] P8.4 🤖 Ghi ngày launch
+- [ ] P8.4 🤖 Ghi ngày launch (= ngày anh merge `main`) vào PROGRESS
 
 ---
 

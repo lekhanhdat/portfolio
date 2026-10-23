@@ -16,7 +16,6 @@ export function BriefHeader({ project }: { project: CompanyProject }) {
         <Badge>{data.company}</Badge>
         <Badge>{data.platforms.join(' + ')}</Badge>
         <Badge variant="confidential">Confidential</Badge>
-        {data.draft && <Badge variant="accent">Draft</Badge>}
       </div>
       <h1 className="mt-5 max-w-[24ch] text-display font-semibold">{data.title}</h1>
       <p className="mt-5 max-w-prose text-text-muted">{data.summary}</p>

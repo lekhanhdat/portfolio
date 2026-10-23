@@ -38,6 +38,13 @@ jobs:
 
       - run: pnpm build
 
+      # The same end-to-end and accessibility suite as CI: a red test never reaches production.
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: End-to-end and accessibility tests
+        run: pnpm test:e2e
+
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

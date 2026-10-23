@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 7 — Quality: code xong, chờ anh test thiết bị thật (P7.5)** · Tiếp theo: **Phase 8 — Launch**
+> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 8 — Launch: code sẵn sàng, chờ anh merge `main`** · Sau đó: Search Console + cập nhật profile
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -12,8 +12,8 @@
 | 4 Projects System | ✅ Đã duyệt |
 | 5 Content | ✅ Đã duyệt |
 | 6 Media | ✅ Đã duyệt |
-| 7 Quality | 🟡 Code xong + test xanh; chờ anh test thiết bị thật (P7.5) |
-| 8 Launch | ⏳ |
+| 7 Quality | ✅ Hoàn thành (anh đã test thiết bị thật) |
+| 8 Launch | 🟡 Code sẵn sàng; chờ merge `main` (P8.0), Search Console (P8.2), profile (P8.3) |
 
 ## 2. Lịch sử
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
@@ -95,6 +95,13 @@
   - CI (`ci.yml`): chạy khi push `dev` và PR; thêm cài Chromium + `pnpm test:e2e`, upload `test-results/` khi lỗi (`upload-artifact@v7`).
   - Xoá file thừa: `tests/e2e/.gitkeep`, kết quả Lighthouse/test tạm.
 
+- **Phase 8 (2026-10-23):**
+  - Bỏ `noindex` mặc định (`BaseLayout`); chỉ 404 và `/styleguide/` còn `noindex` (styleguide vẫn ngoài sitemap). `SHOW_DRAFTS = false`; bỏ badge Draft (không còn được render).
+  - Test cập nhật: trang thật không có meta robots; 404 + styleguide có `noindex`; sitemap chứa đủ 8 route, không có styleguide.
+  - `deploy.yml`: chạy thêm Playwright + axe trước khi upload — test đỏ thì không deploy.
+  - Kiểm tra cuối: `pnpm check` 0/0/0; build 10 trang; 73 passed / 5 skipped; guard pass; sitemap 8 URL.
+  - Chưa đo lại Lighthouse sau khi bỏ `noindex` (lệnh bị chặn trong phiên); trước đó audit SEO duy nhất trượt là `is-crawlable` do `noindex`.
+
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
 |---|---|---|
@@ -142,6 +149,8 @@
 | D42 | Nhúng CSS vào HTML (`build.inlineStylesheets: 'always'`) — stylesheet ~7 KB gzip; bỏ một request chặn render, giảm FCP/LCP | ✅ Phase 7 |
 | D43 | CI chạy cả khi push `dev` (không chỉ PR) — anh push `dev` theo từng Phase và chỉ merge `main` ở cuối (D34) | ✅ Phase 7 |
 | D44 | Hero không dùng reveal-on-scroll — nội dung màn hình đầu phải hiện ngay (LCP); reveal giữ cho các section bên dưới | ✅ Phase 7 |
+| D45 | Launch: trang thật index được; 404 + styleguide giữ `noindex`; entry draft bị loại khỏi build (`SHOW_DRAFTS = false`) | ✅ Phase 8 |
+| D46 | `deploy.yml` chạy e2e + axe trước khi deploy — `main` chỉ được merge một lần (D34) nên cổng chặn cuối nằm ở workflow deploy | ✅ Phase 8 |
 
 ## 4. Open Questions
 | # | Câu hỏi | Mặc định nếu không trả lời |
@@ -163,9 +172,16 @@
 - Nút Résumé (header, Hero, Contact) tự hiện khi `profile.resumePath` được đặt (cần U.M6).
 
 ## 6. Next Steps
-1. 👤 Chạy kiểm tra local (lệnh bên dưới, thêm `pnpm test`) → commit + push `dev`; CI sẽ chạy cả e2e.
-2. 👤 P7.5: test trên điện thoại và máy tính thật (cả 2 theme, menu, gallery, résumé).
-3. 🤖 Phase 8 — Launch: bỏ `noindex`, `SHOW_DRAFTS = false`, kiểm tra cuối; anh merge `main`, Search Console, cập nhật LinkedIn/GitHub.
+1. 👤 Chạy kiểm tra local → commit + push `dev` (CI chạy check + build + e2e).
+2. 👤 P8.0: PR `dev` → `main` → merge. Workflow deploy chạy guard + check + build + e2e rồi mới đăng lên Pages; mở `https://lekhanhdat.github.io/portfolio/` kiểm tra nhanh.
+3. 👤 P8.2: Search Console (URL prefix `https://lekhanhdat.github.io/portfolio/`) → xác minh → submit `sitemap-index.xml`. Nếu chọn xác minh bằng meta tag, gửi tôi chuỗi `content`.
+4. 👤 P8.3: cập nhật LinkedIn / GitHub profile / CV, bật Open to Work.
+5. 🤖 P8.4: ghi ngày launch khi anh báo đã merge.
+
+### Đo Lighthouse (tuỳ chọn)
+```bash
+pnpm dlx lighthouse@12 https://lekhanhdat.github.io/portfolio/ --view --form-factor=mobile
+```
 
 ### Kiểm tra local trước khi push
 ```bash

@@ -4,10 +4,10 @@ export type CompanyProject = CollectionEntry<'company-projects'>;
 export type PersonalProject = CollectionEntry<'personal-projects'>;
 
 /*
- * Drafts stay visible while the whole site is noindex. Flip this at launch (TASKLIST P8.1)
- * so unfinished entries drop out of every list and route.
+ * Draft entries are excluded from every list and route since launch. Set to true locally
+ * to preview an unfinished entry; never ship it as true.
  */
-const SHOW_DRAFTS = true;
+const SHOW_DRAFTS = false;
 
 const isVisible = ({ data }: { data: { draft: boolean } }) => SHOW_DRAFTS || !data.draft;
 const byOrder = (a: { data: { order: number } }, b: { data: { order: number } }) =>
