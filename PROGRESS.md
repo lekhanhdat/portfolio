@@ -1,12 +1,13 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-22** · Phase hiện tại: **Phase 1 — Foundation: XONG LOCAL, chờ push + bật Pages để xác minh deploy** · Tiếp theo: **Phase 2 — Design System**
+> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 2 — Design System: code xong, chờ anh commit + duyệt look & feel** · Tiếp theo: **Phase 3 — Home**
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
 |---|---|
 | 0 Planning | ✅ |
-| 1 Foundation | 🟡 code xong, check/build pass, đã commit local; chờ push + Pages + secret (P1.9b, P1.10, P1.11) |
+| 1 Foundation | ✅ Live tại https://lekhanhdat.github.io/portfolio/ |
+| 2 Design System | 🟡 Code xong + kiểm tra local; chờ commit/deploy + duyệt (P2.9) |
 | 2–8 | ⏳ |
 
 ## 2. Lịch sử
@@ -24,6 +25,22 @@
   - Guard từ khoá cấm (pre-commit + CI); workflows `ci.yml`, `deploy.yml`.
   - Kết quả kiểm tra: `pnpm check` → 0 errors / 0 warnings / 0 hints; ESLint sạch; Prettier sạch; `pnpm build` → 2 trang + sitemap; guard pass (12 từ khoá), test âm tính đúng.
   - Preview local: `/portfolio/` 200, CSS 200, favicon 200, sitemap 200, đường dẫn sai → 404; có meta `noindex`.
+  - Deploy: PR #1 (`dev` → `main`, merge commit `97afa29`).
+    - Lần chạy 1: deploy lỗi `404 Not Found` vì Pages chưa được bật.
+    - Lần chạy 2: thành công; annotation không còn cảnh báo thiếu `CONFIDENTIAL_TERMS`, nghĩa là guard đã chạy với secret.
+  - Kiểm tra site live: `/portfolio/`, CSS, favicon, sitemap đều trả 200; trang 404 tuỳ chỉnh hiển thị đúng cho đường dẫn sai; có canonical; `noindex, nofollow`; 0 thẻ `<script>`.
+- **Phase 2 (2026-10-23):**
+  - Design system đầy đủ: tokens, type scale, fonts, theme light/dark, primitives, media placeholder, device frame, schematic figure, layout (skip link, header, mobile nav, footer), reveal-on-scroll, trang `/styleguide/`.
+  - Trang coming soon và 404 làm lại bằng design system (thân trang chuyển sang `.tsx`).
+  - Kiểm tra:
+    - `pnpm check` → 0 errors / 0 warnings / 0 hints; ESLint sạch; Prettier sạch; guard pass; build 3 trang.
+    - Sitemap chỉ có `/portfolio/`; styleguide có `noindex`.
+    - Kiểm tra trực quan (Browser pane): light/dark đúng ở desktop; mobile 375px không tràn ngang.
+    - Menu mobile: mở được, focus vào nút đóng, Escape đóng và focus trả về nút mở.
+    - Toggle theme cập nhật `aria-pressed` và lưu localStorage.
+    - Font Geist nạp từ file tự host.
+  - Thêm deps: `@fontsource-variable/geist`, `@fontsource-variable/geist-mono` 5.3.0, `lucide-react` 1.61.0.
+  - Thêm file local `.claude/launch.json` (cấu hình preview cho Claude). Anh tự quyết có commit file này không.
 
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
@@ -47,6 +64,10 @@
 | D17 | **TypeScript 6.0.x** thay vì 7.x — `@astrojs/check` (^5 \|\| ^6) và `typescript-eslint` (<6.1) chưa hỗ trợ TS 7 | ✅ Phase 1 |
 | D18 | `eslint-plugin-jsx-a11y-x` thay cho `eslint-plugin-jsx-a11y` — Bản gốc chưa hỗ trợ ESLint 10; fork được `eslint-plugin-astro` công nhận | ✅ Phase 1 |
 | D19 | Không dùng `robots.txt`; dùng meta robots — Project site không kiểm soát được `/robots.txt` ở gốc host | ✅ Phase 1 |
+| D21 | Fonts: Astro Fonts API, provider `local` (file `.woff2` từ `@fontsource-variable/geist*`, latin + latin-ext) — provider `npm` lỗi do đọc qua `file://` trên Windows; self-host, không cần mạng | ✅ Phase 2 |
+| D22 | Tương tác bằng script thuần TS thay cho React island (ThemeToggle, MobileNav, header) — hydrate React kéo theo khoảng 72 KB gzip; sau khi đổi còn khoảng 1,8 KB JS inline mỗi trang | ✅ Phase 2 |
+| D23 | Thêm token `--border-control` (light `#858a93`, dark `#666c78`) cho viền nút/control đạt ≥ 3:1 (WCAG 1.4.11); `--border-strong` chỉ dùng trang trí | ✅ Phase 2 |
+| D24 | Icon: `lucide-react` (render tĩnh). Logo GitHub/LinkedIn tự nhúng SVG: Primer Octicons (MIT), Simple Icons (CC0), vì lucide v1 đã bỏ icon thương hiệu | ✅ Phase 2 |
 | D20 | Guard không in từ khoá ra log — Log Actions của repo public ai cũng xem được | ✅ Phase 1 |
 
 ## 4. Open Questions (không chặn Phase 1)
@@ -60,18 +81,17 @@
 | Q-T7 | 2–4 thách thức kỹ thuật thật của Travel + lessons learned | Chặn mục 10 của case study (Phase 5) |
 
 ## 5. Ghi chú
-- Repo `lekhanhdat/portfolio`: Public. Branch làm việc: **`dev`** (Phase 0 `392b800` đã có trên `main` và `dev`). Commit Phase 1 nằm ở `dev` local, chưa push. Deploy chạy khi push vào `main`.
+- Repo `lekhanhdat/portfolio`: Public. Quy trình: làm trên **`dev`** → PR → merge vào `main` → tự động deploy.
+- Notice "ubuntu-latest will migrate to Ubuntu 26" trên Actions chỉ mang tính thông báo, không cần xử lý.
 - File React runtime (`dist/_astro/client.*.js`, khoảng 220 KB) được build ra nhưng không trang nào tải. Sẽ chỉ được dùng khi có island ở Phase 2.
 - Theme hiện chỉ có light; script chuyển theme (dark) làm ở Phase 2.
 - Các repo dự án cá nhân: anh sẽ refactor; portfolio link bình thường (U#3).
 - Ở Phase 5, đối chiếu lại source Travel về điểm nối chat UI ↔ RAG trước khi viết.
 
 ## 6. Next Steps
-1. 👤 Thêm secret `CONFIDENTIAL_TERMS` (Settings → Secrets and variables → Actions) = nội dung `private/confidential-terms.txt`, bỏ các dòng `#`.
-2. 👤 Settings → Pages → Source: **GitHub Actions**.
-3. 👤 Push `dev` (đã có commit `feat: Phase 1`) rồi merge `dev` → `main` (workflow deploy chỉ chạy trên `main`) → kiểm tra tab Actions → mở `https://lekhanhdat.github.io/portfolio/`. Có thể cho phép Claude làm bước này.
-4. 👤 Backup `PROJECT_CONTENT.md`, `input/`, `private/`.
-5. 🤖 Sau khi deploy được xác nhận: đánh dấu P1.11, rồi chờ lệnh bắt đầu Phase 2.
+1. 👤 Review thay đổi Phase 2 → commit vào `dev` → PR/merge vào `main` để deploy.
+2. 👤 Duyệt look & feel trên site live: `/portfolio/` (coming soon mới) và `/portfolio/styleguide/` (thử cả 2 theme và mobile). Góp ý màu, font, spacing nếu có.
+3. 🤖 Sau khi duyệt: Phase 3 — Home (8 section với nội dung CV và placeholder).
 
 ## 7. Môi trường
 Windows 10 · Git Bash · Node 22.23.4 · pnpm 12.15.0 · Python 3.12 · `pdftotext` có, `pdftoppm` không.

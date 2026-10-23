@@ -1,9 +1,12 @@
 @import 'tailwindcss';
 
 /*
- * Design tokens (PLAN §3). Full theme, fonts and dark-mode switching land in Phase 2;
- * Phase 1 only defines the palette so the placeholder page uses tokens, not raw hex.
+ * Design system — concept "Spec Sheet" (PLAN §3).
+ * Components use the semantic utilities generated below (bg-surface, text-text-muted,
+ * border-border, text-accent, ...). Never hard-code hex values in components.
  */
+
+/* Dark mode follows [data-theme] on <html>, set before paint by the inline script in BaseLayout. */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 :root {
@@ -11,11 +14,16 @@
   --surface: #ffffff;
   --surface-muted: #f2f2ee;
   --border: #e3e3dd;
+  --border-strong: #c9c9c1;
+  --border-control: #858a93; /* ≥ 3:1 on bg/surface/surface-muted (WCAG 1.4.11) */
   --text: #14161a;
   --text-muted: #5a606b;
   --accent: #2b4bc9;
+  --accent-hover: #213ba3;
   --accent-subtle: #e9edfc;
+  --accent-contrast: #ffffff;
   --status-ok: #15803d;
+  --shadow-color: 220 15% 20%;
   color-scheme: light;
 }
 
@@ -24,34 +32,150 @@
   --surface: #15181d;
   --surface-muted: #1b1f25;
   --border: #272b32;
+  --border-strong: #3a3f48;
+  --border-control: #666c78;
   --text: #e8e9eb;
   --text-muted: #9ba1ab;
   --accent: #8fa3ff;
+  --accent-hover: #b0bdff;
   --accent-subtle: #1c2340;
+  --accent-contrast: #0d0f12;
   --status-ok: #4ade80;
+  --shadow-color: 220 40% 2%;
   color-scheme: dark;
 }
 
 @theme inline {
+  /* Colors */
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-control: var(--border-control);
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-subtle: var(--accent-subtle);
+  --color-accent-contrast: var(--accent-contrast);
   --color-status-ok: var(--status-ok);
+
+  /* Fonts (registered by the Astro Fonts API in astro.config.mjs) */
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  /* Fluid type scale: 360px → 1280px viewport */
+  --text-display: clamp(2.75rem, 2.05rem + 3.1vw, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+  --text-h2: clamp(1.875rem, 1.6rem + 1.2vw, 2.5rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+  --text-body: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  --text-body--line-height: 1.65;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.08em;
+
+  /* Layout */
+  --container-page: 75rem; /* 1200px */
+  --container-prose: 45rem; /* 720px */
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --default-transition-duration: 180ms;
+
+  /* Elevation (used sparingly: menus, popovers) */
+  --shadow-popover:
+    0 1px 2px hsl(var(--shadow-color) / 0.08), 0 8px 24px -8px hsl(var(--shadow-color) / 0.18);
 }
 
 @layer base {
   html {
     background-color: var(--bg);
     color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5rem; /* sticky header height + breathing room */
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  ::selection {
+    background-color: var(--accent-subtle);
+    color: var(--text);
   }
 
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Monospace metadata label: "01 — Experience", spec keys, tags. */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    letter-spacing: var(--text-label--letter-spacing);
+    text-transform: uppercase;
+  }
+
+  /* Animated underline for inline links. */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--default-transition-duration) var(--ease-out-soft);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* Reveal-on-scroll (src/scripts/reveal.ts). Content stays visible without JS. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 280ms var(--ease-out-soft),
+      transform 280ms var(--ease-out-soft);
+    transition-delay: calc(var(--reveal-index, 0) * 60ms);
+  }
+  .js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
   }
 }

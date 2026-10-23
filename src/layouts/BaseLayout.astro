@@ -1,6 +1,10 @@
 ---
 import '@/styles/global.css';
+import { Font } from 'astro:assets';
 import { withBase } from '@/lib/with-base';
+import { SkipLink } from '@/components/layout/SkipLink';
+import { SiteHeader } from '@/components/layout/SiteHeader';
+import { SiteFooter } from '@/components/layout/SiteFooter';
 
 interface Props {
   title: string;
@@ -9,9 +13,17 @@ interface Props {
   noindex?: boolean;
   /** Error pages have no canonical URL. */
   canonical?: boolean;
+  /** Section links in the header (their targets arrive in Phase 3). */
+  showNav?: boolean;
 }
 
-const { title, description, noindex = true, canonical: hasCanonical = true } = Astro.props;
+const {
+  title,
+  description,
+  noindex = true,
+  canonical: hasCanonical = true,
+  showNav = true,
+} = Astro.props;
 const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undefined;
 ---
 
@@ -24,10 +36,42 @@ const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undef
     <meta name="description" content={description} />
     {canonical && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Apply the theme before first paint to avoid a flash of the wrong theme. -->
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        let theme = null;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch {
+          // Storage blocked: fall back to the OS preference below.
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        root.dataset.theme = theme;
+      })();
+    </script>
+    <Font cssVariable="--font-geist" preload />
+    <Font cssVariable="--font-geist-mono" />
   </head>
-  <body class="min-h-dvh bg-bg font-sans text-text antialiased">
-    <slot />
+  <body id="top" class="flex min-h-dvh flex-col bg-bg text-text antialiased">
+    <SkipLink />
+    <SiteHeader showNav={showNav} />
+    <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+      <slot />
+    </main>
+    <SiteFooter />
+    <script>
+      import '@/scripts/theme';
+      import '@/scripts/header';
+      import '@/scripts/mobile-nav';
+      import '@/scripts/reveal';
+    </script>
   </body>
 </html>
