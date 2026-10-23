@@ -2,56 +2,63 @@ import { ArrowRight } from 'lucide-react';
 import { SchematicFigure } from './SchematicFigure';
 import { Badge } from '@/components/ui/Badge';
 import { TagList } from '@/components/ui/Tag';
-import type { CompanyProject } from '@/data/projects';
+import type { CompanyProject } from '@/lib/projects';
+import { cn } from '@/lib/cn';
+
+/** Cards show the core of the stack; the full list lives on the brief. */
+const CARD_STACK_SIZE = 5;
 
 interface ProjectCardProps {
   project: CompanyProject;
-  /** Detail page; omitted until the brief exists (Phase 4). */
-  href?: string;
+  /** Brief page, already resolved through withBase(). */
+  href: string;
+  /** h3 under a section heading (Home), h2 directly under the page h1 (index page). */
+  headingLevel?: 'h2' | 'h3';
+  className?: string;
 }
 
-export function ProjectCard({ project, href }: ProjectCardProps) {
-  const headingId = `project-${project.slug}-title`;
+export function ProjectCard({ project, href, headingLevel = 'h3', className }: ProjectCardProps) {
+  const { data } = project;
+  const Heading = headingLevel;
+  const headingId = `project-${project.id}-title`;
 
   return (
     <article
-      id={`project-${project.slug}`}
+      id={`project-${project.id}`}
       aria-labelledby={headingId}
-      className="group relative flex w-full flex-col rounded-lg border border-border bg-surface p-4 transition-colors duration-200 hover:border-border-strong sm:p-5"
+      className={cn(
+        'group relative flex w-full flex-col rounded-lg border border-border bg-surface p-4 transition-colors duration-200 focus-within:border-accent hover:border-border-strong sm:p-5',
+        className,
+      )}
     >
-      <SchematicFigure variant={project.schematic} title={`Abstract diagram of ${project.title}`} />
+      <SchematicFigure variant={data.schematic} title={`Abstract diagram of ${data.title}`} />
       <p className="label-mono mt-5 flex flex-wrap gap-x-2 text-text-muted">
-        <span>{project.company}</span>
+        <span>{data.company}</span>
         <span aria-hidden="true">·</span>
-        <span>{project.platforms.join(' + ')}</span>
+        <span>{data.platforms.join(' + ')}</span>
       </p>
-      <h3 id={headingId} className="mt-2 text-h3 font-semibold">
-        {href ? (
-          <a
-            href={href}
-            className="after:absolute after:inset-0 after:rounded-lg hover:text-accent focus-visible:outline-none"
-          >
-            {project.title}
-          </a>
-        ) : (
-          project.title
-        )}
-      </h3>
-      <p className="label-mono mt-1 text-text-muted">Role · {project.myRole}</p>
-      <p className="mt-3 text-sm text-text-muted">{project.summary}</p>
+      <Heading id={headingId} className="mt-2 text-h3 font-semibold">
+        {/* Stretched link: the whole card is clickable with a single tab stop. */}
+        <a
+          href={href}
+          className="transition-colors group-hover:text-accent after:absolute after:inset-0 after:rounded-lg focus-visible:outline-none"
+        >
+          {data.title}
+        </a>
+      </Heading>
+      <p className="label-mono mt-1 text-text-muted">Role · {data.myRole}</p>
+      <p className="mt-3 text-sm text-text-muted">{data.summary}</p>
       <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-5">
-        <TagList items={project.stack} />
+        <TagList items={data.stack.slice(0, CARD_STACK_SIZE)} />
         <Badge variant="confidential">Confidential</Badge>
       </div>
-      {href && (
-        <p
-          className="mt-4 flex items-center gap-1.5 text-sm font-medium text-accent"
-          aria-hidden="true"
-        >
-          Read brief
-          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-        </p>
-      )}
+      <p
+        aria-hidden="true"
+        className="mt-4 flex items-center gap-1.5 text-sm font-medium text-accent"
+      >
+        Read brief
+        <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+      </p>
     </article>
   );
 }

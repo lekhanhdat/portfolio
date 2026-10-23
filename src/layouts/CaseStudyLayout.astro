@@ -1,0 +1,63 @@
+---
+// Personal project case study (PLAN §5.3). Prose column with a sticky table of contents
+// from lg up; the gallery breaks out to the full container width below it.
+// The slot holds Astro markup, so it sits in plain HTML wrappers rather than React components.
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { CaseStudyHeader } from '@/components/projects/CaseStudyHeader';
+import { CaseStudyToc } from '@/components/projects/CaseStudyToc';
+import { AtAGlance } from '@/components/projects/AtAGlance';
+import { ScreenshotGallery } from '@/components/projects/ScreenshotGallery';
+import { CaseStudyFooter } from '@/components/projects/CaseStudyFooter';
+import type { PersonalProject } from '@/lib/projects';
+import { profile } from '@/data/profile';
+
+interface Props {
+  project: PersonalProject;
+  headings: MarkdownHeading[];
+}
+
+const { project, headings } = Astro.props;
+const { data } = project;
+const ids = { glance: 'at-a-glance', gallery: 'gallery', links: 'links' };
+const hasGallery = data.gallery.length > 0;
+
+const toc = [
+  { id: ids.glance, text: 'At a glance' },
+  ...headings
+    .filter((heading) => heading.depth === 2)
+    .map(({ slug, text }) => ({ id: slug, text })),
+  ...(hasGallery ? [{ id: ids.gallery, text: 'Gallery' }] : []),
+  { id: ids.links, text: 'Links' },
+];
+---
+
+<BaseLayout title={`${data.title} — Case study — ${profile.name}`} description={data.summary}>
+  <article class="mx-auto w-full max-w-page px-5 py-10 sm:px-8 lg:px-12 lg:py-16">
+    <CaseStudyHeader project={project} />
+
+    <div class="mt-16 grid gap-12 lg:mt-20 lg:grid-cols-12">
+      <div class="min-w-0 lg:col-span-8">
+        <AtAGlance id={ids.glance} surfaces={data.surfaces} />
+        <div class="prose-content mt-14">
+          <slot />
+        </div>
+      </div>
+      <aside class="hidden lg:col-span-3 lg:col-start-10 lg:block">
+        <div class="sticky top-24">
+          <CaseStudyToc items={toc} />
+        </div>
+      </aside>
+    </div>
+
+    {hasGallery && (
+      <div class="mt-16 border-t border-border pt-6 scroll-mt-20">
+        <ScreenshotGallery id={ids.gallery} items={data.gallery} />
+      </div>
+    )}
+
+    <div class="mt-16 border-t border-border pt-6">
+      <CaseStudyFooter id={ids.links} links={data.links} />
+    </div>
+  </article>
+</BaseLayout>

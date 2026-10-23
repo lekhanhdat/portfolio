@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { PersonalProjectsIndex } from '@/components/sections/PersonalProjectsIndex';
+import { getPersonalProjects } from '@/lib/projects';
+import { profile } from '@/data/profile';
+
+const projects = await getPersonalProjects();
+---
+
+<BaseLayout
+  title={`Personal projects — ${profile.name}`}
+  description="Products Le Khanh Dat built end to end, including an AI-assisted travel platform for Da Nang."
+>
+  <PersonalProjectsIndex projects={projects} />
+</BaseLayout>

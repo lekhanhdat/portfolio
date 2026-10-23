@@ -1,0 +1,47 @@
+---
+title: Paper Mill Production & OEE Monitoring
+summary: Production and OEE monitoring for a paper mill. I built dashboard, OEE and statistics views, real-time alarm notifications and 2D/360°/3D factory views.
+order: 3
+platforms: [Web]
+myRole: Frontend developer
+domain: Manufacturing monitoring · OEE
+stack:
+  - React
+  - TypeScript
+  - Vite
+  - Ant Design
+  - TanStack Query
+  - Zustand
+  - Axios
+  - Chart.js
+  - ECharts
+  - Three.js
+  - React Three Fiber
+company: MIND Technology
+visibility: confidential
+schematic: dashboard-grid
+draft: true
+---
+
+## Overview
+
+A production and OEE monitoring web application for a paper mill. I was one of the main frontend contributors.
+
+## My contributions
+
+- Dashboard: date-range selection, historical line charts, alarm history filtered by date range, factory cards that change color with the alarm level, device profile cards, and layouts that adapt when the sidebar opens or closes.
+- OEE: real-time shift tabs and a history tab, with API integration for the OEE cards and production-stage charts.
+- Statistics: a new page with daily fault bar charts, a fault-type frequency chart, KPI cards and a time-range picker.
+- A production orders page and an in-app user guide with a table of contents.
+- App-wide: a loading bar for API calls, request cancellation on route changes, and real-time alarm notifications.
+- An interactive digital factory with 2D/360° maps and 3D GLB models (Three.js, React Three Fiber, Drei): object selection, highlighting, metadata and context-aware camera controls.
+
+## Product scope
+
+The product includes dashboard and monitoring views, OEE, statistics, production orders, history and records, 2D/360° and 3D scenes, settings, user management and a user guide.
+
+## Engineering highlights
+
+- Cancelling in-flight requests on navigation to avoid rendering stale data.
+- Time-range controls shared across dashboard, OEE and statistics views.
+- 3D and 360° scenes integrated into a monitoring dashboard.

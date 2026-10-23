@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 3 — Home: code xong, chờ anh commit + duyệt (P3.9)** · Tiếp theo: **Phase 4 — Projects System**
+> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 4 — Projects System: code xong, chờ anh commit + duyệt (P4.9)** · Tiếp theo: **Phase 5 — Content**
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -8,8 +8,9 @@
 | 0 Planning | ✅ |
 | 1 Foundation | ✅ PR #1 · live tại https://lekhanhdat.github.io/portfolio/ |
 | 2 Design System | ✅ PR #2 · đã deploy và duyệt |
-| 3 Home | 🟡 Code xong + kiểm tra local; chờ commit/deploy + duyệt (P3.9) |
-| 4–8 | ⏳ |
+| 3 Home | ✅ Đã deploy và duyệt |
+| 4 Projects System | 🟡 Code xong + kiểm tra local; chờ commit/deploy + duyệt (P4.9) |
+| 5–8 | ⏳ |
 
 ## 2. Lịch sử
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
@@ -45,6 +46,24 @@
     - JS inline khoảng 3,1 KB (≈1,3 KB gzip) mỗi trang, không tải React runtime.
     - Chưa xem được ảnh chụp toàn trang (pane bị ẩn nên screenshot lỗi) → anh xem trên site live ở P3.9.
     - Chưa xác nhận được lúc copy thành công (pane chặn Clipboard API); nhánh báo lỗi hoạt động đúng.
+  - Anh đã deploy và duyệt.
+- **Phase 4 (2026-10-23):**
+  - Content Collections (`src/content.config.ts`): `company-projects`, `personal-projects`; id = tên file = slug; mọi entry đang `draft: true`, vẫn hiển thị tới launch qua cờ `SHOW_DRAFTS` (`src/lib/projects.ts`), trang có badge "Draft".
+  - 5 file MDX: 4 brief C1–C4 (Overview · My contributions · Product scope · Engineering highlights) và case study Travel (Context → What I'd improve; 3 luồng AI bằng `FlowSteps`). Nội dung chỉ lấy ✅/👤; mục Challenges chờ Q-T7; số liệu 9,3 triệu để Phase 5 (cần URL nguồn đầy đủ).
+  - Trang mới: `/company-projects/` (card + bảng chỉ mục), 4 brief (confidentiality Callout, prev/next), `/personal-projects/`, case study (TOC dính cột phải từ lg, gallery placeholder IMG-D1…D5 / IMG-M1…M6, Links, Next).
+  - Home đọc từ collection; bỏ `src/data/projects.ts`. Nav: Company/Personal trỏ tới trang index (ở Home vẫn là anchor), có `aria-current="page"`. Hero "See the case study", dòng Thesis, chip Experience trỏ tới trang chi tiết.
+  - `active-section.ts` dùng chung cho TOC (heading `h2` kéo dài tới mục kế tiếp).
+  - CSS `.prose-content` tự viết cho MDX (không thêm plugin typography).
+  - Xoá file thừa: `src/data/projects.ts`, `.gitkeep` trong `src/content/*`.
+  - Kiểm tra: `pnpm check` 0/0/0; ESLint, Prettier sạch; build 10 trang; guard pass; sitemap 8 URL (không có styleguide/404).
+    - Audit `dist/`: không có link nội bộ / anchor hỏng; mỗi trang 1 `h1`; mọi trang `noindex`; nav đánh dấu đúng trang.
+    - Không tràn ngang ở 360 / 768 / 1440 trên Home, 2 index, brief, case study.
+    - TOC case study đánh dấu đúng cả 12 mục; ảnh chụp brief và case study hiển thị đúng bố cục.
+  - Bổ sung theo yêu cầu (2026-10-23):
+    - Anchor Home về kebab-case: `#company-projects`, `#personal-project` (khớp PLAN §4.1).
+    - Case study: thêm số liệu "nearly 9.3 million visitor stays…" kèm link Báo Đà Nẵng (đã đối chiếu bài gốc ngày 05/11/2024, nguồn Cục Thống kê Đà Nẵng).
+    - Mục Challenges & lessons (4 mục) viết từ lịch sử commit + tài liệu trong các repo Travel (đọc read-only): đồng bộ index tìm kiếm, giới hạn của data backend, gọi AI chậm/tốn phí, đưa dự án lên hạ tầng mới. Không nêu credential, mã project cloud hay số tiền.
+    - Audit lại `dist/`: không link/anchor hỏng; check, build, guard pass.
 
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
@@ -74,19 +93,24 @@
 | D23 | Thêm token `--border-control` (light `#858a93`, dark `#666c78`) cho viền nút/control đạt ≥ 3:1 (WCAG 1.4.11); `--border-strong` chỉ dùng trang trí | ✅ Phase 2 |
 | D24 | Icon: `lucide-react` (render tĩnh). Logo GitHub/LinkedIn tự nhúng SVG: Primer Octicons (MIT), Simple Icons (CC0), vì lucide v1 đã bỏ icon thương hiệu | ✅ Phase 2 |
 | D25 | **Mọi thao tác git ghi lịch sử (commit, push, merge) do anh tự làm**; Claude chỉ sửa working tree | ✅ Chốt (xác nhận lại 2026-10-23) |
-| D26 | Dữ liệu card dự án cho Home nằm ở `src/data/projects.ts`; trang chi tiết ở Phase 4 dùng Content Collections với slug trùng — Home cần dữ liệu card trước khi có collection; tránh dựng collection dở dang ở Phase 3 | ✅ Phase 3 |
+| D26 | ~~Dữ liệu card dự án ở `src/data/projects.ts`~~ → thay bằng D29 | Thay thế (Phase 4) |
 | D27 | Active-section nav dùng scroll listener + `getBoundingClientRect` thay vì IntersectionObserver — đơn giản, xác định rõ section "hiện tại" (kể cả section không có trong nav), và kiểm thử được | ✅ Phase 3 |
-| D28 | Trước khi có trang chi tiết (Phase 4): CTA thứ hai của Hero là "See the personal project" (anchor), chip dự án ở Experience trỏ tới card trên Home, card chưa có "Read brief" — không để link chết | ✅ Phase 3 (đổi ở P4.6) |
+| D28 | ~~Link tạm khi chưa có trang chi tiết~~ → đã đổi sang trang thật ở P4.6 | Hết hiệu lực (Phase 4) |
+| D29 | **Content Collections là nguồn dữ liệu duy nhất cho dự án**: Home, index và trang chi tiết cùng đọc qua `src/lib/projects.ts` — tránh trùng dữ liệu giữa `data/` và MDX | ✅ Phase 4 |
+| D30 | Entry `draft` vẫn được build và gắn badge "Draft" trong lúc site còn `noindex`; ở launch đặt `SHOW_DRAFTS = false` (P8.1) — để anh duyệt được trang thật trước khi nội dung hoàn chỉnh | ✅ Phase 4 |
+| D31 | Layout `.astro` bọc slot MDX bằng thẻ HTML thường (cùng class với `Container`), không đặt slot trong component React — tuân CLAUDE.md §3 | ✅ Phase 4 |
+| D32 | Prose MDX dùng CSS `.prose-content` tự viết (≈15 quy tắc) thay cho `@tailwindcss/typography` — không thêm dependency cho vài phần tử | ✅ Phase 4 |
+| D33 | Mục Challenges & lessons của Travel do Claude viết từ lịch sử commit và tài liệu repo (anh giao, 2026-10-23); giữ `draft` tới khi anh duyệt | ✅ Phase 4 |
 
 ## 4. Open Questions
 | # | Câu hỏi | Mặc định nếu không trả lời |
 |---|---|---|
 | Q-N1 | Anh ghi "tổng thời gian … Feb 2026 – Sep 2026". Tôi hiểu là **Feb 2025 – Sep 2026** (khớp với 1.5+ years). Đúng không? | Dùng Feb 2025 – Sep 2026; site chỉ ghi "1.5+ years" |
 | Q-N2 | Không ghi tên GVHD, không đặt "Graduation thesis" làm badge; chỉ có 1 dòng trong Context ("Began as my graduation thesis at VKU…") và 1 link ở Education. Đồng ý? | Áp dụng đề xuất (Education đã có dòng "Thesis: Da Nang Smart Tourism →") |
-| Q-N3 | Có tạo tài khoản demo read-only cho dashboard không? | Không; chỉ ghi "Dashboard requires an admin login" |
-| Q-N4 | Có link thêm repo `travel-admin-frontend` và `travel-admin-backend` không? | Có (áp dụng ở Phase 4/5) |
+| Q-N3 | Có tạo tài khoản demo read-only cho dashboard không? | Không; chỉ ghi "Live dashboard · Admin login required" |
+| Q-N4 | Có link thêm repo `travel-admin-frontend` và `travel-admin-backend` không? | Có (đã áp dụng ở case study; cả 3 repo public, kiểm tra 2026-10-23) |
 | Q-N5 | Chức danh hiển thị ở cả 2 công ty là "Frontend Software Developer"? | Có (đang dùng ở Experience) |
-| Q-T7 | 2–4 thách thức kỹ thuật thật của Travel + lessons learned | Chặn mục 10 của case study (Phase 5) |
+| Q-T7 | ~~2–4 thách thức kỹ thuật thật của Travel + lessons learned~~ | ✅ Đã có bản nháp từ lịch sử commit (D33); anh duyệt ở P5.5 |
 
 ## 5. Ghi chú
 - Repo `lekhanhdat/portfolio`: Public. Quy trình: làm trên **`dev`** → anh commit + PR → merge vào `main` → tự động deploy.
@@ -97,9 +121,18 @@
 - Nút Résumé (header, Hero, Contact) tự hiện khi `profile.resumePath` được đặt (cần U.M6).
 
 ## 6. Next Steps
-1. 👤 Review thay đổi Phase 3 → commit vào `dev` → PR/merge vào `main` để deploy.
-2. 👤 Duyệt bố cục và copy nháp trên site live `/portfolio/` (P3.9): thử desktop, mobile, cả 2 theme; góp ý câu chữ ở Hero, Summary, "How I work", Experience và card dự án.
-3. 🤖 Sau khi duyệt: Phase 4 — Projects System.
+1. 👤 Chạy kiểm tra local (lệnh ở cuối file này) → commit vào `dev` → PR/merge vào `main` để deploy.
+2. 👤 Duyệt trên site live (P4.9): `/portfolio/company-projects/` + 4 brief, `/portfolio/personal-projects/` + case study (đọc kỹ mục Challenges & lessons).
+3. 🤖 Sau khi duyệt: Phase 5 — Content. Không có thông tin nào bắt buộc phải cung cấp trước; Q-N1…Q-N5 có mặc định. Ở P5.1 tôi sẽ nhắc anh gửi ảnh minh hoạ RAG (cần ở Phase 6, không chặn Phase 5).
+
+### Kiểm tra local trước khi push
+```bash
+pnpm install          # lần đầu hoặc khi lockfile đổi
+pnpm check            # astro check + eslint + prettier
+pnpm check:confidential
+pnpm build
+pnpm preview          # mở http://localhost:4321/portfolio/
+```
 
 ## 7. Môi trường
 Windows 10 · Git Bash · Node 22.23.4 · pnpm 12.15.0 · Python 3.12 · `pdftotext` có, `pdftoppm` không.

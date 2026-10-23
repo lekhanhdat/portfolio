@@ -1,10 +1,14 @@
 import { Section } from '@/components/ui/Section';
 import { SpecList } from '@/components/ui/SpecList';
 import { education, languages } from '@/data/education';
-import { personalProject } from '@/data/projects';
 import { sectionIds } from '@/data/navigation';
 
-export function Education() {
+interface EducationProps {
+  /** The thesis grew into the personal project; links to its case study. */
+  thesis: { title: string; href: string };
+}
+
+export function Education({ thesis }: EducationProps) {
   return (
     <Section id={sectionIds.education} index="06" label="Education" title="Education">
       <div className="grid gap-10 lg:grid-cols-12" data-reveal>
@@ -43,8 +47,8 @@ export function Education() {
 
           <p className="mt-8 text-sm text-text-muted">
             Thesis:{' '}
-            <a href={`#${sectionIds.personalProject}`} className="link-underline text-text">
-              {personalProject.title} →
+            <a href={thesis.href} className="link-underline text-text">
+              {thesis.title} →
             </a>
           </p>
         </div>

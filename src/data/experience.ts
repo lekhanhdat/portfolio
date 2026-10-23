@@ -1,5 +1,3 @@
-import type { ProjectSlug } from './projects';
-
 export interface Experience {
   company: string;
   /** One-line description of the company, shown under its name. */
@@ -10,7 +8,8 @@ export interface Experience {
   period: { start: string; end: string };
   highlights: readonly string[];
   stack: readonly string[];
-  projects: readonly ProjectSlug[];
+  /** Ids of entries in the company-projects collection. */
+  projects: readonly string[];
 }
 
 export const totalExperience = '1.5+ years';

@@ -62,7 +62,7 @@ const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undef
   </head>
   <body id="top" class="flex min-h-dvh flex-col bg-bg text-text antialiased">
     <SkipLink />
-    <SiteHeader showNav={showNav} />
+    <SiteHeader currentPath={Astro.url.pathname} showNav={showNav} />
     <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
       <slot />
     </main>

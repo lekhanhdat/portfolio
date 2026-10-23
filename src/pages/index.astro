@@ -2,11 +2,16 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { HomePage } from '@/components/sections/HomePage';
 import { profile } from '@/data/profile';
+import { getCompanyProjects, getPersonalProjects } from '@/lib/projects';
+
+const companyProjects = await getCompanyProjects();
+const [personalProject] = await getPersonalProjects();
+if (!personalProject) throw new Error('Home needs at least one personal project entry.');
 ---
 
 <BaseLayout
   title={`${profile.name} — ${profile.title}`}
   description={`${profile.name} is a ${profile.title} in ${profile.location} building data-heavy web applications with React and TypeScript.`}
 >
-  <HomePage />
+  <HomePage companyProjects={companyProjects} personalProject={personalProject} />
 </BaseLayout>

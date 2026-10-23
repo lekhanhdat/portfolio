@@ -42,7 +42,7 @@
 - [x] P2.10 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 3 — Home
-**Trạng thái: code xong, đã kiểm tra local; chờ anh duyệt bố cục và copy (P3.9)**
+**Trạng thái: ✅ HOÀN THÀNH (2026-10-23, đã deploy và duyệt)**
 - [x] P3.1 🤖 `data/`: `profile.ts`, `experience.ts` (thời gian theo CV), `projects.ts` (dữ liệu card), `skills.ts`, `education.ts`, `navigation.ts` (`sectionIds`)
 - [x] P3.2 🤖 Hero + dải spec (1.5+ years, Open to work + hình thức/địa điểm); CTA tới anchor; nút Résumé ẩn tới khi có PDF (U.M6)
 - [x] P3.3 🤖 Summary (IMG-01 placeholder, "How I work", SpecList)
@@ -51,29 +51,31 @@
 - [x] P3.6 🤖 Personal Project band (Travel, IMG-02/03 placeholder trong DeviceFrame, link Live dashboard + GitHub)
 - [x] P3.7 🤖 Skills (lưới 3×2), Education (honours, dòng Thesis), Contact / Open to Work (nút Copy email: `src/scripts/copy-email.ts`)
 - [x] P3.8 🤖 Active-section nav (`src/scripts/active-section.ts`, `aria-current`); không tràn ngang ở 360 / 768 / 1024 / 1280 / 1440
-- [ ] P3.9 👤 Duyệt bố cục và copy nháp (sau khi anh commit + merge `main`, xem trên site live)
+- [x] P3.9 👤 Duyệt bố cục và copy nháp
 - [x] P3.10 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 4 — Projects System
-- [ ] P4.1 🤖 `content.config.ts`: collections `company-projects`, `personal-projects` (PLAN §7.2)
-- [ ] P4.2 🤖 `ProjectIndexTable`; thêm `href` (Read brief) cho `ProjectCard` đã có từ Phase 3
-- [ ] P4.3 🤖 `/company-projects/` index + `[slug]` (brief template + confidentiality Callout + prev/next)
-- [ ] P4.4 🤖 `/personal-projects/` index + `[slug]` (case study template: sticky TOC, `FlowSteps`, `ScreenshotGallery`)
-- [ ] P4.5 🤖 5 file MDX khung (draft) với nội dung đã xác minh; slug khớp `data/projects.ts` (D26)
-- [ ] P4.6 🤖 Đổi link nav/CTA (Company/Personal, "See the case study", Thesis) sang trang index/case study
-- [ ] P4.7 🤖 Kiểm tra CI: grep tên khách hàng trong `src/` phải không có kết quả
-- [ ] P4.8 🤖 Cập nhật PROGRESS / TASKLIST
+**Trạng thái: code xong, đã kiểm tra local; chờ anh commit + duyệt (P4.9)**
+- [x] P4.1 🤖 `content.config.ts`: collections `company-projects`, `personal-projects` (loader `glob`, schema Zod 4; id = tên file = slug; `draft` mặc định `true`)
+- [x] P4.2 🤖 `ProjectIndexTable` (bảng từ md, danh sách ở mobile); `ProjectCard` có link "Read brief" (stretched link)
+- [x] P4.3 🤖 `/company-projects/` index + `[slug]`: `BriefHeader` (badges, SpecList, Schematic) + MDX + `BriefFooter` (Tech stack, confidentiality Callout, prev/next C1 → C4)
+- [x] P4.4 🤖 `/personal-projects/` index + `[slug]`: `CaseStudyHeader`, `AtAGlance`, sticky `CaseStudyToc` (từ lg), `FlowSteps`, `ScreenshotGallery` (placeholder), `CaseStudyFooter` (Links + Next)
+- [x] P4.5 🤖 5 file MDX (draft) với nội dung đã xác minh; Home đọc dữ liệu từ collection (bỏ `data/projects.ts`, D26 → D29)
+- [x] P4.6 🤖 Anchor Home về kebab-case (`#company-projects`, `#personal-project`, theo yêu cầu 2026-10-23). Link nav: Company/Personal → trang index (ở Home vẫn là anchor), `aria-current="page"`; Hero "See the case study", dòng Thesis, chip Experience → trang chi tiết
+- [x] P4.7 🤖 Kiểm tra từ khoá cấm trên CI: guard đã quét toàn bộ file (gồm `src/`) ở cả `ci.yml` và `deploy.yml` — không cần thêm bước
+- [x] P4.8 🤖 Cập nhật PROGRESS / TASKLIST
+- [ ] P4.9 👤 Duyệt các trang dự án trên site live (bố cục + câu chữ brief/case study)
 
 ## Phase 5 — Content
 - [ ] P5.1 🤖 Nhắc anh cung cấp ảnh minh hoạ RAG (tính năng đã hoàn thành) trước khi viết phần AI workflows
-- [ ] P5.2 🤖 Case study Travel đầy đủ (PLAN §5.3)
-- [ ] P5.3 🤖 Briefs: Data Lifecycle Management, Factory Manufacturing Monitoring, Paper Mill OEE, Energy Management System
+- [ ] P5.2 🤖 Case study Travel đầy đủ (PLAN §5.3); bỏ `draft` khi anh duyệt. Đã làm sớm ở Phase 4: số liệu 9,3 triệu kèm link Báo Đà Nẵng; mục Challenges & lessons (bản nháp từ lịch sử commit, chờ anh xác nhận)
+- [ ] P5.3 🤖 Briefs: rà lại 4 brief C1–C4 đã có khung; bỏ `draft` khi anh duyệt
 - [ ] P5.4 🤖 Copy EN: Summary, Experience bullets, Contact
 - [ ] P5.5 👤 Duyệt nội dung (bảo mật và tính trung thực)
 - [ ] P5.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 6 — Media
-- [ ] P6.1 🤖 Thay placeholder bằng ảnh thật (U.M*) qua `astro:assets`; sơ đồ từ slide (IMG-F*, IMG-A1)
+- [ ] P6.1 🤖 Thay placeholder bằng ảnh thật (U.M*) qua `astro:assets` (trường `gallery[].image` đã có trong schema; render ảnh ở layout `.astro`); sơ đồ từ slide (IMG-F*, IMG-A1)
 - [ ] P6.2 🤖 Alt text chính thức; poster và captions cho video
 - [ ] P6.3 👤 Duyệt ảnh (không lộ dữ liệu thật hay tên khách hàng)
 - [ ] P6.4 🤖 Cập nhật PROGRESS / TASKLIST
@@ -87,7 +89,7 @@
 - [ ] P7.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 8 — Launch
-- [ ] P8.1 🤖 Bỏ `noindex`; kiểm tra cuối
+- [ ] P8.1 🤖 Bỏ `noindex`; đặt `SHOW_DRAFTS = false` (`src/lib/projects.ts`); kiểm tra cuối
 - [ ] P8.2 👤 Google Search Console + submit sitemap
 - [ ] P8.3 👤 Cập nhật link trên LinkedIn, GitHub profile, CV; bật Open to Work trên LinkedIn
 - [ ] P8.4 🤖 Ghi ngày launch
@@ -103,7 +105,7 @@
 - [ ] U.3 Backup `PROJECT_CONTENT.md` + `input/` (cloud drive hoặc repo private riêng) — hai mục này không lên repo public
 
 **Nội dung (trước Phase 5)**
-- [ ] U.4 Q-T7: 2–4 thách thức kỹ thuật thật của Travel + lessons learned
+- [x] U.4 Q-T7: anh giao Claude tự viết từ lịch sử commit (2026-10-23) → đã có bản nháp 4 mục, anh duyệt ở P5.5
 - [ ] U.5 Q-N1…Q-N5 (PROGRESS §4)
 
 **Media (trước Phase 6)**

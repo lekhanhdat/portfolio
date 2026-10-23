@@ -358,44 +358,46 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 │  │  ├─ personal-projects/index.astro · [slug].astro
 │  │  ├─ styleguide.astro  (noindex, ngoài sitemap)
 │  │  └─ 404.astro
-│  ├─ layouts/        BaseLayout.astro · ProjectLayout.astro · CaseStudyLayout.astro
+│  ├─ layouts/        BaseLayout.astro · ProjectLayout.astro (brief) · CaseStudyLayout.astro
 │  ├─ components/
 │  │  ├─ ui/          Button, Tag, Badge, SpecList, Callout, Container, Section, SectionHeader, MediaPlaceholder, BrandIcon
 │  │  ├─ layout/      SiteHeader, MobileNav, ThemeToggle, SkipLink, SiteFooter  (hành vi: src/scripts/*.ts)
-│  │  ├─ sections/    HomePage, Hero, Summary, Experience, CompanyProjects, PersonalProject, Skills, Education, Contact, NotFound
-│  │  ├─ projects/    ProjectCard, ProjectIndexTable, SchematicFigure, DeviceFrame, FlowSteps, ScreenshotGallery*, CaseStudyToc*
+│  │  ├─ sections/    HomePage, Hero, Summary, Experience, CompanyProjects, PersonalProject, Skills, Education, Contact,
+│  │  │               CompanyProjectsIndex, PersonalProjectsIndex, NotFound
+│  │  ├─ projects/    ProjectCard, ProjectIndexTable, SchematicFigure, DeviceFrame, ProjectShowcase, BriefHeader, BriefFooter,
+│  │  │               PrevNextNav, BackLink, CaseStudyHeader, CaseStudyToc, AtAGlance, FlowSteps, ScreenshotGallery*, CaseStudyFooter
 │  │  ├─ styleguide/  StyleguideContent
 │  │  └─ seo/         Seo.astro, JsonLd.astro
 │  ├─ content/
 │  │  ├─ company-projects/*.mdx
 │  │  └─ personal-projects/*.mdx
 │  ├─ content.config.ts
-│  ├─ data/           profile.ts · experience.ts · projects.ts · skills.ts · education.ts · navigation.ts
+│  ├─ data/           profile.ts · experience.ts · skills.ts · education.ts · navigation.ts
 │  ├─ assets/images/  personal/da-nang-smart-tourism/… · profile/…
-│  ├─ lib/            cn.ts · with-base.ts · seo.ts
+│  ├─ lib/            cn.ts · with-base.ts · projects.ts (đọc collection) · seo.ts
 │  ├─ scripts/        theme.ts · header.ts · mobile-nav.ts · reveal.ts · active-section.ts · copy-email.ts
 │  └─ styles/         global.css
 ├─ tests/e2e/
 ├─ .github/workflows/ ci.yml · deploy.yml
 └─ astro.config.mjs · tsconfig.json · eslint.config.js · prettier.config.mjs · playwright.config.ts
-(* = island)
+(* = có thể thành island nếu cần lightbox ở Phase 6)
 ```
 
-### 7.2 Content schema (dự kiến)
+### 7.2 Content schema (`src/content.config.ts`, Phase 4)
 ```ts
-// chung cho hai collection
-{ title, slug, summary, order: number, platforms: ('web'|'mobile'|'api')[], myRole: string,
-  domain: string, stack: string[], highlights: string[],
-  cover?: { image?: ImageMetadata; alt?: string; placeholder?: { ratio: string; label: string } }
-        | { schematic: 'dashboard-grid' | 'data-table-workflow' | 'mobile-web-pair' },
-  links?: { repo?: string[]; demo?: string; video?: string }, draft: boolean }
+// chung cho hai collection — id của entry = tên file = slug URL
+{ title, summary, order: number, platforms: ('Web'|'Mobile'|'API'|'AI')[], myRole, domain,
+  stack: string[], draft: boolean /* mặc định true */ }
 // company-projects bổ sung
-{ company: 'AvePoint' | 'MIND Technology', visibility: 'confidential' }
+{ company: 'AvePoint' | 'MIND Technology', visibility: 'confidential',
+  schematic: 'dashboard-grid' | 'data-table-workflow' | 'mobile-web-pair' }
 // personal-projects bổ sung
-{ surfaces: { name: string; description: string }[] }
+{ tagline, surfaces: { name, description }[],
+  links: { repos: { label, url }[]; demo?: { label, url, note? } },
+  gallery: { surface: 'dashboard' | 'mobile'; label; alt; image?: ImageMetadata }[] }
 ```
-- Không có trường `period`, vì không hiển thị thời gian dự án.
-- Thời gian công ty nằm trong `data/experience.ts`.
+- Không có trường `period`, vì không hiển thị thời gian dự án. Thời gian công ty nằm trong `data/experience.ts`.
+- Mọi nơi (Home, index, trang chi tiết) đọc qua `src/lib/projects.ts` (sắp theo `order`, lọc draft khi `SHOW_DRAFTS = false`).
 
 ### 7.3 Rendering · SEO · Performance
 - Mọi trang là HTML tĩnh.

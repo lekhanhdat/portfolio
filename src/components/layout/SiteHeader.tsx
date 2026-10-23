@@ -7,14 +7,32 @@ import { profile } from '@/data/profile';
 import { mainNav } from '@/data/navigation';
 import { withBase } from '@/lib/with-base';
 
+export interface ResolvedNavItem {
+  label: string;
+  /** Final href, already resolved through withBase(). */
+  href: string;
+  /** The link leads to the page being viewed (or one of its children). */
+  current: boolean;
+}
+
 interface SiteHeaderProps {
-  /** Hide section links on pages where their targets do not exist yet. */
+  /** Pathname of the page being rendered (Astro.url.pathname). */
+  currentPath: string;
+  /** Hide section links on pages that stand outside the site flow (404). */
   showNav?: boolean;
 }
 
-/** Scroll hairline behavior: src/scripts/header.ts. */
-export function SiteHeader({ showNav = true }: SiteHeaderProps) {
-  const navItems = mainNav.map((item) => ({ ...item, href: withBase(item.href) }));
+/** Scroll hairline behavior: src/scripts/header.ts. Section highlight: src/scripts/active-section.ts. */
+export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
+  const isHome = currentPath === withBase('/');
+  const navItems: ResolvedNavItem[] = mainNav.map((item) => {
+    const isPage = !item.href.includes('#');
+    return {
+      label: item.label,
+      href: withBase(isHome && item.homeHref ? item.homeHref : item.href),
+      current: !isHome && isPage && currentPath.startsWith(withBase(item.href)),
+    };
+  });
 
   return (
     <header
@@ -46,7 +64,8 @@ export function SiteHeader({ showNav = true }: SiteHeaderProps) {
                   <a
                     href={item.href}
                     data-nav-link
-                    className="rounded-md px-3 py-2 text-sm text-text-muted transition-colors hover:text-text aria-[current=true]:text-text aria-[current=true]:underline aria-[current=true]:decoration-accent aria-[current=true]:underline-offset-8"
+                    aria-current={item.current ? 'page' : undefined}
+                    className="rounded-md px-3 py-2 text-sm text-text-muted transition-colors hover:text-text aria-[current]:text-text aria-[current]:underline aria-[current]:decoration-accent aria-[current]:underline-offset-8"
                   >
                     {item.label}
                   </a>

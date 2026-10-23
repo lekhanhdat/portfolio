@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { CompanyProjectsIndex } from '@/components/sections/CompanyProjectsIndex';
+import { getCompanyProjects } from '@/lib/projects';
+import { profile } from '@/data/profile';
+
+const projects = await getCompanyProjects();
+---
+
+<BaseLayout
+  title={`Company projects — ${profile.name}`}
+  description="Enterprise data governance, manufacturing monitoring and energy management applications built at AvePoint and MIND Technology."
+>
+  <CompanyProjectsIndex projects={projects} />
+</BaseLayout>

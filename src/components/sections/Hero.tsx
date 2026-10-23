@@ -9,7 +9,12 @@ import { totalExperience } from '@/data/experience';
 import { sectionIds } from '@/data/navigation';
 import { withBase } from '@/lib/with-base';
 
-export function Hero() {
+interface HeroProps {
+  /** Case study of the personal project, already resolved through withBase(). */
+  caseStudyHref: string;
+}
+
+export function Hero({ caseStudyHref }: HeroProps) {
   const { availability } = profile;
 
   return (
@@ -39,8 +44,8 @@ export function Hero() {
                 className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </LinkButton>
-            <LinkButton href={`#${sectionIds.personalProject}`} variant="secondary">
-              See the personal project
+            <LinkButton href={caseStudyHref} variant="secondary">
+              See the case study
             </LinkButton>
             {profile.resumePath && (
               <LinkButton href={withBase(profile.resumePath)} variant="ghost" download>
