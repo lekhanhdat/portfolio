@@ -24,13 +24,12 @@ interface SiteHeaderProps {
 
 /** Scroll hairline behavior: src/scripts/header.ts. Section highlight: src/scripts/active-section.ts. */
 export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
-  const isHome = currentPath === withBase('/');
   const navItems: ResolvedNavItem[] = mainNav.map((item) => {
     const isPage = !item.href.includes('#');
     return {
       label: item.label,
-      href: withBase(isHome && item.homeHref ? item.homeHref : item.href),
-      current: !isHome && isPage && currentPath.startsWith(withBase(item.href)),
+      href: withBase(item.href),
+      current: isPage && currentPath.startsWith(withBase(item.href)),
     };
   });
 
@@ -41,11 +40,11 @@ export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
     >
       <Container className="flex h-16 items-center gap-4">
         {/* The name comes from the visible text (WCAG 2.5.3); "home" is added for screen readers. */}
-        <a href={withBase('/')} className="group mr-auto flex items-center gap-3">
-          <span className="label-mono rounded-sm border border-border-strong px-1.5 py-0.5 text-text transition-colors group-hover:border-accent group-hover:text-accent">
-            {profile.initials}
-          </span>
-          <span className="hidden text-sm font-medium text-text sm:inline">{profile.name}</span>
+        <a
+          href={withBase('/')}
+          className="mr-auto text-sm font-medium text-text transition-colors hover:text-accent"
+        >
+          {profile.name}
           <span className="sr-only"> — home</span>
         </a>
 

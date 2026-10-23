@@ -1,4 +1,4 @@
-/** "Copy" button next to the contact email (markup: src/components/sections/Contact.tsx). */
+/** "Copy address" button next to the contact email (markup: src/components/sections/Contact.tsx). */
 const RESET_AFTER_MS = 2000;
 
 function initCopyEmail(): void {
@@ -7,6 +7,7 @@ function initCopyEmail(): void {
     const status = button.parentElement?.querySelector<HTMLElement>('[data-copy-email-status]');
     const email = button.dataset.copyEmail;
     if (!label || !email) return;
+    const idleText = label.textContent ?? 'Copy';
 
     // Without the async Clipboard API (insecure context, old browser) the mailto link remains.
     if (!('clipboard' in navigator)) {
@@ -20,7 +21,7 @@ function initCopyEmail(): void {
       if (status) status.textContent = statusText;
       window.clearTimeout(timer);
       timer = window.setTimeout(() => {
-        label.textContent = 'Copy';
+        label.textContent = idleText;
         if (status) status.textContent = '';
       }, RESET_AFTER_MS);
     };

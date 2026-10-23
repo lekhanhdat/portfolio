@@ -14,6 +14,7 @@
 | 6 Media | ✅ Đã duyệt |
 | 7 Quality | ✅ Hoàn thành (anh đã test thiết bị thật) |
 | 8 Launch | 🚀 Live 2026-10-23 (PR #4); còn P8.2, P8.3 (LinkedIn) |
+| 9 Polish | ✅ Xong trên `dev`, chờ duyệt |
 
 ## 2. Lịch sử
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
@@ -103,6 +104,24 @@
   - Chưa đo lại Lighthouse sau khi bỏ `noindex` (lệnh bị chặn trong phiên); trước đó audit SEO duy nhất trượt là `is-crawlable` do `noindex`.
   - **Launch 2026-10-23:** anh merge PR #4 (`dev` → `main`). Kiểm tra site live: 8 trang + `resume.pdf` + sitemap + ảnh OG trả 200; đường dẫn sai trả 404; trang thật không có meta robots.
 
+- **Phase 9 — Polish (2026-10-23):**
+  - Header: bỏ logo LKD (bỏ luôn `profile.initials`); link "Personal Project" trỏ thẳng tới case study ở mọi trang.
+  - Home full-page: `Section` có prop `fullPage` (min-height = viewport − header, nội dung căn giữa, `snap-start`); Hero và Personal project dùng chung class. `BaseLayout` nhận `snap` → `html[data-snap]`. Catalog `SectionCatalog.tsx` (8 mục, dùng lại `active-section.ts`).
+  - Bố cục để vừa 1 màn hình ở 1440×900: Experience 2 cột; card công ty dạng compact (4 cột từ xl, ẩn sơ đồ dưới xl, nút "All company projects" lên ngang tiêu đề); padding section gọn hơn.
+  - `SpecList` row thiết kế lại; Section có thêm slot `action`.
+  - Education: 2 ảnh tốt nghiệp (`graduation-ceremony.jpg`, `graduation-diploma.jpg`), resize 1600px, bỏ EXIF, làm mờ dòng mã sinh viên; crop 4:5 bằng `object-position`, bấm để mở ảnh gốc.
+  - Contact: "Email me" (`mailto:`) + "Copy address" tách riêng; nhóm "Profiles & résumé".
+  - Nội dung: rút gọn Hero, Summary, highlight Experience (AvePoint 3 ý, MIND 4 ý; thêm Vite vào stack), summary + thân bài 4 brief, case study (Challenges theo Problem / Fix / Lesson). Không thêm dữ kiện mới.
+  - Test: thêm test catalog + Personal Project → case study; test email kiểm tra `mailto:` và nút Copy address.
+  - Kiểm tra: `pnpm check` 0/0/0; build 10 trang; guard pass; e2e 75 passed / 7 skipped (axe 0 vi phạm, 2 theme); không tràn ngang ở 1440 / 1280 / 768 / 390. Ở 1440×900 cả 8 section vừa đúng 1 màn hình; ở 1280×720 Summary / Experience / Company projects dài hơn màn hình ~100px (vẫn cuộn được bên trong section).
+  - Vòng 2 (theo phản hồi):
+    - Gộp Summary vào Intro: trái là pitch + tóm tắt + CTA (đã bỏ "Focus" và "How I work" theo yêu cầu), phải là chân dung + bảng thông tin (Experience, Based in, Education, English, Status). Xoá `Summary.tsx`; Home còn 7 section, đánh số 01–06; catalog 7 mục.
+    - Education: dùng 2 ảnh gốc anh tự thay (không che, không crop), xếp chồng theo khổ ngang 3:2. `toResponsiveImage` nhận `quality`; ảnh gốc > 2000px không bao giờ thành ứng viên srcset (xuất WebP q90 480/960/1440, 38–324 KB); link vẫn mở JPEG gốc. EXIF không có GPS.
+    - Header: "Company Projects" luôn mở `/company-projects/`; bỏ cơ chế `homeHref`.
+    - `SchematicFigure`: 4 variant mới, mỗi dự án một hình (D45), có nhãn mono ngắn nêu module, không có số liệu.
+    - Bỏ `SiteFooter` khỏi toàn site; thêm `BackToTop` (nút tròn cố định góc phải, hiện khi cuộn quá 60% màn hình, script trong `header.ts`).
+    - Kiểm tra: `pnpm check` 0/0/0; build 10 trang; guard pass; e2e 78 passed / 8 skipped (thêm test Company Projects → index, back-to-top). Ở 1440×900 cả 7 section vừa 1 màn hình; không tràn ngang ở 1440 / 1280 / 390.
+
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
 |---|---|---|
@@ -148,6 +167,10 @@
 | D40 | Gallery không dùng lightbox: ảnh link tới bản gốc (tab mới) — giữ site 0 React runtime, bàn phím và screen reader dùng được sẵn | ✅ Phase 6 |
 | D41 | Thêm devDeps `@playwright/test` + `@axe-core/playwright` (P7.2–P7.3, đã có trong PLAN). Lighthouse chạy qua `pnpm dlx`, không thêm dependency | ✅ Phase 7 |
 | D42 | Nhúng CSS vào HTML (`build.inlineStylesheets: 'always'`) — stylesheet ~7 KB gzip; bỏ một request chặn render, giảm FCP/LCP | ✅ Phase 7 |
+| D43 | Full-page scroll ở Home bằng **CSS scroll snap**, không dùng JS bắt sự kiện wheel: chạy trên compositor (mượt), giữ nguyên bàn phím, anchor, screen reader, 0 KB JS. `mandatory` khi màn hình ≥ 1024×640 và không bật reduced motion; còn lại `proximity` để section dài hơn màn hình (mobile) vẫn cuộn tự do | ✅ Phase 9 |
+| D45 | Mỗi dự án công ty một sơ đồ riêng (`records-governance`, `production-monitoring`, `digital-factory`, `energy-mobile`) thay cho 3 hình dùng chung; nhãn chỉ nêu module có trong brief, vòng/biểu đồ chỉ minh hoạ — vẫn là SchematicFigure, không mô phỏng UI thật (D16, D35) | ✅ Phase 9 |
+| D46 | Bỏ footer toàn site (anh yêu cầu); chỉ giữ nút "Back to top" nổi. Link GitHub/LinkedIn/Email vẫn có ở Intro và Contact | ✅ Phase 9 |
+| D44 | Catalog section ở Home: rail cố định bên trái; có nhãn đầy đủ từ 1440px, dưới đó chỉ còn rail (nhãn hiện khi hover/focus); ẩn dưới `md` (mobile dùng menu) | ✅ Phase 9 |
 | D43 | CI chạy cả khi push `dev` (không chỉ PR) — anh push `dev` theo từng Phase và chỉ merge `main` ở cuối (D34) | ✅ Phase 7 |
 | D44 | Hero không dùng reveal-on-scroll — nội dung màn hình đầu phải hiện ngay (LCP); reveal giữ cho các section bên dưới | ✅ Phase 7 |
 | D45 | Launch: trang thật index được; 404 + styleguide giữ `noindex`; entry draft bị loại khỏi build (`SHOW_DRAFTS = false`) | ✅ Phase 8 |

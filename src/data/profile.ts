@@ -1,12 +1,11 @@
 export const profile = {
   name: 'Le Khanh Dat',
-  initials: 'LKD',
   title: 'Frontend Software Engineer',
   location: 'Da Nang, Vietnam',
   email: 'lekhanhdat03@gmail.com',
   links: {
     github: 'https://github.com/lekhanhdat',
-    linkedin: 'https://linkedin.com/in/lekhanhdat',
+    linkedin: 'https://www.linkedin.com/in/lekhanhdat/',
   },
   /** Path under `public/`; every Résumé button hides when this is null. */
   resumePath: '/resume.pdf' as string | null,

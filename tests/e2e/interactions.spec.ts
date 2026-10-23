@@ -11,7 +11,41 @@ test.describe('desktop navigation', () => {
     await expect(nav.getByRole('link', { name: 'Skills' })).toHaveAttribute('aria-current', 'true');
   });
 
-  test('project links lead to index pages and mark the current page', async ({ page }) => {
+  test('Company Projects opens the index page, even from Home', async ({ page }) => {
+    await page.goto('');
+    await page
+      .getByRole('navigation', { name: 'Main' })
+      .getByRole('link', { name: 'Company Projects' })
+      .click();
+    await expect(page).toHaveURL(/\/company-projects\/$/);
+  });
+
+  test('Personal Project opens the case study directly, even from Home', async ({ page }) => {
+    await page.goto('');
+    const nav = page.getByRole('navigation', { name: 'Main' });
+    await nav.getByRole('link', { name: 'Personal Project' }).click();
+    await expect(page).toHaveURL(/\/personal-projects\/da-nang-smart-tourism\/$/);
+    await expect(page.locator('h1')).toHaveText('Da Nang Smart Tourism');
+  });
+
+  test('the section catalog jumps to a section and marks it', async ({ page }) => {
+    await page.goto('');
+    await expect(page.locator('html')).toHaveAttribute('data-snap', '');
+    const catalog = page.getByRole('navigation', { name: 'Sections' });
+    await expect(catalog.getByRole('link')).toHaveCount(7);
+    await expect(catalog.getByRole('link', { name: 'Intro' })).toHaveAttribute(
+      'aria-current',
+      'true',
+    );
+    await catalog.getByRole('link', { name: 'Education' }).click();
+    await expect(page).toHaveURL(/#education$/);
+    await expect(catalog.getByRole('link', { name: 'Education' })).toHaveAttribute(
+      'aria-current',
+      'true',
+    );
+  });
+
+  test('company links lead to the index page and mark the current page', async ({ page }) => {
     await page.goto('personal-projects/da-nang-smart-tourism/');
     const nav = page.getByRole('navigation', { name: 'Main' });
     await expect(nav.getByRole('link', { name: 'Personal Project' })).toHaveAttribute(
@@ -70,11 +104,15 @@ test('theme toggle switches theme and remembers the choice', async ({ page }) =>
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 
-test('copy button puts the email on the clipboard', async ({ page, context, browserName }) => {
+test('email opens the mail app and can also be copied', async ({ page, context, browserName }) => {
   test.skip(browserName !== 'chromium', 'Clipboard permissions are Chromium-only here');
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('#contact');
-  await page.getByRole('button', { name: 'Copy' }).click();
+  await expect(page.getByRole('link', { name: 'Email me' })).toHaveAttribute(
+    'href',
+    'mailto:lekhanhdat03@gmail.com',
+  );
+  await page.getByRole('button', { name: 'Copy address' }).click();
   await expect(page.getByRole('button', { name: 'Copied' })).toBeVisible();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('lekhanhdat03@gmail.com');
   await expect(page.getByRole('status')).toHaveText('Email address copied to clipboard');
@@ -102,4 +140,15 @@ test('case study gallery links every screen to its full-size image', async ({ pa
   )) {
     expect((await request.get(href)).status()).toBe(200);
   }
+});
+
+test('the back-to-top button appears after scrolling and returns to the top', async ({ page }) => {
+  await page.goto('company-projects/data-lifecycle-management/');
+  const button = page.getByRole('link', { name: 'Back to top' });
+  await expect(button).toBeHidden();
+  await page.evaluate(() => window.scrollTo(0, 2000));
+  await expect(button).toBeVisible();
+  await button.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(page.locator('body > footer')).toHaveCount(0);
 });

@@ -1,10 +1,10 @@
 import { Hero } from './Hero';
-import { Summary } from './Summary';
 import { Experience } from './Experience';
 import { CompanyProjects } from './CompanyProjects';
 import { PersonalProject } from './PersonalProject';
 import { Skills } from './Skills';
-import { Education } from './Education';
+import { Education, type GraduationPhoto } from './Education';
+import { SectionCatalog } from '@/components/layout/SectionCatalog';
 import { Contact } from './Contact';
 import {
   personalProjectPath,
@@ -20,21 +20,31 @@ interface HomePageProps {
   personalProject: Project;
   portrait: ResponsiveImage;
   showcase?: ShowcaseImages;
+  graduationPhotos: readonly GraduationPhoto[];
 }
 
 /** Section order: PLAN §4.1 (company projects before the personal project). */
-export function HomePage({ companyProjects, personalProject, portrait, showcase }: HomePageProps) {
+export function HomePage({
+  companyProjects,
+  personalProject,
+  portrait,
+  showcase,
+  graduationPhotos,
+}: HomePageProps) {
   const caseStudyHref = withBase(personalProjectPath(personalProject.id));
 
   return (
     <>
-      <Hero caseStudyHref={caseStudyHref} />
-      <Summary portrait={portrait} />
+      <SectionCatalog />
+      <Hero caseStudyHref={caseStudyHref} portrait={portrait} />
       <Experience projects={companyProjects} />
       <CompanyProjects projects={companyProjects} />
       <PersonalProject project={personalProject} showcase={showcase} />
       <Skills />
-      <Education thesis={{ title: personalProject.data.title, href: caseStudyHref }} />
+      <Education
+        thesis={{ title: personalProject.data.title, href: caseStudyHref }}
+        photos={graduationPhotos}
+      />
       <Contact />
     </>
   );

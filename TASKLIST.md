@@ -102,6 +102,20 @@
 - [~] P8.3 👤 GitHub profile ✅ (website), CV ✅, LinkedIn Open to Work ✅; còn: thêm link portfolio trên LinkedIn (Contact info + Featured)
 - [x] P8.4 🤖 Ghi ngày launch: **2026-10-23** (merge PR #4 vào `main`; site live đã kiểm tra)
 
+
+## Phase 9 — Polish sau launch
+**Trạng thái: ✅ Hoàn thành trên `dev` (2026-10-23) — chờ anh duyệt**
+- [x] P9.1 🤖 Header: bỏ logo LKD (giữ tên làm link về Home); "Personal Project" mở thẳng case study
+- [x] P9.2 🤖 Home: mỗi section cao 1 màn hình, cuộn theo section bằng CSS scroll snap (D43); catalog "On this page" cố định bên trái (D44)
+- [x] P9.3 🤖 Thiết kế lại `SpecList` dạng row (Hero, brief, case study, Education): panel bo góc, ô có padding, vạch accent
+- [x] P9.4 🤖 Education: thêm 2 ảnh tốt nghiệp (đã làm mờ mã sinh viên, bỏ EXIF)
+- [x] P9.5 🤖 Contact: "Email me" mở `mailto:`; "Copy address" là nút riêng
+- [x] P9.6 🤖 Rút gọn nội dung: Hero, Summary, Experience, 4 brief, case study Travel (giữ nguyên dữ kiện)
+- [x] P9.8 🤖 Gộp Summary vào Intro (chân dung + thông tin bên phải); bỏ section Summary, đánh số lại 01–06
+- [x] P9.9 🤖 Education: 2 ảnh gốc anh cung cấp, không che, xếp chồng theo khổ ngang; WebP q90
+- [x] P9.10 🤖 Header "Company Projects" luôn mở trang index; 4 sơ đồ riêng cho C1–C4 (D45)
+- [x] P9.11 🤖 Bỏ footer toàn site; nút "Back to top" nổi ở mọi trang (D46)
+- [ ] P9.7 👤 Duyệt trên local (`pnpm build` + `pnpm preview`), rồi commit + push `dev`
 ---
 
 ## 👤 Việc người dùng cần làm

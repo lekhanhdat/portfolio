@@ -189,26 +189,33 @@ export function StyleguideContent() {
       </Section>
 
       <Section id="schematics" index="07" label="Components" title="Schematic figures">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+        <div className="grid gap-8 md:grid-cols-2" data-reveal-group>
           <div data-reveal>
             <SchematicFigure
-              variant="dashboard-grid"
-              title="Abstract diagram of a monitoring dashboard: navigation, KPI cards, trend chart and gauge"
-              caption="dashboard-grid"
+              variant="records-governance"
+              title="Abstract diagram of a data lifecycle: stages, classified records, approval workflow and job status"
+              caption="records-governance"
             />
           </div>
           <div data-reveal>
             <SchematicFigure
-              variant="data-table-workflow"
-              title="Abstract diagram of a data table feeding a multi-step approval workflow"
-              caption="data-table-workflow"
+              variant="production-monitoring"
+              title="Abstract diagram of factory monitoring: OEE, live cameras with playback, alarms and machine states"
+              caption="production-monitoring"
             />
           </div>
           <div data-reveal>
             <SchematicFigure
-              variant="mobile-web-pair"
-              title="Abstract diagram of a web dashboard and a mobile app sharing one backend"
-              caption="mobile-web-pair"
+              variant="digital-factory"
+              title="Abstract diagram of a 3D digital factory with OEE availability, performance and quality"
+              caption="digital-factory"
+            />
+          </div>
+          <div data-reveal>
+            <SchematicFigure
+              variant="energy-mobile"
+              title="Abstract diagram of an energy mobile app and web app sharing one backend"
+              caption="energy-mobile"
             />
           </div>
         </div>

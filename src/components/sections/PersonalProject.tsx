@@ -8,6 +8,8 @@ import { ProjectShowcase } from '@/components/projects/ProjectShowcase';
 import { personalProjectPath, type PersonalProject as Project } from '@/lib/projects';
 import { sectionIds } from '@/data/navigation';
 import { withBase } from '@/lib/with-base';
+import { fullPageSectionClasses } from '@/components/ui/Section';
+import { cn } from '@/lib/cn';
 import type { ShowcaseImages } from '@/lib/image';
 
 interface PersonalProjectProps {
@@ -25,12 +27,12 @@ export function PersonalProject({ project, showcase }: PersonalProjectProps) {
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className="border-y border-border bg-surface py-16 lg:py-28"
+      className={cn(fullPageSectionClasses, 'border-y border-border bg-surface')}
     >
       <Container className="grid gap-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5" data-reveal>
           <SectionHeader
-            index="04"
+            index="03"
             label={`Personal project · ${data.platforms.join(' + ')}`}
             title={data.title}
             intro={data.tagline}

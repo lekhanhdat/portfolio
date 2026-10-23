@@ -3,7 +3,12 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const platform = z.enum(['Web', 'Mobile', 'API', 'AI']);
-const schematic = z.enum(['dashboard-grid', 'data-table-workflow', 'mobile-web-pair']);
+const schematic = z.enum([
+  'records-governance',
+  'production-monitoring',
+  'digital-factory',
+  'energy-mobile',
+]);
 
 /*
  * Fields shared by both collections (PLAN §7.2). The entry id is the file name and doubles as

@@ -10,19 +10,12 @@ export function CompanyProjects({ projects }: { projects: readonly CompanyProjec
   return (
     <Section
       id={sectionIds.companyProjects}
-      index="03"
+      index="02"
       label="Company projects"
       title="Enterprise and industrial web applications"
-      intro="Details are generalized to respect confidentiality. Diagrams are abstract and do not depict real interfaces."
-    >
-      <ul className="grid gap-6 md:grid-cols-2">
-        {projects.map((project) => (
-          <li key={project.id} className="flex" data-reveal>
-            <ProjectCard project={project} href={withBase(companyProjectPath(project.id))} />
-          </li>
-        ))}
-      </ul>
-      <div className="mt-10">
+      intro="Confidential work: details are generalized and diagrams are abstract, not real interfaces."
+      fullPage
+      action={
         <LinkButton href={withBase('/company-projects/')} variant="secondary">
           All company projects
           <ArrowRight
@@ -30,7 +23,19 @@ export function CompanyProjects({ projects }: { projects: readonly CompanyProjec
             className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
           />
         </LinkButton>
-      </div>
+      }
+    >
+      <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {projects.map((project) => (
+          <li key={project.id} className="flex" data-reveal>
+            <ProjectCard
+              project={project}
+              href={withBase(companyProjectPath(project.id))}
+              compact
+            />
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }
