@@ -13,7 +13,7 @@ interface Props {
   noindex?: boolean;
   /** Error pages have no canonical URL. */
   canonical?: boolean;
-  /** Section links in the header (their targets arrive in Phase 3). */
+  /** Section links in the header; hidden on pages that stand outside the site flow. */
   showNav?: boolean;
 }
 
@@ -72,6 +72,8 @@ const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undef
       import '@/scripts/header';
       import '@/scripts/mobile-nav';
       import '@/scripts/reveal';
+      import '@/scripts/active-section';
+      import '@/scripts/copy-email';
     </script>
   </body>
 </html>

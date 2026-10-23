@@ -46,7 +46,8 @@ export function MobileNav({ items }: MobileNavProps) {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="flex items-baseline gap-4 py-4 text-h3 font-medium transition-colors hover:text-accent"
+                  data-nav-link
+                  className="flex items-baseline gap-4 py-4 text-h3 font-medium transition-colors hover:text-accent aria-[current=true]:text-accent"
                 >
                   <span className="label-mono text-text-muted">
                     {String(index + 1).padStart(2, '0')}

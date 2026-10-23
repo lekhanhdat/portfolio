@@ -1,13 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { ComingSoon } from '@/components/sections/ComingSoon';
+import { HomePage } from '@/components/sections/HomePage';
 import { profile } from '@/data/profile';
 ---
 
 <BaseLayout
   title={`${profile.name} — ${profile.title}`}
-  description={`Portfolio of ${profile.name}, ${profile.title} based in ${profile.location}. Coming soon.`}
-  showNav={false}
+  description={`${profile.name} is a ${profile.title} in ${profile.location} building data-heavy web applications with React and TypeScript.`}
 >
-  <ComingSoon />
+  <HomePage />
 </BaseLayout>
