@@ -14,7 +14,7 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
     3. Paper Mill Production & OEE Monitoring (MIND Technology)
     4. Factory Energy Management System — web + mobile (MIND Technology; vai trò: mobile)
   - Khi gộp chung: Travel đứng đầu, sau đó theo thứ tự company ở trên.
-- Stack: **Astro 7 + React 19 (islands) + TypeScript 6 strict + Tailwind v4 + MDX + Content Collections**, Node ≥ 22.23.4 (`.nvmrc`), pnpm 12.
+- Stack: **Astro 7 + React 19 (render tĩnh; island chỉ khi thật cần) + TypeScript 6 strict + Tailwind v4 + MDX + Content Collections**, Node ≥ 22.23.4 (`.nvmrc`), pnpm 12.
 - Lệnh chính: `pnpm dev` · `pnpm build` · `pnpm preview` · `pnpm check` (astro check + eslint + prettier) · `pnpm check:confidential` · `pnpm format`. Pre-commit hook (`.githooks/`, bật qua `pnpm install`) chạy guard từ khoá cấm.
 - Deploy: **GitHub Pages** từ repo `lekhanhdat/portfolio` → `https://lekhanhdat.github.io/portfolio/` (`base: '/portfolio'`). Không dùng custom domain.
 - Ngôn ngữ: site bằng tiếng Anh; trao đổi và tài liệu kế hoạch bằng tiếng Việt.
@@ -35,13 +35,18 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
    - **Được commit:** `PLAN.md`, `TASKLIST.md`, `PROGRESS.md`, `CLAUDE.md`. Các file này phải luôn "public-safe": chỉ dùng mã C1–C4, không tên khách hàng, không chi tiết source/kiến trúc nội bộ, không số liệu commit, không lỗ hổng bảo mật, không thông tin cá nhân ngoài những gì đã có trên site.
    - **Không bao giờ commit:** `input/`, `PROJECT_CONTENT.md`, `private/`, `.env*` (đã có trong `.gitignore`).
    - Mọi chi tiết nhạy cảm ghi vào `PROJECT_CONTENT.md`.
-   - Chạy `git status` + guard từ khoá cấm (Phase 1) trước mọi commit. Chỉ commit/push khi người dùng yêu cầu. Làm việc trên branch `dev`; `main` = production (push vào `main` sẽ deploy).
+   - **Claude KHÔNG commit, KHÔNG push, KHÔNG merge, KHÔNG amend/reset commit.** Người dùng tự làm toàn bộ thao tác git ghi lịch sử. Claude chỉ để thay đổi ở working tree, hoặc stage (`git add`) khi được yêu cầu, rồi báo danh sách file và gợi ý commit message. Lệnh git chỉ đọc (`status`, `diff`, `log`) thì được dùng.
+   - Trước khi người dùng commit: Claude chạy `git status` + `pnpm check:confidential` để báo kết quả.
+   - Làm việc trên branch `dev`; `main` = production (merge vào `main` sẽ deploy).
 8. **Travel:** phân biệt "at launch" và "now — migrating to Cloud Run + Neon PostgreSQL"; DevOps chỉ nói ngắn. Luồng AI phải khớp source (PROJECT_CONTENT §1.6). Không dùng "eliminates hallucinations".
 9. Không overengineering: không backend, DB, CMS, global state, animation hay 3D library. Dependency mới phải có lý do và ghi vào Decision Log.
 
 ## 3. Architecture & Conventions
 - Cấu trúc theo PLAN §7.1.
-- `.astro` chỉ dùng cho pages, layouts, head/SEO. **UI component viết bằng React `.tsx`**. Chỉ thêm `client:*` cho phần tương tác: ThemeToggle, MobileNav, CopyEmail, ScreenshotGallery, CaseStudyToc.
+- `.astro` chỉ dùng cho pages, layouts, head/SEO, và chỉ để ghép component. **Mọi UI viết bằng React `.tsx`** (render tĩnh lúc build).
+  - Không truyền markup Astro làm prop cho component React (lỗi "Objects are not valid as a React child"). Phần thân trang đặt trong component `.tsx`.
+- **Tương tác mặc định là script thuần TS** trong `src/scripts/*.ts`, gắn vào markup qua `data-*` (theme, header, mobile-nav, reveal), import một lần ở BaseLayout. Không dùng React island cho tương tác nhỏ: hydrate kéo theo React DOM, khoảng 70 KB gzip.
+  - Chỉ dùng `client:*` khi state UI phức tạp thật sự (ví dụ gallery lightbox), và ghi lý do vào Decision Log.
 - **Base path:** mọi link nội bộ và asset trong `public/` đi qua `withBase()` (`import.meta.env.BASE_URL`). Không hard-code `"/..."`.
 - Nội dung: `src/content/{company-projects,personal-projects}/*.mdx` (schema Zod trong `content.config.ts`); `src/data/*.ts` cho profile, experience, skills, education, navigation.
 - Ảnh qua `astro:assets`, bắt buộc alt. Chưa có ảnh → `MediaPlaceholder`. Không dùng ảnh giả làm screenshot.

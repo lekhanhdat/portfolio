@@ -327,7 +327,7 @@ Phiên bản cài thực tế ở Phase 1: astro 7.4.2, react 19.3.1, tailwindcs
 | Hạng mục | Lựa chọn |
 |---|---|
 | Framework | Astro 7: `output: 'static'`, `site: 'https://lekhanhdat.github.io'`, **`base: '/portfolio'`**, `trailingSlash: 'always'`, `build.format: 'directory'` |
-| UI | React 19 (`@astrojs/react`). Mọi UI component viết bằng `.tsx`; `.astro` chỉ cho pages, layouts, head. Islands có `client:*` chỉ cho phần tương tác |
+| UI | React 19 (`@astrojs/react`) render tĩnh. Mọi UI component viết bằng `.tsx`; `.astro` chỉ cho pages, layouts, head. Tương tác nhỏ dùng script thuần TS (`src/scripts/`); React island (`client:*`) chỉ khi thật cần |
 | Styling | Tailwind v4 (`@tailwindcss/vite`) + CSS variable tokens; `clsx` + `tailwind-merge` |
 | Content | Content Collections (Zod) + MDX (`@astrojs/mdx`); `src/data/*.ts` |
 | Ảnh | `astro:assets` + sharp |
@@ -360,7 +360,7 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 │  ├─ layouts/        BaseLayout.astro · ProjectLayout.astro · CaseStudyLayout.astro
 │  ├─ components/
 │  │  ├─ ui/          Button, Tag, Badge, SpecList, Callout, Container, Section, SectionHeader, MediaPlaceholder
-│  │  ├─ layout/      SiteHeader, MobileNav*, ThemeToggle*, SkipLink, SiteFooter
+│  │  ├─ layout/      SiteHeader, MobileNav, ThemeToggle, SkipLink, SiteFooter  (hành vi: src/scripts/*.ts)
 │  │  ├─ sections/    Hero, Summary, Experience, CompanyProjects, PersonalProject, Skills, Education, Contact
 │  │  ├─ projects/    ProjectCard, ProjectIndexTable, SchematicFigure, DeviceFrame, FlowSteps, ScreenshotGallery*, CaseStudyToc*
 │  │  └─ seo/         Seo.astro, JsonLd.astro
@@ -397,7 +397,7 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 
 ### 7.3 Rendering · SEO · Performance
 - Mọi trang là HTML tĩnh.
-- Islands: ThemeToggle, MobileNav, CopyEmail, ScreenshotGallery, CaseStudyToc.
+- Tương tác: script thuần TS (theme, header, mobile-nav, reveal; sau này là copy email, TOC active). Island React dự kiến chỉ cho ScreenshotGallery nếu cần lightbox. Phase 2 đo được: khoảng 1,8 KB JS inline mỗi trang, không có React runtime.
 - Budget JS Home ≲ 30 KB gzip.
 - SEO: title template `%s · Le Khanh Dat — Frontend Software Developer`; canonical (có `/portfolio/`); OG; sitemap; JSON-LD.
 - Lighthouse mobile ≥ 95; LCP < 2.0s; CLS < 0.05.

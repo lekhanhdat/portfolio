@@ -10,7 +10,7 @@
 - [ ] P0.11 👤 Duyệt PLAN v3 và trả lời các câu hỏi còn mở (PROGRESS §4: Q-N1…Q-N5, Q-T7; không chặn Phase 1)
 
 ## Phase 1 — Foundation
-**Phụ thuộc:** P0.11, U.1 (Node 22), U.2 (repo public) — ✅ · **Trạng thái: xong phần local; chờ push để deploy**
+**Phụ thuộc:** P0.11, U.1 (Node 22), U.2 (repo public) — ✅ · **Trạng thái: ✅ HOÀN THÀNH (2026-10-22)**
 - [x] P1.1 🤖 Kiểm tra phiên bản và peer dependencies (TS 7 không tương thích → dùng TS 6.0.3; ESLint 10 → dùng `eslint-plugin-jsx-a11y-x`)
 - [x] P1.2 🤖 Khởi tạo Astro 7.4.2 bằng pnpm; `@astrojs/react`, `@astrojs/mdx`, `@astrojs/sitemap`, Tailwind 4.3.3
 - [x] P1.3 🤖 `astro.config.mjs`: `site`, `base: '/portfolio'`, `trailingSlash: 'always'`, `build.format: 'directory'`; alias `@/`; tsconfig strict
@@ -20,25 +20,26 @@
 - [x] P1.7 🤖 Trang "coming soon" (`noindex`) + `404.astro` (không có canonical); token màu cơ bản trong `global.css`
 - [x] P1.8 🤖 `.github/workflows/deploy.yml` (push `main` → Pages) và `ci.yml` (PR)
 - [x] P1.9 🤖 Guard `scripts/check-confidential.mjs` (không phân biệt hoa/thường và dấu, có word boundary, không in từ khoá ra log) + `.githooks/pre-commit` + bước CI
-- [~] P1.9b 🤖👤 Claude đã tạo `private/confidential-terms.txt` (local, gitignored) → 👤 **thêm secret `CONFIDENTIAL_TERMS`** trên GitHub (copy các dòng không có `#`)
+- [x] P1.9b 🤖👤 `private/confidential-terms.txt` (local) + secret `CONFIDENTIAL_TERMS` trên GitHub
 - [x] P1.9c 🤖 `git status` + guard sạch; danh sách file commit đã trình bày
-- [~] P1.10 🤖👤 Claude commit (theo yêu cầu) → 👤 push + Settings → Pages → Source: **GitHub Actions**
-- [ ] P1.11 👤🤖 Xác nhận `https://lekhanhdat.github.io/portfolio/` hoạt động sau khi push
+- [x] P1.10 🤖👤 Commit (Claude) → push `dev`, PR #1 merge vào `main` (người dùng); Pages Source = GitHub Actions
+- [x] P1.11 👤🤖 Site live tại `https://lekhanhdat.github.io/portfolio/` (run 2 thành công; lần 1 lỗi 404 vì lúc đó Pages chưa bật)
 - [x] P1.12 🤖 Cập nhật PROGRESS / TASKLIST
 
 **Acceptance:** build/check sạch ở local và CI; trang coming soon live tại `/portfolio/` với asset load đúng; repo không có file private.
 
 ## Phase 2 — Design System
-- [ ] P2.1 🤖 Tokens light/dark + kiểm tra contrast AA
-- [ ] P2.2 🤖 Fonts Geist (self-host, preload) + fluid type scale
-- [ ] P2.3 🤖 Theme: script inline chống flash + `ThemeToggle` island
-- [ ] P2.4 🤖 Primitives `.tsx`: Button/LinkButton, Tag, Badge, SpecList, Callout, Container, Section, SectionHeader
-- [ ] P2.5 🤖 `MediaPlaceholder`, `DeviceFrame` (browser/phone), `SchematicFigure` (3 biến thể)
-- [ ] P2.6 🤖 SkipLink, SiteHeader, MobileNav island, SiteFooter
-- [ ] P2.7 🤖 Reveal-on-scroll (có hỗ trợ reduced motion)
-- [ ] P2.8 🤖 `/styleguide/` (noindex, loại khỏi sitemap)
-- [ ] P2.9 👤 Duyệt look & feel trên site live
-- [ ] P2.10 🤖 Cập nhật PROGRESS / TASKLIST
+**Trạng thái: code xong, đã kiểm tra local; chờ anh commit/deploy và duyệt look & feel (P2.9)**
+- [x] P2.1 🤖 Tokens light/dark (+ `--border-control` cho viền control ≥ 3:1); contrast AA: mọi cặp chữ/nền 4.8–17.3:1
+- [x] P2.2 🤖 Fonts Geist Sans/Mono qua Astro Fonts API (provider `local`, latin + latin-ext, preload Geist, fallback tối ưu) + fluid type scale
+- [x] P2.3 🤖 Theme: script inline chống flash + `ThemeToggle` (markup TSX tĩnh + `src/scripts/theme.ts`, theo OS cho tới khi người dùng chọn)
+- [x] P2.4 🤖 Primitives `.tsx`: Button/LinkButton, Tag/TagList, Badge, SpecList (row/stack), Callout, Container, Section, SectionHeader, BrandIcon
+- [x] P2.5 🤖 `MediaPlaceholder`, `DeviceFrame` (browser/phone), `SchematicFigure` (dashboard-grid, data-table-workflow, mobile-web-pair)
+- [x] P2.6 🤖 SkipLink, SiteHeader (viền hairline khi cuộn), MobileNav (`<dialog>` native), SiteFooter
+- [x] P2.7 🤖 Reveal-on-scroll (IntersectionObserver, chỉ chạy khi có JS, tắt khi reduced motion)
+- [x] P2.8 🤖 `/styleguide/` (noindex, không có trong sitemap)
+- [ ] P2.9 👤 Duyệt look & feel trên site live (sau khi anh commit + merge `main`): `/portfolio/` và `/portfolio/styleguide/`
+- [x] P2.10 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 3 — Home
 - [ ] P3.1 🤖 `data/profile.ts` (availability), `experience.ts` (thời gian theo CV), `skills.ts`, `education.ts`, `navigation.ts`

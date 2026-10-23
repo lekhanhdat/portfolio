@@ -1,41 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { ComingSoon } from '@/components/sections/ComingSoon';
 import { profile } from '@/data/profile';
-
-const links = [
-  { label: 'GitHub', href: profile.links.github },
-  { label: 'LinkedIn', href: profile.links.linkedin },
-  { label: 'Email', href: `mailto:${profile.email}` },
-];
 ---
 
 <BaseLayout
   title={`${profile.name} — ${profile.title}`}
   description={`Portfolio of ${profile.name}, ${profile.title} based in ${profile.location}. Coming soon.`}
+  showNav={false}
 >
-  <main class="mx-auto flex min-h-dvh max-w-3xl flex-col justify-center px-6 py-24">
-    <p class="font-mono text-xs tracking-[0.08em] text-text-muted uppercase">
-      {profile.title} · React · TypeScript
-    </p>
-    <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{profile.name}</h1>
-    <p class="mt-6 max-w-[60ch] text-lg leading-relaxed text-text-muted">
-      My portfolio is being built. In the meantime, you can reach me through the links below.
-    </p>
-    <ul class="mt-10 flex flex-wrap gap-3" aria-label="Contact links">
-      {links.map(({ label, href }) => (
-        <li>
-          <a
-            href={href}
-            class="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
-            {...(href.startsWith('http') ? { rel: 'noopener noreferrer', target: '_blank' } : {})}
-          >
-            {label}
-          </a>
-        </li>
-      ))}
-    </ul>
-    <p class="mt-16 border-t border-border pt-6 font-mono text-xs text-text-muted">
-      {profile.location}
-    </p>
-  </main>
+  <ComingSoon />
 </BaseLayout>
