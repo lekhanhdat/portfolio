@@ -5,7 +5,7 @@ import { withBase } from '@/lib/with-base';
 
 export function NotFound() {
   return (
-    <Container className="flex min-h-[calc(100dvh-4rem-8.5rem)] flex-col justify-center py-20">
+    <Container className="flex min-h-[calc(100dvh-4rem)] flex-col justify-center py-20">
       <p className="label-mono text-text-muted">
         <span className="text-accent">404</span> — Not found
       </p>

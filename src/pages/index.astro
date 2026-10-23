@@ -5,6 +5,8 @@ import { profile } from '@/data/profile';
 import { getCompanyProjects, getPersonalProjects } from '@/lib/projects';
 import { resolveShowcase, toResponsiveImage } from '@/lib/image';
 import portraitImage from '@/assets/images/profile/portrait.jpg';
+import ceremonyImage from '@/assets/images/profile/graduation-ceremony.jpg';
+import diplomaImage from '@/assets/images/profile/graduation-diploma.jpg';
 import { personJsonLd, websiteJsonLd } from '@/lib/seo';
 
 const companyProjects = await getCompanyProjects();
@@ -12,12 +14,25 @@ const [personalProject] = await getPersonalProjects();
 if (!personalProject) throw new Error('Home needs at least one personal project entry.');
 const portrait = await toResponsiveImage(portraitImage, [320, 480, 640]);
 const showcase = await resolveShowcase(personalProject);
+// Original camera files: high quality WebP up to 1440px; the link opens the untouched JPEG.
+const graduationWidths = [480, 960, 1440];
+const graduationPhotos = [
+  {
+    image: await toResponsiveImage(ceremonyImage, graduationWidths, 90),
+    alt: 'Receiving my engineering degree on stage at the VKU graduation ceremony',
+  },
+  {
+    image: await toResponsiveImage(diplomaImage, graduationWidths, 90),
+    alt: 'Holding my engineering diploma among graduation flowers and gifts',
+  },
+];
 ---
 
 <BaseLayout
   title={`${profile.name} — ${profile.title}`}
   description={`${profile.name} is a ${profile.title} in ${profile.location} building data-heavy web applications with React and TypeScript.`}
   type="profile"
+  snap
   jsonLd={[personJsonLd(), websiteJsonLd()]}
 >
   <HomePage
@@ -25,5 +40,6 @@ const showcase = await resolveShowcase(personalProject);
     personalProject={personalProject}
     portrait={portrait}
     showcase={showcase}
+    graduationPhotos={graduationPhotos}
   />
 </BaseLayout>

@@ -4,32 +4,44 @@ import { LinkButton } from '@/components/ui/Button';
 import { SpecList } from '@/components/ui/SpecList';
 import { Badge } from '@/components/ui/Badge';
 import { SocialLinks } from '@/components/layout/SocialLinks';
+import { fullPageSectionClasses } from '@/components/ui/Section';
 import { profile } from '@/data/profile';
 import { totalExperience } from '@/data/experience';
+import { education, languages } from '@/data/education';
 import { sectionIds } from '@/data/navigation';
 import { withBase } from '@/lib/with-base';
+import type { ResponsiveImage } from '@/lib/image';
 
 interface HeroProps {
   /** Case study of the personal project, already resolved through withBase(). */
   caseStudyHref: string;
+  portrait: ResponsiveImage;
 }
 
-export function Hero({ caseStudyHref }: HeroProps) {
+/** Intro and summary in one screen: pitch on the left, profile facts on the right. */
+export function Hero({ caseStudyHref, portrait }: HeroProps) {
   const { availability } = profile;
 
   return (
-    <section aria-labelledby="hero-heading" className="pt-14 pb-16 lg:pt-24 lg:pb-24">
-      <Container>
-        {/* No reveal here: above-the-fold text must paint immediately (LCP). */}
-        <div>
+    <section
+      id={sectionIds.intro}
+      aria-labelledby="hero-heading"
+      className={fullPageSectionClasses}
+    >
+      {/* No reveal here: above-the-fold content must paint immediately (LCP). */}
+      <Container className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+        <div className="lg:col-span-8">
           <p className="label-mono text-text-muted">{profile.title} · React · TypeScript</p>
-          <h1 id="hero-heading" className="mt-5 max-w-[20ch] text-display font-semibold text-text">
+          <h1
+            id="hero-heading"
+            className="mt-4 max-w-[22ch] text-[clamp(2.5rem,1.75rem+2.6vw,3.75rem)] leading-[1.05] font-semibold tracking-[-0.03em] text-text"
+          >
             I build clear, reliable interfaces for data-heavy web applications.
           </h1>
-          <p className="mt-6 max-w-[60ch] text-text-muted">
-            Frontend engineer in {profile.location} with {totalExperience} of experience building
-            enterprise data platforms, manufacturing monitoring dashboards, and an AI-assisted
-            travel product I built end to end with React and TypeScript.
+          <p className="mt-6 max-w-[62ch] text-text-muted">
+            {totalExperience} with React and TypeScript: an enterprise data governance platform at
+            AvePoint, and Industrial IoT / MES monitoring dashboards plus an energy management
+            mobile app at MIND Technology. Outside work I built Da Nang Smart Tourism end to end.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <LinkButton href={`#${sectionIds.companyProjects}`}>
@@ -52,28 +64,51 @@ export function Hero({ caseStudyHref }: HeroProps) {
           </div>
         </div>
 
-        <SpecList
-          className="mt-14 lg:mt-20"
-          columns={4}
-          items={[
-            { label: 'Experience', value: totalExperience },
-            { label: 'Based in', value: 'Da Nang, VN' },
-            { label: 'Focus', value: 'React · TypeScript · Web' },
-            {
-              label: 'Status',
-              value: availability.open ? (
-                <span className="flex flex-col items-start gap-2">
-                  <Badge variant="status">{availability.label}</Badge>
-                  <span className="text-text-muted">
-                    {availability.arrangements} · {availability.locations.join(' · ')}
-                  </span>
-                </span>
-              ) : (
-                'Not looking'
-              ),
-            },
-          ]}
-        />
+        <aside
+          aria-label="Profile facts"
+          className="grid gap-6 sm:grid-cols-[11rem_1fr] sm:items-start lg:col-span-4 lg:grid-cols-1"
+        >
+          <img
+            src={portrait.src}
+            srcSet={portrait.srcSet}
+            sizes="(min-width: 1024px) 240px, 176px"
+            width={portrait.width}
+            height={portrait.height}
+            alt={`Portrait of ${profile.name}`}
+            decoding="async"
+            className="aspect-[4/5] h-auto w-full max-w-44 rounded-lg border border-border object-cover sm:max-w-none lg:max-w-60 lg:justify-self-center"
+          />
+          <div>
+            <SpecList
+              layout="stack"
+              items={[
+                { label: 'Experience', value: totalExperience },
+                { label: 'Based in', value: profile.location },
+                {
+                  label: 'Education',
+                  value: `${education.shortName}, ${education.classification}`,
+                },
+                {
+                  label: 'English',
+                  value: languages[0].level,
+                },
+                {
+                  label: 'Status',
+                  value: availability.open ? (
+                    <Badge variant="status">{availability.label}</Badge>
+                  ) : (
+                    'Not looking'
+                  ),
+                },
+              ]}
+            />
+            {availability.open && (
+              <p className="mt-3 text-sm text-text-muted">
+                {availability.arrangements} · {availability.locations.join(' · ')}
+              </p>
+            )}
+          </div>
+        </aside>
       </Container>
     </section>
   );

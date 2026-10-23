@@ -1,6 +1,6 @@
 ---
 title: Factory Manufacturing Monitoring Platform
-summary: An Industrial IoT / MES platform for production monitoring. I built OEE dashboards, camera live and playback, alarms and server-side product data management.
+summary: Industrial IoT / MES platform for production monitoring. I built OEE dashboards, camera live and playback, alarms and server-side product data.
 order: 2
 platforms: [Web]
 myRole: Frontend engineer (main contributor)
@@ -18,28 +18,28 @@ stack:
   - SCSS
 company: MIND Technology
 visibility: confidential
-schematic: dashboard-grid
+schematic: production-monitoring
 draft: false
 ---
 
 ## Overview
 
-An Industrial IoT / MES web platform for monitoring production in a factory: OEE, production output, cameras, equipment alarms and product data. I was the main frontend contributor.
+An Industrial IoT / MES web platform for factory production monitoring: OEE, output, cameras, equipment alarms and product data. I was the main frontend contributor.
 
 ## My contributions
 
-- Built OEE and production monitoring views with charts, cards and real-time device timelines.
-- Developed a camera live and playback module with HLS streaming, multi-camera layouts, a playback timeline and a recording calendar.
-- Moved product data management to server-side search, sorting, filtering and pagination, with inline editing.
-- Built equipment alarm management: severity levels, real-time notifications and alarm actions.
+- Built OEE and production views with charts, cards and real-time device timelines.
+- Developed camera live and playback: HLS streaming, multi-camera layouts, a playback timeline and a recording calendar.
+- Moved product data to server-side search, sorting, filtering and pagination, with inline editing.
+- Built equipment alarm management: severity levels, real-time notifications and actions.
 - Developed production-order and machine operation workflows.
 
 ## Product scope
 
-The product covers production monitoring, OEE, cameras, equipment alarms, product data and reporting.
+Production monitoring, OEE, cameras, equipment alarms, product data and reporting.
 
 ## Engineering highlights
 
-- Server state with TanStack Query: caching, refetching, request cancellation and payload mapping.
-- Product data searched, sorted, filtered and paginated on the server instead of in the client.
-- Responsive layouts across desktop, tablet and mobile, with loading, error and disabled states.
+- TanStack Query for server state: caching, refetching, request cancellation and payload mapping.
+- Server-side data operations instead of client-side filtering.
+- Responsive layouts from desktop to mobile, with loading, error and disabled states.

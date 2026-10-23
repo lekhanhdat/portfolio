@@ -7,6 +7,7 @@ import { cn } from '@/lib/cn';
 
 /** Cards show the core of the stack; the full list lives on the brief. */
 const CARD_STACK_SIZE = 5;
+const COMPACT_STACK_SIZE = 3;
 
 interface ProjectCardProps {
   project: CompanyProject;
@@ -14,10 +15,18 @@ interface ProjectCardProps {
   href: string;
   /** h3 under a section heading (Home), h2 directly under the page h1 (index page). */
   headingLevel?: 'h2' | 'h3';
+  /** Home grid: the diagram only shows from xl, where four cards fit in one row. */
+  compact?: boolean;
   className?: string;
 }
 
-export function ProjectCard({ project, href, headingLevel = 'h3', className }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  href,
+  headingLevel = 'h3',
+  compact = false,
+  className,
+}: ProjectCardProps) {
   const { data } = project;
   const Heading = headingLevel;
   const headingId = `project-${project.id}-title`;
@@ -31,13 +40,25 @@ export function ProjectCard({ project, href, headingLevel = 'h3', className }: P
         className,
       )}
     >
-      <SchematicFigure variant={data.schematic} title={`Abstract diagram of ${data.title}`} />
-      <p className="label-mono mt-5 flex flex-wrap gap-x-2 text-text-muted">
+      <SchematicFigure
+        variant={data.schematic}
+        title={`Abstract diagram of ${data.title}`}
+        className={cn(compact && 'hidden xl:block')}
+      />
+      <p
+        className={cn(
+          'label-mono flex flex-wrap gap-x-2 text-text-muted',
+          compact ? 'xl:mt-5' : 'mt-5',
+        )}
+      >
         <span>{data.company}</span>
         <span aria-hidden="true">·</span>
         <span>{data.platforms.join(' + ')}</span>
       </p>
-      <Heading id={headingId} className="mt-2 text-h3 font-semibold">
+      <Heading
+        id={headingId}
+        className={cn('mt-2 font-semibold', compact ? 'text-lg leading-snug' : 'text-h3')}
+      >
         {/* Stretched link: the whole card is clickable with a single tab stop. */}
         <a
           href={href}
@@ -48,9 +69,10 @@ export function ProjectCard({ project, href, headingLevel = 'h3', className }: P
       </Heading>
       <p className="label-mono mt-1 text-text-muted">Role · {data.myRole}</p>
       <p className="mt-3 text-sm text-text-muted">{data.summary}</p>
-      <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-5">
-        <TagList items={data.stack.slice(0, CARD_STACK_SIZE)} />
-        <Badge variant="confidential">Confidential</Badge>
+      <div className="mt-auto flex flex-wrap items-end justify-between gap-x-4 gap-y-3 pt-5">
+        <TagList items={data.stack.slice(0, compact ? COMPACT_STACK_SIZE : CARD_STACK_SIZE)} />
+        {/* Compact cards say it once in the section intro instead. */}
+        {!compact && <Badge variant="confidential">Confidential</Badge>}
       </div>
       <p
         aria-hidden="true"

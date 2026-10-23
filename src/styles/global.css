@@ -112,6 +112,22 @@
     }
   }
 
+  /*
+   * Home: section-by-section scrolling with native CSS scroll snap (compositor-driven, keeps
+   * keyboard, anchor and assistive-tech scrolling intact). "mandatory" moves one section per
+   * gesture on roomy screens; "proximity" on small or short screens and with reduced motion,
+   * where sections can be taller than the viewport and must scroll freely.
+   */
+  html[data-snap] {
+    scroll-padding-top: 4rem; /* sticky header height: sections start right below it */
+    scroll-snap-type: y proximity;
+  }
+  @media (min-width: 64rem) and (min-height: 40rem) and (prefers-reduced-motion: no-preference) {
+    html[data-snap] {
+      scroll-snap-type: y mandatory;
+    }
+  }
+
   body {
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);

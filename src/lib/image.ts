@@ -19,9 +19,21 @@ export interface ResponsiveImage {
 export async function toResponsiveImage(
   image: ImageMetadata,
   widths: number[],
+  /** WebP quality (1–100); Astro's default when omitted. */
+  quality?: number,
 ): Promise<ResponsiveImage> {
   const usable = widths.filter((width) => width < image.width);
-  const result = await getImage({ src: image, widths: [...usable, image.width], format: 'webp' });
+  // Camera originals (over 2000px) are never shipped as a srcset candidate themselves.
+  const candidates = usable.length > 0 ? usable : [image.width];
+  const large = image.width > 2000;
+  const result = await getImage({
+    src: image,
+    widths: large ? candidates : [...usable, image.width],
+    // The fallback `src` would otherwise be encoded at the full source width.
+    ...(large ? { width: Math.max(...candidates) } : {}),
+    format: 'webp',
+    quality,
+  });
   return {
     src: result.src,
     srcSet: result.srcSet.attribute,
