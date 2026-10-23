@@ -1,10 +1,10 @@
 import { Section } from '@/components/ui/Section';
 import { SpecList } from '@/components/ui/SpecList';
-import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { profile } from '@/data/profile';
 import { totalExperience } from '@/data/experience';
 import { education, languages } from '@/data/education';
 import { sectionIds } from '@/data/navigation';
+import type { ResponsiveImage } from '@/lib/image';
 
 const howIWork = [
   'Build typed, reusable components and keep existing behavior intact when refactoring.',
@@ -12,18 +12,18 @@ const howIWork = [
   'Work closely with product, QA and backend engineers to clarify requirements, review code and debug across environments.',
 ] as const;
 
-export function Summary() {
+export function Summary({ portrait }: { portrait: ResponsiveImage }) {
   return (
     <Section
       id={sectionIds.summary}
       index="01"
       label="Summary"
-      title="Frontend developer for data-heavy products"
+      title="Frontend engineer for data-heavy products"
     >
       <div className="grid gap-12 lg:grid-cols-12">
         <div className="space-y-5 lg:col-span-7" data-reveal>
           <p>
-            I&apos;m a frontend developer with {totalExperience} of experience building web
+            I&apos;m a frontend engineer with {totalExperience} of experience building web
             applications with React and TypeScript. At AvePoint I worked on an enterprise data
             governance and records management platform; at MIND Technology I built manufacturing
             monitoring dashboards for Industrial IoT and MES products, and a mobile app for a
@@ -56,12 +56,16 @@ export function Summary() {
           className="grid gap-8 sm:grid-cols-[10rem_1fr] lg:col-span-4 lg:col-start-9 lg:grid-cols-1"
           data-reveal
         >
-          <MediaPlaceholder
-            id="IMG-01"
-            ratio="4/5"
-            label="Portrait"
+          <img
+            src={portrait.src}
+            srcSet={portrait.srcSet}
+            sizes="(min-width: 1024px) 320px, 160px"
+            width={portrait.width}
+            height={portrait.height}
             alt={`Portrait of ${profile.name}`}
-            className="max-w-40 sm:max-w-none lg:max-w-80"
+            loading="lazy"
+            decoding="async"
+            className="aspect-[4/5] h-auto w-full max-w-40 rounded-md border border-border object-cover sm:max-w-none lg:max-w-80"
           />
           <SpecList
             layout="stack"

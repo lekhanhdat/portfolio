@@ -2,11 +2,28 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { HomePage } from '@/components/sections/HomePage';
 import { profile } from '@/data/profile';
+import { getCompanyProjects, getPersonalProjects } from '@/lib/projects';
+import { resolveShowcase, toResponsiveImage } from '@/lib/image';
+import portraitImage from '@/assets/images/profile/portrait.jpg';
+import { personJsonLd, websiteJsonLd } from '@/lib/seo';
+
+const companyProjects = await getCompanyProjects();
+const [personalProject] = await getPersonalProjects();
+if (!personalProject) throw new Error('Home needs at least one personal project entry.');
+const portrait = await toResponsiveImage(portraitImage, [320, 480, 640]);
+const showcase = await resolveShowcase(personalProject);
 ---
 
 <BaseLayout
   title={`${profile.name} — ${profile.title}`}
   description={`${profile.name} is a ${profile.title} in ${profile.location} building data-heavy web applications with React and TypeScript.`}
+  type="profile"
+  jsonLd={[personJsonLd(), websiteJsonLd()]}
 >
-  <HomePage />
+  <HomePage
+    companyProjects={companyProjects}
+    personalProject={personalProject}
+    portrait={portrait}
+    showcase={showcase}
+  />
 </BaseLayout>

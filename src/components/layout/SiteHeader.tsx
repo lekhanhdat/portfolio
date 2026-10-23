@@ -1,4 +1,4 @@
-import { Download } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { buttonClasses } from '@/components/ui/Button';
 import { ThemeToggle } from './ThemeToggle';
@@ -7,14 +7,32 @@ import { profile } from '@/data/profile';
 import { mainNav } from '@/data/navigation';
 import { withBase } from '@/lib/with-base';
 
+export interface ResolvedNavItem {
+  label: string;
+  /** Final href, already resolved through withBase(). */
+  href: string;
+  /** The link leads to the page being viewed (or one of its children). */
+  current: boolean;
+}
+
 interface SiteHeaderProps {
-  /** Hide section links on pages where their targets do not exist yet. */
+  /** Pathname of the page being rendered (Astro.url.pathname). */
+  currentPath: string;
+  /** Hide section links on pages that stand outside the site flow (404). */
   showNav?: boolean;
 }
 
-/** Scroll hairline behavior: src/scripts/header.ts. */
-export function SiteHeader({ showNav = true }: SiteHeaderProps) {
-  const navItems = mainNav.map((item) => ({ ...item, href: withBase(item.href) }));
+/** Scroll hairline behavior: src/scripts/header.ts. Section highlight: src/scripts/active-section.ts. */
+export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
+  const isHome = currentPath === withBase('/');
+  const navItems: ResolvedNavItem[] = mainNav.map((item) => {
+    const isPage = !item.href.includes('#');
+    return {
+      label: item.label,
+      href: withBase(isHome && item.homeHref ? item.homeHref : item.href),
+      current: !isHome && isPage && currentPath.startsWith(withBase(item.href)),
+    };
+  });
 
   return (
     <header
@@ -22,20 +40,13 @@ export function SiteHeader({ showNav = true }: SiteHeaderProps) {
       className="sticky top-0 z-40 border-b border-transparent bg-bg/85 backdrop-blur-md transition-colors data-[scrolled]:border-border"
     >
       <Container className="flex h-16 items-center gap-4">
-        <a
-          href={withBase('/')}
-          className="group mr-auto flex items-center gap-3"
-          aria-label={`${profile.name}, home`}
-        >
-          <span
-            aria-hidden="true"
-            className="label-mono rounded-sm border border-border-strong px-1.5 py-0.5 text-text transition-colors group-hover:border-accent group-hover:text-accent"
-          >
+        {/* The name comes from the visible text (WCAG 2.5.3); "home" is added for screen readers. */}
+        <a href={withBase('/')} className="group mr-auto flex items-center gap-3">
+          <span className="label-mono rounded-sm border border-border-strong px-1.5 py-0.5 text-text transition-colors group-hover:border-accent group-hover:text-accent">
             {profile.initials}
           </span>
-          <span aria-hidden="true" className="hidden text-sm font-medium text-text sm:inline">
-            {profile.name}
-          </span>
+          <span className="hidden text-sm font-medium text-text sm:inline">{profile.name}</span>
+          <span className="sr-only"> — home</span>
         </a>
 
         {showNav && (
@@ -46,7 +57,8 @@ export function SiteHeader({ showNav = true }: SiteHeaderProps) {
                   <a
                     href={item.href}
                     data-nav-link
-                    className="rounded-md px-3 py-2 text-sm text-text-muted transition-colors hover:text-text aria-[current=true]:text-text aria-[current=true]:underline aria-[current=true]:decoration-accent aria-[current=true]:underline-offset-8"
+                    aria-current={item.current ? 'page' : undefined}
+                    className="rounded-md px-3 py-2 text-sm text-text-muted transition-colors hover:text-text aria-[current]:text-text aria-[current]:underline aria-[current]:decoration-accent aria-[current]:underline-offset-8"
                   >
                     {item.label}
                   </a>
@@ -66,10 +78,12 @@ export function SiteHeader({ showNav = true }: SiteHeaderProps) {
                 size: 'sm',
                 className: 'ml-2 hidden sm:inline-flex',
               })}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <Download aria-hidden="true" className="size-4" />
+              <FileText aria-hidden="true" className="size-4" />
               Résumé
+              <span className="sr-only"> (PDF, opens in a new tab)</span>
             </a>
           )}
           {showNav && <MobileNav items={navItems} />}

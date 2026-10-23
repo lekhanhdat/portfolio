@@ -3,11 +3,11 @@
 Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` → `PROGRESS.md` → mục Phase hiện tại trong `TASKLIST.md` → `PLAN.md` (khi cần chi tiết) → `PROJECT_CONTENT.md` (khi viết nội dung dự án).
 
 ## 1. Project Context
-- Portfolio của **Le Khanh Dat — Frontend Software Developer** (React · TypeScript), Da Nang, Vietnam, **1.5+ years**.
+- Portfolio của **Le Khanh Dat — Frontend Software Engineer** (React · TypeScript), Da Nang, Vietnam, **1.5+ years**.
   - **Open to work:** onsite hoặc remote; Da Nang / Ho Chi Minh City / Ha Noi.
 - Định hướng: **Web Frontend**. Có kinh nghiệm Mobile và Full-stack nhưng không được làm lu mờ định vị này.
 - Dự án — tên hiển thị là tên mô tả, **không nêu tên khách hàng**:
-  - **Personal:** Da Nang Smart Tourism (web admin + mobile + API/AI; Lead developer end to end).
+  - **Personal:** Da Nang Smart Tourism (web admin + mobile + API/AI; Lead engineer end to end).
   - **Company, theo thứ tự:**
     1. Data Lifecycle Management Platform (AvePoint)
     2. Factory Manufacturing Monitoring Platform (MIND Technology)
@@ -15,7 +15,7 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
     4. Factory Energy Management System — web + mobile (MIND Technology; vai trò: mobile)
   - Khi gộp chung: Travel đứng đầu, sau đó theo thứ tự company ở trên.
 - Stack: **Astro 7 + React 19 (render tĩnh; island chỉ khi thật cần) + TypeScript 6 strict + Tailwind v4 + MDX + Content Collections**, Node ≥ 22.23.4 (`.nvmrc`), pnpm 12.
-- Lệnh chính: `pnpm dev` · `pnpm build` · `pnpm preview` · `pnpm check` (astro check + eslint + prettier) · `pnpm check:confidential` · `pnpm format`. Pre-commit hook (`.githooks/`, bật qua `pnpm install`) chạy guard từ khoá cấm.
+- Lệnh chính: `pnpm dev` · `pnpm build` · `pnpm preview` · `pnpm check` (astro check + eslint + prettier) · `pnpm check:confidential` · `pnpm test:e2e` (Playwright + axe trên `dist/`) · `pnpm format`. Pre-commit hook (`.githooks/`, bật qua `pnpm install`) chạy guard từ khoá cấm.
 - Deploy: **GitHub Pages** từ repo `lekhanhdat/portfolio` → `https://lekhanhdat.github.io/portfolio/` (`base: '/portfolio'`). Không dùng custom domain.
 - Ngôn ngữ: site bằng tiếng Anh; trao đổi và tài liệu kế hoạch bằng tiếng Việt.
 

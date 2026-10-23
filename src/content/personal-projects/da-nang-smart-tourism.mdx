@@ -1,0 +1,306 @@
+---
+title: Da Nang Smart Tourism
+summary: An AI-assisted travel platform with a web admin dashboard, a mobile app for visitors, and the APIs and AI services behind them.
+tagline: An AI-assisted travel platform for Da Nang — a web dashboard for administrators and a mobile app for visitors, built end to end.
+order: 1
+platforms: [Web, Mobile, AI]
+myRole: Lead engineer — end to end
+domain: Smart tourism
+stack:
+  - React
+  - TypeScript
+  - Ant Design
+  - React Native
+  - Mapbox
+  - Node.js
+  - Express
+  - FastAPI
+  - OpenAI API
+  - FAISS
+surfaces:
+  - name: Web admin dashboard
+    description: React and Ant Design dashboard for managing places, festivals, users, reviews and transactions.
+  - name: Mobile app
+    description: React Native app for visitors — discovery, maps, an AI camera, a chat assistant and donations.
+  - name: APIs & AI services
+    description: An Express API for the dashboard and FastAPI services for semantic search, RAG and image recognition.
+links:
+  repos:
+    - label: Mobile app
+      url: https://github.com/lekhanhdat/Travel
+    - label: Dashboard frontend
+      url: https://github.com/lekhanhdat/travel-admin-frontend
+    - label: Dashboard backend
+      url: https://github.com/lekhanhdat/travel-admin-backend
+  demo:
+    label: Live dashboard
+    url: https://travel-admin-frontend.vercel.app/
+    note: Admin login required
+gallery:
+  - surface: dashboard
+    label: Dashboard — overview
+    alt: Admin dashboard home with totals for locations, festivals, users and items
+    image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-overview.png
+  - surface: dashboard
+    label: Locations — filtered by type
+    alt: Locations table filtered to beaches, with types, address, rating, marker toggle and actions
+    image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-locations.png
+  - surface: dashboard
+    label: Location form
+    alt: Add location form in a modal with name, types, descriptions, address and coordinates
+    image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-location-form.png
+  - surface: dashboard
+    label: Reviews
+    alt: Reviews table with totals, filters by location and festival, ratings and comments
+    image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-reviews.png
+  - surface: dashboard
+    label: Transactions
+    alt: Donation transactions with totals, status filter and payment status
+    image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-transactions.png
+  - surface: mobile
+    label: Home
+    alt: Mobile app home screen with search and recommended places
+    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-home.webp
+  - surface: mobile
+    label: AI search results
+    alt: AI search results ranked by relevance, with a keyword tab
+    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-ai-search.webp
+  - surface: mobile
+    label: Map
+    alt: Map of Da Nang with place markers and a traffic layer toggle
+    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-map.webp
+  - surface: mobile
+    label: Route
+    alt: Route to a destination with distance, duration and two route options
+    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-map-route.webp
+  - surface: mobile
+    label: AI camera result
+    alt: Recognition result identifying the Dragon Bridge with its description
+    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-ai-camera.png
+  - surface: mobile
+    label: Chat assistant
+    alt: Chat assistant answering a question about local dishes
+    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-chat-assistant.png
+showcase:
+  dashboard:
+    image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-locations.png
+    alt: Travel admin dashboard showing the locations table filtered to beaches
+  mobile:
+    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-home.webp
+    alt: Da Nang Smart Tourism app home screen
+draft: false
+---
+
+import { Image } from 'astro:assets';
+import { FlowSteps } from '@/components/projects/FlowSteps';
+import flowSemanticSearch from '@/assets/images/personal/da-nang-smart-tourism/flow-semantic-search.png';
+import flowRagAssistant from '@/assets/images/personal/da-nang-smart-tourism/flow-rag-assistant.png';
+import flowAiCamera from '@/assets/images/personal/da-nang-smart-tourism/flow-ai-camera.png';
+
+## Context & problem
+
+Began as my graduation thesis at VKU; I continue to develop and maintain it.
+
+Da Nang recorded nearly 9.3 million visitor stays at accommodation establishments in the first ten months of 2024 ([Da Nang Newspaper](https://baodanang.vn/da-nang-don-gan-9-3-trieu-luot-khach-luu-tru-trong-10-thang-nam-2024-3143784.html), citing the Da Nang Statistics Office).
+
+Visitors to Da Nang switch between many apps to find places, events and directions, get little cultural context about what they are looking at, and face language barriers without help outside office hours. The project brings these needs into one product: a mobile app for visitors and a web dashboard for the people who curate its content.
+
+## Solution & ecosystem
+
+The mobile app and the dashboard share one curated dataset of places, festivals and cultural objects. A FastAPI service handles semantic search, the chat assistant, image recognition and payments; an Express API serves the dashboard.
+
+## Web admin dashboard
+
+A React, TypeScript and Ant Design dashboard for administrators.
+
+- Manage locations, festivals, cultural objects, users, reviews and transactions, with summary statistics on the home page.
+- Data tables with server-side pagination, search, filtering and sorting.
+- Create and edit forms in modals, delete confirmations and visibility toggles.
+- JWT authentication with an admin role, backed by an Express API with rate limiting and security headers.
+- Retries with exponential backoff and staggered API loading to stay within rate limits.
+
+## Mobile app
+
+A React Native and TypeScript app for visitors.
+
+- **Discover:** places, festivals, reviews and historical objects, with detail pages and recommendations.
+- **Navigate:** Mapbox maps with GPS, turn-by-turn and voice navigation, route alternatives, traffic and marker clustering.
+- **Recognize:** an AI camera that identifies landmarks and objects from a photo.
+- **Ask:** a chat assistant that accepts images and renders markdown answers with quick replies.
+- **Festivals & newsfeed:** filters, calendar reminders, favorites, and shareable news articles.
+- **Multilingual:** Vietnamese and English UI, with Azure Translator and cached translations for content.
+- **Donate:** PayOS QR donations with transaction history.
+
+## AI workflows
+
+<figure className="not-prose my-8">
+  <a
+    href={flowSemanticSearch.src}
+    className="block overflow-hidden rounded-lg border border-border bg-white"
+    aria-label="Open the semantic search diagram at full size"
+  >
+    <Image
+      src={flowSemanticSearch}
+      alt="Diagram: a natural-language query is embedded with OpenAI, matched in a FAISS vector store by cosine similarity, and returns places such as Ban Co Peak, Tien Sa Lighthouse and Rang Beach"
+      widths={[720, 1080, 1440]}
+      sizes="(min-width: 1024px) 720px, 100vw"
+    />
+  </a>
+  <figcaption className="label-mono mt-3 text-text-muted">
+    Diagram · Semantic search — from my thesis presentation
+  </figcaption>
+</figure>
+
+<FlowSteps
+  label="Semantic search"
+  steps={[
+    { title: 'Query', detail: 'The visitor types a natural-language query in AI search mode.' },
+    { title: 'Embed', detail: 'The backend embeds the query with OpenAI text-embedding-3-small.' },
+    {
+      title: 'Retrieve',
+      detail:
+        'A FAISS index returns the closest places, festivals and objects by cosine similarity.',
+    },
+    {
+      title: 'Rank in the UI',
+      detail:
+        'The app shows results above a similarity threshold, or the best matches when none pass it.',
+    },
+  ]}
+  note="Empty results, errors or a disabled AI feature fall back to keyword search on the device."
+/>
+
+<figure className="not-prose my-8">
+  <a
+    href={flowRagAssistant.src}
+    className="block overflow-hidden rounded-lg border border-border bg-white"
+    aria-label="Open the RAG assistant diagram at full size"
+  >
+    <Image
+      src={flowRagAssistant}
+      alt="Diagram: a question about a ticket price is matched in the local knowledge base, combined into a context-rich prompt, and answered by GPT-4o-mini with the reference price and a reminder to check the official website"
+      widths={[720, 1080, 1440]}
+      sizes="(min-width: 1024px) 720px, 100vw"
+    />
+  </a>
+  <figcaption className="label-mono mt-3 text-text-muted">
+    Diagram · RAG assistant — from my thesis presentation
+  </figcaption>
+</figure>
+
+<FlowSteps
+  label="RAG assistant"
+  steps={[
+    { title: 'Message', detail: 'The visitor asks a question in the chat.' },
+    {
+      title: 'Retrieve',
+      detail:
+        'The top semantic matches from curated data, the visitor’s saved preferences and the latest turns of the conversation.',
+    },
+    {
+      title: 'Augment',
+      detail:
+        'The retrieved context goes into the prompt, with an instruction to answer only from it and to say when it does not know.',
+    },
+    {
+      title: 'Generate',
+      detail: 'GPT-4o-mini writes the answer, with sources and suggested actions.',
+    },
+  ]}
+  note="Grounding answers in curated local data reduces hallucinations."
+/>
+
+<figure className="not-prose my-8">
+  <a
+    href={flowAiCamera.src}
+    className="block overflow-hidden rounded-lg border border-border bg-white"
+    aria-label="Open the AI camera diagram at full size"
+  >
+    <Image
+      src={flowAiCamera}
+      alt="Diagram: six steps from capturing or picking an image, through backend image analysis and location identification, a fallback check and description lookup, to displaying the result"
+      widths={[720, 1080, 1440]}
+      sizes="(min-width: 1024px) 720px, 100vw"
+    />
+  </a>
+  <figcaption className="label-mono mt-3 text-text-muted">
+    Diagram · AI camera — from my thesis presentation; the steps below describe the current
+    implementation
+  </figcaption>
+</figure>
+
+<FlowSteps
+  label="AI camera"
+  steps={[
+    {
+      title: 'Capture',
+      detail: 'The visitor takes or picks a photo and confirms it in a preview.',
+    },
+    { title: 'Upload', detail: 'The app uploads the image with a client-side timeout.' },
+    {
+      title: 'Visual search',
+      detail: 'Google Lens (through SerpAPI) finds visually similar images.',
+    },
+    {
+      title: 'Identify',
+      detail:
+        'GPT-4o-mini extracts the landmark name from the results and matches it to curated objects.',
+    },
+    {
+      title: 'Describe',
+      detail:
+        'The description comes from the database first, then a local list, then the model as a last resort.',
+    },
+  ]}
+/>
+
+## Architecture
+
+**At launch**, the system had four layers:
+
+- **Clients:** the React Native mobile app and the React admin dashboard.
+- **APIs:** a FastAPI service (Python) for search, the chat assistant, image recognition and payments, and an Express API (Node.js) for the dashboard.
+- **Data:** NocoDB for places, festivals, objects, users and transactions, and FAISS indexes for semantic search.
+- **External services:** OpenAI, Mapbox, PayOS, SerpAPI, SendGrid and Azure Translator.
+
+**Now**, the backend is being migrated to Google Cloud Run with Neon PostgreSQL. The core catalog API already runs there; AI, payment and account features are being re-enabled step by step behind feature flags.
+
+## Engineering decisions
+
+- **Plan for slow AI calls:** client-side timeouts, loading states and retries.
+- **Control cost and accuracy:** similarity thresholds, curated data before the language model, and cached translations.
+- **Degrade gracefully:** keyword search when semantic search fails, and feature flags that keep the app usable during the migration.
+- **Keep the dashboard fast:** server-side search and filtering, retries with backoff and staggered requests.
+- **Translate data, not only the UI:** pre-translated content plus cached runtime translation.
+
+## Challenges & lessons
+
+### Keeping the search index in sync with the data
+
+Semantic search started returning duplicates and stale matches. The indexing script appended new embeddings to the existing FAISS index instead of replacing it, so after I added long descriptions to the embedded text, old and new vectors for the same places lived side by side. Separately, a parameter name that differed between the app and the API made some searches return nothing at all. I rebuilt the indexes from scratch and verified their size, added a startup check that rebuilds missing indexes, and aligned the request contract on both sides.
+
+**Lesson:** treat a vector index as derived data — rebuild it from the source, check its size against the record count, and keep the client–API contract typed on both sides.
+
+### Working within the limits of the data backend
+
+The no-code database behind the first version returned at most 100 records per page, so some places silently never reached the app or its search. The dashboard also fired several heavy requests at once and hit rate limits. I added full pagination, a short-lived in-memory cache on the device, rate limiting and request timeouts on the dashboard API, retries with exponential backoff, and staggered loading of dashboard data.
+
+**Lesson:** learn a data source's limits before building on it, and design clients to retry, back off and spread out their requests.
+
+### Making slow, paid AI calls feel dependable
+
+Image recognition goes through an upload, a visual search and two model calls, so it can be slow or fail on a weak connection. I added a preview step before upload, a server connection check, longer client timeouts, and fallbacks at every stage — keyword search when semantic search fails, curated descriptions before generated ones, and cached translations.
+
+**Lesson:** design the experience around latency and failure from the start, and spend a paid API call only when cheaper data cannot answer.
+
+### Bringing the project back on new infrastructure
+
+After a pause, the original hosting and data store needed to be replaced. I migrated the data to PostgreSQL on Neon and the API to Google Cloud Run in small phases, each with its own checks: schema, import, local API, health endpoints, container, deploy and acceptance. The mobile app first came back in a read-only core mode, with the remaining features behind feature flags, and I put spending limits in place before the first deploy.
+
+**Lesson:** migrate in small, verifiable steps, keep a working core at every step, and set cost limits before going live.
+
+## What I'd improve
+
+- Move every AI and third-party call behind the backend.
+- Consolidate authentication in the backend.
+- Finish the infrastructure migration and add tests for the AI workflows.

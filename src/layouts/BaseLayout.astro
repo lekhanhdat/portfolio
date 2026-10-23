@@ -5,26 +5,30 @@ import { withBase } from '@/lib/with-base';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
+import Seo from '@/components/seo/Seo.astro';
 
 interface Props {
   title: string;
   description: string;
-  /** Keep pages out of search results until launch (Phase 8). */
+  /** Keep a page out of search results (404, internal styleguide). */
   noindex?: boolean;
   /** Error pages have no canonical URL. */
   canonical?: boolean;
   /** Section links in the header; hidden on pages that stand outside the site flow. */
   showNav?: boolean;
+  type?: 'website' | 'article' | 'profile';
+  jsonLd?: readonly Record<string, unknown>[];
 }
 
 const {
   title,
   description,
-  noindex = true,
+  noindex = false,
   canonical: hasCanonical = true,
   showNav = true,
+  type,
+  jsonLd,
 } = Astro.props;
-const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undefined;
 ---
 
 <!doctype html>
@@ -32,10 +36,14 @@ const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undef
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    {canonical && <link rel="canonical" href={canonical} />}
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <Seo
+      title={title}
+      description={description}
+      noindex={noindex}
+      canonical={hasCanonical}
+      type={type}
+      jsonLd={jsonLd}
+    />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <meta name="generator" content={Astro.generator} />
@@ -62,7 +70,7 @@ const canonical = hasCanonical ? new URL(Astro.url.pathname, Astro.site) : undef
   </head>
   <body id="top" class="flex min-h-dvh flex-col bg-bg text-text antialiased">
     <SkipLink />
-    <SiteHeader showNav={showNav} />
+    <SiteHeader currentPath={Astro.url.pathname} showNav={showNav} />
     <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
       <slot />
     </main>

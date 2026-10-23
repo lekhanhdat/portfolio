@@ -1,16 +1,25 @@
+import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { LinkButton } from '@/components/ui/Button';
 import { SpecList } from '@/components/ui/SpecList';
 import { BrandIcon } from '@/components/ui/BrandIcon';
-import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { DeviceFrame } from '@/components/projects/DeviceFrame';
-import { personalProject as project } from '@/data/projects';
+import { ProjectShowcase } from '@/components/projects/ProjectShowcase';
+import { personalProjectPath, type PersonalProject as Project } from '@/lib/projects';
 import { sectionIds } from '@/data/navigation';
+import { withBase } from '@/lib/with-base';
+import type { ShowcaseImages } from '@/lib/image';
+
+interface PersonalProjectProps {
+  project: Project;
+  showcase?: ShowcaseImages;
+}
 
 /** Full-width band on the surface tone so the end-to-end project stands apart. */
-export function PersonalProject() {
+export function PersonalProject({ project, showcase }: PersonalProjectProps) {
   const id = sectionIds.personalProject;
+  const { data } = project;
+  const [mainRepo] = data.links.repos;
 
   return (
     <section
@@ -22,53 +31,48 @@ export function PersonalProject() {
         <div className="lg:col-span-5" data-reveal>
           <SectionHeader
             index="04"
-            label={`Personal project · ${project.platforms.join(' + ')}`}
-            title={project.title}
-            intro={project.tagline}
+            label={`Personal project · ${data.platforms.join(' + ')}`}
+            title={data.title}
+            intro={data.tagline}
             headingId={`${id}-heading`}
           />
           <SpecList
             layout="stack"
             className="mt-8"
             items={[
-              { label: 'Role', value: project.myRole },
-              { label: 'Surfaces', value: project.surfaces.join(' · ') },
-              { label: 'Stack', value: project.stack.join(' · ') },
+              { label: 'Role', value: data.myRole },
+              { label: 'Surfaces', value: data.surfaces.map((s) => s.name).join(' · ') },
+              { label: 'Stack', value: data.stack.join(' · ') },
             ]}
           />
           <div className="mt-8 flex flex-wrap gap-3">
-            <LinkButton href={project.links.demo} external>
-              Live dashboard
+            <LinkButton href={withBase(personalProjectPath(project.id))}>
+              Read the case study
+              <ArrowRight
+                aria-hidden="true"
+                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
             </LinkButton>
-            <LinkButton href={project.links.repo} variant="secondary" external>
-              <BrandIcon name="github" />
-              GitHub
-            </LinkButton>
+            {data.links.demo && (
+              <LinkButton href={data.links.demo.url} variant="secondary" external>
+                {data.links.demo.label}
+              </LinkButton>
+            )}
+            {mainRepo && (
+              <LinkButton href={mainRepo.url} variant="secondary" external>
+                <BrandIcon name="github" />
+                GitHub
+              </LinkButton>
+            )}
           </div>
-          <p className="label-mono mt-3 text-text-muted">Dashboard requires an admin login</p>
+          {data.links.demo?.note && (
+            <p className="label-mono mt-3 text-text-muted">
+              {data.links.demo.label} · {data.links.demo.note}
+            </p>
+          )}
         </div>
 
-        <div className="relative pb-10 lg:col-span-7 lg:pb-12" data-reveal>
-          <DeviceFrame device="browser">
-            <MediaPlaceholder
-              id="IMG-02"
-              ratio="16/10"
-              label="Admin dashboard — locations table with search and filters"
-              alt="Travel admin dashboard showing the locations table with search and filters"
-            />
-          </DeviceFrame>
-          <DeviceFrame
-            device="phone"
-            className="absolute right-4 bottom-0 hidden w-[30%] max-w-44 sm:block"
-          >
-            <MediaPlaceholder
-              id="IMG-03"
-              ratio="9/19.5"
-              label="Mobile app — home screen"
-              alt="Da Nang Smart Tourism app home screen"
-            />
-          </DeviceFrame>
-        </div>
+        <ProjectShowcase images={showcase} className="lg:col-span-7" />
       </Container>
     </section>
   );

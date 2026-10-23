@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import ProjectLayout from '@/layouts/ProjectLayout.astro';
+import { companyProjectPath, getCompanyProjects, type CompanyProject } from '@/lib/projects';
+import { withBase } from '@/lib/with-base';
+
+export const getStaticPaths = (async () => {
+  const projects = await getCompanyProjects();
+  const toLink = (project: CompanyProject | undefined) =>
+    project && { title: project.data.title, href: withBase(companyProjectPath(project.id)) };
+
+  return projects.map((project, index) => ({
+    params: { slug: project.id },
+    props: { project, prev: toLink(projects[index - 1]), next: toLink(projects[index + 1]) },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project, prev, next } = Astro.props;
+const { Content } = await render(project);
+---
+
+<ProjectLayout project={project} prev={prev} next={next}>
+  <Content />
+</ProjectLayout>

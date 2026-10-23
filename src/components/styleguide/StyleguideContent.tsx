@@ -148,7 +148,7 @@ export function StyleguideContent() {
             layout="stack"
             items={[
               { label: 'Company', value: 'MIND Technology' },
-              { label: 'My role', value: 'Frontend developer' },
+              { label: 'My role', value: 'Frontend engineer' },
               { label: 'Platform', value: 'Web' },
             ]}
           />

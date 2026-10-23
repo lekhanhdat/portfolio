@@ -164,6 +164,63 @@
   }
 }
 
+/*
+ * Long-form MDX content (project briefs, case study). Hand-rolled instead of the typography
+ * plugin: only the handful of elements the MDX files use. `.not-prose` opts components out.
+ */
+@layer components {
+  .prose-content {
+    max-width: var(--container-prose);
+    color: var(--text);
+  }
+  .prose-content :where(h2):not(:where(.not-prose *)) {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    letter-spacing: var(--text-h3--letter-spacing);
+    font-weight: 600;
+    scroll-margin-top: 5rem;
+  }
+  .prose-content > :where(h2:first-child) {
+    margin-top: 0;
+  }
+  .prose-content :where(h3):not(:where(.not-prose *)) {
+    margin-top: 2rem;
+    font-weight: 600;
+  }
+  .prose-content :where(p, ul, ol):not(:where(.not-prose *)) {
+    margin-top: 1rem;
+  }
+  .prose-content :where(ul, ol):not(:where(.not-prose *)) {
+    padding-left: 1.25rem;
+  }
+  .prose-content :where(ul):not(:where(.not-prose *)) {
+    list-style: disc;
+  }
+  .prose-content :where(ol):not(:where(.not-prose *)) {
+    list-style: decimal;
+  }
+  .prose-content :where(li):not(:where(.not-prose *)) {
+    margin-top: 0.5rem;
+  }
+  .prose-content :where(li)::marker {
+    color: var(--border-strong);
+  }
+  .prose-content :where(strong):not(:where(.not-prose *)) {
+    font-weight: 600;
+  }
+  .prose-content :where(a):not(:where(.not-prose *)) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .prose-content :where(figure, [role='img'], aside):not(:where(.not-prose *)) {
+    margin-block: 2rem;
+  }
+}
+
 /* Reveal-on-scroll (src/scripts/reveal.ts). Content stays visible without JS. */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {

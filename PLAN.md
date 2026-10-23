@@ -16,7 +16,7 @@ Quy ước: `[CV]` · `[SRC]` source đã xác minh · `[PUB]` nguồn công kha
 ## 1. Tổng quan
 | Mục | Nội dung |
 |---|---|
-| Mục tiêu | Portfolio chuyên nghiệp để ứng tuyển **Frontend Software Developer (React/TypeScript)** |
+| Mục tiêu | Portfolio chuyên nghiệp để ứng tuyển **Frontend Software Engineer (React/TypeScript)** |
 | Đối tượng | Recruiters/HR, Technical Interviewers, Engineering Managers |
 | Phong cách | Professional, concept **"Spec Sheet"** |
 | Nội dung | Tiếng Anh; chuyên nghiệp; không phóng đại |
@@ -30,8 +30,8 @@ Quy ước: `[CV]` · `[SRC]` source đã xác minh · `[PUB]` nguồn công kha
 ## 2. Portfolio Strategy
 
 ### 2.1 Positioning
-- Danh xưng: **Frontend Software Developer**. Không dùng "Junior".
-- Định vị: Frontend developer chuyên React + TypeScript; **1.5+ years** làm ứng dụng web doanh nghiệp nhiều dữ liệu (data governance, manufacturing monitoring/OEE, energy management). Có kinh nghiệm mobile và đã tự xây trọn một sản phẩm full-stack tích hợp AI. **Thế mạnh và định hướng là Web Frontend.**
+- Danh xưng: **Frontend Software Engineer**. Không dùng "Junior".
+- Định vị: Frontend engineer chuyên React + TypeScript; **1.5+ years** làm ứng dụng web doanh nghiệp nhiều dữ liệu (data governance, manufacturing monitoring/OEE, energy management). Có kinh nghiệm mobile và đã tự xây trọn một sản phẩm full-stack tích hợp AI. **Thế mạnh và định hướng là Web Frontend.**
 - Brand pillars:
   1. Data-rich web interfaces.
   2. Enterprise workflows.
@@ -41,14 +41,14 @@ Quy ước: `[CV]` · `[SRC]` source đã xác minh · `[PUB]` nguồn công kha
 Một cờ duy nhất `profile.availability` điều khiển cả 3 điểm hiển thị:
 1. **Hero (dải spec):** `● Open to work`, kèm dòng "Frontend roles · Onsite or remote · Da Nang · Ho Chi Minh City · Ha Noi".
 2. **Header:** nút `Résumé` luôn hiện.
-3. **Contact:** tiêu đề "Open to Frontend Software Developer roles", liệt kê hình thức làm việc và địa điểm; CTA Email, LinkedIn, Résumé.
+3. **Contact:** tiêu đề "Open to Frontend Software Engineer roles", liệt kê hình thức làm việc và địa điểm; CTA Email, LinkedIn, Résumé.
 
 Không dùng banner hay pop-up.
 
 ### 2.3 Hero (EN, draft)
-> **Eyebrow:** FRONTEND SOFTWARE DEVELOPER · REACT · TYPESCRIPT
+> **Eyebrow:** FRONTEND SOFTWARE ENGINEER · REACT · TYPESCRIPT
 > **Headline:** I build clear, reliable interfaces for data-heavy web applications.
-> **Sub:** Frontend developer in Da Nang, Vietnam with 1.5+ years of experience building enterprise data platforms, manufacturing monitoring dashboards, and an AI-assisted travel product I built end to end with React and TypeScript.
+> **Sub:** Frontend engineer in Da Nang, Vietnam with 1.5+ years of experience building enterprise data platforms, manufacturing monitoring dashboards, and an AI-assisted travel product I built end to end with React and TypeScript.
 > **CTAs:** `View company projects` (primary) · `See the case study` · `Download résumé` · icon GitHub / LinkedIn / Email
 > **Dải spec:** EXPERIENCE 1.5+ years · BASED IN Da Nang, VN · FOCUS React · TypeScript · Web · STATUS ● Open to work
 
@@ -69,7 +69,7 @@ Không dùng banner hay pop-up.
 
 - Hiển thị thời gian **theo công ty** như CV; tổng kinh nghiệm hiển thị **"1.5+ years"**.
 - **Không** hiển thị thời gian của từng dự án.
-- Mỗi công ty gồm: chức danh "Frontend Software Developer" ❓(Q-N5), 3–4 bullet tổng hợp từ CV, và chip link sang các dự án.
+- Mỗi công ty gồm: chức danh "Frontend Software Engineer" ❓(Q-N5), 3–4 bullet tổng hợp từ CV, và chip link sang các dự án.
 
 ---
 
@@ -138,7 +138,7 @@ Link "Company Projects" / "Personal Project" ở Home trỏ tới anchor; ở tr
 ```
 Desktop                                                   Mobile
 ┌──────────────────────────────────────────────────┐      ┌───────────────────────┐
-│ FRONTEND SOFTWARE DEVELOPER · REACT · TYPESCRIPT │      │ FRONTEND SOFTWARE …   │
+│ FRONTEND SOFTWARE ENGINEER · REACT · TYPESCRIPT │      │ FRONTEND SOFTWARE …   │
 │ I build clear, reliable interfaces               │      │ Headline (3–4 dòng)   │
 │ for data-heavy web applications.                 │      │ Sub-copy              │
 │ Sub-copy (≤ 60ch)                                │      │ [View company proj. →]│
@@ -160,7 +160,7 @@ SpecList: Experience 1.5+ yrs · Education VKU, Distinction · English B2 · Ope
 
 **03 · Work Experience**
 ```
-Desktop: [col 1–3] mono: Feb 2026 — Sep 2026 · Da Nang   [col 4–12] AvePoint · Frontend Software Developer
+Desktop: [col 1–3] mono: Feb 2026 — Sep 2026 · Da Nang   [col 4–12] AvePoint · Frontend Software Engineer
                                                                     1 dòng mô tả công ty · 3–4 bullets
                                                                     Projects: [Data Lifecycle Management →]
          (tương tự MIND Technology: chips C2 · C3 · C4 theo tên mô tả)
@@ -199,7 +199,7 @@ VKU · B.Eng. Global IT · Distinction · GPA 3.32/4.0 · Honours. Kèm dòng "T
 
 **08 · Contact / Open to Work**
 ```
-Desktop: [col 1–7] H2 "Open to Frontend Software Developer roles"
+Desktop: [col 1–7] H2 "Open to Frontend Software Engineer roles"
                    Onsite or remote · Da Nang · Ho Chi Minh City · Ha Noi
                    lekhanhdat03@gmail.com [Copy]
                    [Email me →] [LinkedIn] [GitHub] [Résumé]
@@ -244,7 +244,7 @@ Placeholder là khung trung tính có nhãn mono, ví dụ `IMAGE · 16:10 · Ad
 | IMG-C1..C4 | Company cards/briefs | 16:10 | 2880×1800 | ~560px | Mặc định Schematic; ảnh chỉ khi được phép |
 | IMG-D* | Case study — dashboard gallery | 16:10 | 2880×1800 | 2 cột / 1 cột | theo màn hình |
 | IMG-M* | Case study — mobile gallery | 9:19.5 | 1080×2340 | hàng 3 / scroll-snap | theo màn hình |
-| IMG-F1..F3 | Case study — sơ đồ AI từ slide (semantic search, RAG, camera) | theo ảnh gốc (thường 16:9) | PNG/SVG ≥ 1920px | full prose width, có thể phóng to | "Diagram: semantic search pipeline…" |
+| IMG-F1..F3 | Case study — sơ đồ AI từ slide (semantic search, RAG, camera) | theo ảnh gốc (thường 16:9) | PNG/SVG ≥ 1920px | full prose width, có thể phóng to | "Diagram: semantic search pipeline…" | ✅ đã có (D36)
 | IMG-A1 | Case study — kiến trúc từ slide | 16:9 | ≥ 1920px | rộng 1200px | "System architecture diagram…" |
 | VID-01 | Case study — demo | 16:9 / 9:19.5 | MP4 ≤ 10MB + poster | không autoplay, có controls và captions | "Demo video: …" |
 | OG-* | Social preview | 1200×630 | PNG | — | — |
@@ -258,11 +258,11 @@ Placeholder là khung trung tính có nhãn mono, ví dụ `IMAGE · 16:10 · Ad
 ### 5.1 Danh sách chính thức `[USR]`
 | Thứ tự | Tên hiển thị | Nhóm | Platform | Vai trò hiển thị | Visual |
 |---|---|---|---|---|---|
-| P1 | **Da Nang Smart Tourism** | Personal | Web admin + Mobile + API/AI | Lead developer — end to end | Ảnh thật |
-| C1 | **Data Lifecycle Management Platform** | AvePoint | Web | Frontend developer | Schematic `data-table-workflow` |
-| C2 | **Factory Manufacturing Monitoring Platform** | MIND Technology | Web | Frontend developer (main contributor) | Schematic `dashboard-grid` |
-| C3 | **Paper Mill Production & OEE Monitoring** | MIND Technology | Web | Frontend developer | Schematic `dashboard-grid` (biến thể) |
-| C4 | **Factory Energy Management System** | MIND Technology | Web + Mobile | Mobile app developer | Schematic `mobile-web-pair` |
+| P1 | **Da Nang Smart Tourism** | Personal | Web admin + Mobile + API/AI | Lead engineer — end to end | Ảnh thật |
+| C1 | **Data Lifecycle Management Platform** | AvePoint | Web | Frontend engineer | Schematic `data-table-workflow` |
+| C2 | **Factory Manufacturing Monitoring Platform** | MIND Technology | Web | Frontend engineer (main contributor) | Schematic `dashboard-grid` |
+| C3 | **Paper Mill Production & OEE Monitoring** | MIND Technology | Web | Frontend engineer | Schematic `dashboard-grid` (biến thể) |
+| C4 | **Factory Energy Management System** | MIND Technology | Web + Mobile | Mobile engineer | Schematic `mobile-web-pair` |
 
 Không nêu tên khách hàng hay đối tác (danh sách nằm trong file private `PROJECT_CONTENT.md`) ở bất kỳ đâu trên site hoặc trong repo, kể cả slug, alt, metadata và tên file.
 
@@ -278,7 +278,7 @@ Tagline: *"An AI-assisted travel platform for Da Nang — a web dashboard for ad
 
 | # | Mục | Nội dung |
 |---|---|---|
-| 1 | Header | Badges: Personal · Web admin + Mobile · AI. SpecList: Role **Lead developer — end to end** · Surfaces · Stack · Links (GitHub mobile app, Live dashboard ↗ ❓ thêm repo dashboard Q-N4). Không có Period. |
+| 1 | Header | Badges: Personal · Web admin + Mobile · AI. SpecList: Role **Lead engineer — end to end** · Surfaces · Stack · Links (GitHub mobile app, Live dashboard ↗ ❓ thêm repo dashboard Q-N4). Không có Period. |
 | 2 | At a glance | 3 cột: Web Admin · Mobile App · API & AI services |
 | 3 | Context & Problem | Dòng thesis ❓(Q-N2). Số liệu: *"Nearly 9.3 million visitor stays at accommodation establishments in Da Nang in the first ten months of 2024"* kèm link nguồn. 3 pain points: dữ liệu phân mảnh, thiếu tương tác thông minh, rào cản ngôn ngữ |
 | 4 | Solution & ecosystem | Sơ đồ D1 (SVG) hoặc IMG-A1 |
@@ -350,7 +350,7 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 ├─ PLAN.md · TASKLIST.md · PROGRESS.md · CLAUDE.md          ✅ commit (public-safe, chỉ dùng mã C1–C4)
 ├─ input/ · PROJECT_CONTENT.md · private/                   🔒 gitignored
 ├─ public/  resume.pdf · favicon.svg · og/ · fonts/
-├─ scripts/check-confidential.mjs · .githooks/pre-commit · private/confidential-terms.txt (🔒)
+├─ scripts/check-confidential.mjs · scripts/serve-dist.mjs · .githooks/pre-commit · private/confidential-terms.txt (🔒)
 ├─ src/
 │  ├─ pages/
 │  │  ├─ index.astro
@@ -358,50 +358,52 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 │  │  ├─ personal-projects/index.astro · [slug].astro
 │  │  ├─ styleguide.astro  (noindex, ngoài sitemap)
 │  │  └─ 404.astro
-│  ├─ layouts/        BaseLayout.astro · ProjectLayout.astro · CaseStudyLayout.astro
+│  ├─ layouts/        BaseLayout.astro · ProjectLayout.astro (brief) · CaseStudyLayout.astro
 │  ├─ components/
 │  │  ├─ ui/          Button, Tag, Badge, SpecList, Callout, Container, Section, SectionHeader, MediaPlaceholder, BrandIcon
 │  │  ├─ layout/      SiteHeader, MobileNav, ThemeToggle, SkipLink, SiteFooter  (hành vi: src/scripts/*.ts)
-│  │  ├─ sections/    HomePage, Hero, Summary, Experience, CompanyProjects, PersonalProject, Skills, Education, Contact, NotFound
-│  │  ├─ projects/    ProjectCard, ProjectIndexTable, SchematicFigure, DeviceFrame, FlowSteps, ScreenshotGallery*, CaseStudyToc*
+│  │  ├─ sections/    HomePage, Hero, Summary, Experience, CompanyProjects, PersonalProject, Skills, Education, Contact,
+│  │  │               CompanyProjectsIndex, PersonalProjectsIndex, NotFound
+│  │  ├─ projects/    ProjectCard, ProjectIndexTable, SchematicFigure, DeviceFrame, ProjectShowcase, BriefHeader, BriefFooter,
+│  │  │               PrevNextNav, BackLink, CaseStudyHeader, CaseStudyToc, AtAGlance, FlowSteps, ScreenshotGallery*, CaseStudyFooter
 │  │  ├─ styleguide/  StyleguideContent
 │  │  └─ seo/         Seo.astro, JsonLd.astro
 │  ├─ content/
 │  │  ├─ company-projects/*.mdx
 │  │  └─ personal-projects/*.mdx
 │  ├─ content.config.ts
-│  ├─ data/           profile.ts · experience.ts · projects.ts · skills.ts · education.ts · navigation.ts
+│  ├─ data/           profile.ts · experience.ts · skills.ts · education.ts · navigation.ts
 │  ├─ assets/images/  personal/da-nang-smart-tourism/… · profile/…
-│  ├─ lib/            cn.ts · with-base.ts · seo.ts
+│  ├─ lib/            cn.ts · with-base.ts · projects.ts (đọc collection) · image.ts · seo.ts
 │  ├─ scripts/        theme.ts · header.ts · mobile-nav.ts · reveal.ts · active-section.ts · copy-email.ts
 │  └─ styles/         global.css
 ├─ tests/e2e/
 ├─ .github/workflows/ ci.yml · deploy.yml
 └─ astro.config.mjs · tsconfig.json · eslint.config.js · prettier.config.mjs · playwright.config.ts
-(* = island)
+(* = có thể thành island nếu cần lightbox ở Phase 6)
 ```
 
-### 7.2 Content schema (dự kiến)
+### 7.2 Content schema (`src/content.config.ts`, Phase 4)
 ```ts
-// chung cho hai collection
-{ title, slug, summary, order: number, platforms: ('web'|'mobile'|'api')[], myRole: string,
-  domain: string, stack: string[], highlights: string[],
-  cover?: { image?: ImageMetadata; alt?: string; placeholder?: { ratio: string; label: string } }
-        | { schematic: 'dashboard-grid' | 'data-table-workflow' | 'mobile-web-pair' },
-  links?: { repo?: string[]; demo?: string; video?: string }, draft: boolean }
+// chung cho hai collection — id của entry = tên file = slug URL
+{ title, summary, order: number, platforms: ('Web'|'Mobile'|'API'|'AI')[], myRole, domain,
+  stack: string[], draft: boolean /* mặc định true */ }
 // company-projects bổ sung
-{ company: 'AvePoint' | 'MIND Technology', visibility: 'confidential' }
+{ company: 'AvePoint' | 'MIND Technology', visibility: 'confidential',
+  schematic: 'dashboard-grid' | 'data-table-workflow' | 'mobile-web-pair' }
 // personal-projects bổ sung
-{ surfaces: { name: string; description: string }[] }
+{ tagline, surfaces: { name, description }[],
+  links: { repos: { label, url }[]; demo?: { label, url, note? } },
+  gallery: { surface: 'dashboard' | 'mobile'; label; alt; image?: ImageMetadata }[] }
 ```
-- Không có trường `period`, vì không hiển thị thời gian dự án.
-- Thời gian công ty nằm trong `data/experience.ts`.
+- Không có trường `period`, vì không hiển thị thời gian dự án. Thời gian công ty nằm trong `data/experience.ts`.
+- Mọi nơi (Home, index, trang chi tiết) đọc qua `src/lib/projects.ts` (sắp theo `order`, lọc draft khi `SHOW_DRAFTS = false`).
 
 ### 7.3 Rendering · SEO · Performance
 - Mọi trang là HTML tĩnh.
 - Tương tác: script thuần TS (theme, header, mobile-nav, reveal; sau này là copy email, TOC active). Island React dự kiến chỉ cho ScreenshotGallery nếu cần lightbox. Phase 2 đo được: khoảng 1,8 KB JS inline mỗi trang, không có React runtime.
 - Budget JS Home ≲ 30 KB gzip.
-- SEO: title template `%s · Le Khanh Dat — Frontend Software Developer`; canonical (có `/portfolio/`); OG; sitemap; JSON-LD.
+- SEO: title template `%s · Le Khanh Dat — Frontend Software Engineer`; canonical (có `/portfolio/`); OG; sitemap; JSON-LD.
 - Lighthouse mobile ≥ 95; LCP < 2.0s; CLS < 0.05.
 
 ### 7.4 GitHub Pages với project site `/portfolio/`
@@ -465,7 +467,7 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 ---
 
 ## 10. Acceptance Criteria (v1)
-- [ ] Danh xưng "Frontend Software Developer"; tổng kinh nghiệm "1.5+ years"; không có "Junior"; không có thời gian theo dự án.
+- [ ] Danh xưng "Frontend Software Engineer"; tổng kinh nghiệm "1.5+ years"; không có "Junior"; không có thời gian theo dự án.
 - [ ] Open to Work hiển thị ở Hero và Contact.
 - [ ] Trang Company và Personal tách riêng; thứ tự C1 → C2 → C3 → C4; Travel có case study riêng.
 - [ ] Không có tên khách hàng hay đối tác, kể cả trong slug, alt và metadata. Không nhắc tên sản phẩm AvePoint.

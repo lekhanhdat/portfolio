@@ -1,10 +1,17 @@
 import { Section } from '@/components/ui/Section';
 import { TagList } from '@/components/ui/Tag';
 import { experience, totalExperience } from '@/data/experience';
-import { getCompanyProject } from '@/data/projects';
 import { sectionIds } from '@/data/navigation';
+import { companyProjectPath, type CompanyProject } from '@/lib/projects';
+import { withBase } from '@/lib/with-base';
 
-export function Experience() {
+export function Experience({ projects }: { projects: readonly CompanyProject[] }) {
+  const titleOf = (slug: string) => {
+    const project = projects.find((item) => item.id === slug);
+    if (!project) throw new Error(`experience.ts links to an unknown project: ${slug}`);
+    return project.data.title;
+  };
+
   return (
     <Section
       id={sectionIds.experience}
@@ -48,10 +55,10 @@ export function Experience() {
                   {job.projects.map((slug) => (
                     <li key={slug}>
                       <a
-                        href={`#project-${slug}`}
+                        href={withBase(companyProjectPath(slug))}
                         className="inline-flex min-h-9 items-center rounded-md border border-border-control px-3 text-sm transition-colors hover:border-accent hover:text-accent"
                       >
-                        {getCompanyProject(slug).title}
+                        {titleOf(slug)}
                       </a>
                     </li>
                   ))}

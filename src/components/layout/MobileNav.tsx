@@ -1,9 +1,8 @@
 import { Menu, X } from 'lucide-react';
-import type { NavItem } from '@/data/navigation';
+import type { ResolvedNavItem } from './SiteHeader';
 
 interface MobileNavProps {
-  /** Items with hrefs already resolved through withBase(). */
-  items: readonly NavItem[];
+  items: readonly ResolvedNavItem[];
 }
 
 /**
@@ -47,7 +46,8 @@ export function MobileNav({ items }: MobileNavProps) {
                 <a
                   href={item.href}
                   data-nav-link
-                  className="flex items-baseline gap-4 py-4 text-h3 font-medium transition-colors hover:text-accent aria-[current=true]:text-accent"
+                  aria-current={item.current ? 'page' : undefined}
+                  className="flex items-baseline gap-4 py-4 text-h3 font-medium transition-colors hover:text-accent aria-[current]:text-accent"
                 >
                   <span className="label-mono text-text-muted">
                     {String(index + 1).padStart(2, '0')}
