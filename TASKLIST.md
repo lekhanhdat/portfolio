@@ -115,6 +115,7 @@
 - [x] P9.9 🤖 Education: 2 ảnh gốc anh cung cấp, không che, xếp chồng theo khổ ngang; WebP q90
 - [x] P9.10 🤖 Header "Company Projects" luôn mở trang index; 4 sơ đồ riêng cho C1–C4 (D45)
 - [x] P9.11 🤖 Bỏ footer toàn site; nút "Back to top" nổi ở mọi trang (D46)
+- [x] P9.12 🤖 Cân đối lại tỉ lệ ở zoom 100%: mật độ theo chiều cao màn hình (D47), làm gọn Experience / Company / Education, thang tiêu đề chung, brief header 2 cột
 - [ ] P9.7 👤 Duyệt trên local (`pnpm build` + `pnpm preview`), rồi commit + push `dev`
 ---
 

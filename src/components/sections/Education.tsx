@@ -57,9 +57,9 @@ export function Education({ thesis, photos }: EducationProps) {
         </div>
 
         {photos.length > 0 && (
-          <figure className="mx-auto w-full max-w-xl lg:col-span-5 lg:max-w-none" data-reveal>
-            {/* Landscape photos stacked at full width, never cropped. */}
-            <div className="grid gap-3">
+          <figure className="w-full lg:col-span-5 lg:max-w-[23rem] lg:justify-self-end" data-reveal>
+            {/* Landscape photos, never cropped: side by side on narrow screens, stacked from lg. */}
+            <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
               {photos.map((photo) => (
                 <a
                   key={photo.image.src}
@@ -71,7 +71,7 @@ export function Education({ thesis, photos }: EducationProps) {
                   <img
                     src={photo.image.src}
                     srcSet={photo.image.srcSet}
-                    sizes="(min-width: 1280px) 440px, (min-width: 1024px) 38vw, (min-width: 640px) 576px, 100vw"
+                    sizes="(min-width: 1024px) 368px, 50vw"
                     width={photo.image.width}
                     height={photo.image.height}
                     alt={photo.alt}

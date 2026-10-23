@@ -121,6 +121,12 @@
     - `SchematicFigure`: 4 variant mới, mỗi dự án một hình (D45), có nhãn mono ngắn nêu module, không có số liệu.
     - Bỏ `SiteFooter` khỏi toàn site; thêm `BackToTop` (nút tròn cố định góc phải, hiện khi cuộn quá 60% màn hình, script trong `header.ts`).
     - Kiểm tra: `pnpm check` 0/0/0; build 10 trang; guard pass; e2e 78 passed / 8 skipped (thêm test Company Projects → index, back-to-top). Ở 1440×900 cả 7 section vừa 1 màn hình; không tràn ngang ở 1440 / 1280 / 390.
+  - Vòng 3 — cân đối lại tỉ lệ ở zoom 100% (2026-10-23):
+    - Bỏ "Focus" và "How I work" khỏi Intro; căn giữa ảnh chân dung trong cột phải.
+    - Mật độ desktop theo chiều cao màn hình (D47, thay cho 87.5% cố định).
+    - Làm gọn section dài: padding section full-page `lg:py-8`; Experience 2 cột từ `md`, dự án dạng danh sách link thay cho chip; card công ty compact 2 tag + mũi tên chung một hàng; ảnh Education giới hạn 23rem và nằm cạnh nhau dưới `lg`; header cao đúng 4rem (bỏ 1px viền dư dưới vạch snap).
+    - Thang tiêu đề: `--text-display` tối đa 3.75rem cho mọi `h1` (Intro, index, brief, case study). Brief header 2 cột như case study: chữ trái, sơ đồ phải, bảng thông tin bên dưới.
+    - Đo bằng Playwright: mỗi section Home vừa 1 màn hình ở 1920×940, 1536×730, 1440×900, 1440×790, 1366×650, 1280×720, 1024×768; tablet 768×1024 chỉ Personal project dư 16px; mobile cuộn tự do (proximity). Không tràn ngang. `pnpm check` 0/0/0; build 10 trang; e2e 78 passed / 8 skipped; guard pass.
 
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
@@ -170,6 +176,7 @@
 | D43 | Full-page scroll ở Home bằng **CSS scroll snap**, không dùng JS bắt sự kiện wheel: chạy trên compositor (mượt), giữ nguyên bàn phím, anchor, screen reader, 0 KB JS. `mandatory` khi màn hình ≥ 1024×640 và không bật reduced motion; còn lại `proximity` để section dài hơn màn hình (mobile) vẫn cuộn tự do | ✅ Phase 9 |
 | D45 | Mỗi dự án công ty một sơ đồ riêng (`records-governance`, `production-monitoring`, `digital-factory`, `energy-mobile`) thay cho 3 hình dùng chung; nhãn chỉ nêu module có trong brief, vòng/biểu đồ chỉ minh hoạ — vẫn là SchematicFigure, không mô phỏng UI thật (D16, D35) | ✅ Phase 9 |
 | D46 | Bỏ footer toàn site (anh yêu cầu); chỉ giữ nút "Back to top" nổi. Link GitHub/LinkedIn/Email vẫn có ở Intro và Contact | ✅ Phase 9 |
+| D47 | ~~Mật độ desktop cố định 87.5%~~ → **mật độ theo chiều cao màn hình**: từ 1024px, `font-size: clamp(0.8125rem, 2vh, 1rem)` (13–16px). Mọi kích thước dùng rem nên cả thiết kế co giãn như zoom; màn ≥ 800px cao giữ 100%, laptop thấp tự thu nhỏ để mỗi section vừa 1 màn hình; giới hạn bằng rem nên vẫn theo cỡ chữ người dùng. Không dùng CSS `zoom`. Mobile/tablet giữ 100% | ✅ Phase 9 |
 | D44 | Catalog section ở Home: rail cố định bên trái; có nhãn đầy đủ từ 1440px, dưới đó chỉ còn rail (nhãn hiện khi hover/focus); ẩn dưới `md` (mobile dùng menu) | ✅ Phase 9 |
 | D43 | CI chạy cả khi push `dev` (không chỉ PR) — anh push `dev` theo từng Phase và chỉ merge `main` ở cuối (D34) | ✅ Phase 7 |
 | D44 | Hero không dùng reveal-on-scroll — nội dung màn hình đầu phải hiện ngay (LCP); reveal giữ cho các section bên dưới | ✅ Phase 7 |

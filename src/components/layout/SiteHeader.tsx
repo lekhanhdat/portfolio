@@ -36,9 +36,9 @@ export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
   return (
     <header
       data-site-header
-      className="sticky top-0 z-40 border-b border-transparent bg-bg/85 backdrop-blur-md transition-colors data-[scrolled]:border-border"
+      className="sticky top-0 z-40 h-16 border-b border-transparent bg-bg/85 backdrop-blur-md transition-colors data-[scrolled]:border-border"
     >
-      <Container className="flex h-16 items-center gap-4">
+      <Container className="flex h-full items-center gap-4">
         {/* The name comes from the visible text (WCAG 2.5.3); "home" is added for screen readers. */}
         <a
           href={withBase('/')}
