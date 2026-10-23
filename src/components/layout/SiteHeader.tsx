@@ -40,20 +40,13 @@ export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
       className="sticky top-0 z-40 border-b border-transparent bg-bg/85 backdrop-blur-md transition-colors data-[scrolled]:border-border"
     >
       <Container className="flex h-16 items-center gap-4">
-        <a
-          href={withBase('/')}
-          className="group mr-auto flex items-center gap-3"
-          aria-label={`${profile.name}, home`}
-        >
-          <span
-            aria-hidden="true"
-            className="label-mono rounded-sm border border-border-strong px-1.5 py-0.5 text-text transition-colors group-hover:border-accent group-hover:text-accent"
-          >
+        {/* The name comes from the visible text (WCAG 2.5.3); "home" is added for screen readers. */}
+        <a href={withBase('/')} className="group mr-auto flex items-center gap-3">
+          <span className="label-mono rounded-sm border border-border-strong px-1.5 py-0.5 text-text transition-colors group-hover:border-accent group-hover:text-accent">
             {profile.initials}
           </span>
-          <span aria-hidden="true" className="hidden text-sm font-medium text-text sm:inline">
-            {profile.name}
-          </span>
+          <span className="hidden text-sm font-medium text-text sm:inline">{profile.name}</span>
+          <span className="sr-only"> — home</span>
         </a>
 
         {showNav && (

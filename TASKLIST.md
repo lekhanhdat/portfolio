@@ -78,20 +78,21 @@
 - [x] P5.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 6 — Media
-**Trạng thái: code xong, đã kiểm tra local; chờ anh duyệt ảnh (P6.3)**
+**Trạng thái: ✅ HOÀN THÀNH (2026-10-23, đã duyệt)**
 - [x] P6.0 🤖 Sơ đồ 3 luồng AI từ slide (IMG-F1…F3)
 - [x] P6.1 🤖 11 ảnh Travel (5 dashboard + 6 mobile) → `src/assets/images/personal/da-nang-smart-tourism/`; showcase (browser + phone) ở Home, `/personal-projects/`, header case study; gallery case study (bấm mở bản đầy đủ, không dùng lightbox JS)
 - [x] P6.2 🤖 Alt text tiếng Anh cho mọi ảnh; nhãn gallery cập nhật theo ảnh thật (Map + Route thay cho Donation QR). Không có video (U.M5 tuỳ chọn)
-- [ ] P6.3 👤 Duyệt ảnh (không lộ dữ liệu nhạy cảm)
+- [x] P6.3 👤 Duyệt ảnh (giữ cả ảnh Transactions)
 - [x] P6.4 🤖 Cập nhật PROGRESS / TASKLIST; `resume.pdf` thay bằng bản mới (thêm link Portfolio)
 
 ## Phase 7 — Quality
-- [ ] P7.1 🤖 `<Seo>`, JSON-LD, sitemap, OG (meta robots; không có robots.txt cho project site)
-- [ ] P7.2 🤖 Playwright: mọi route, link đúng base, nav, theme, menu, copy email, gallery, trang 404
-- [ ] P7.3 🤖 axe cho cả 2 theme; thêm vào CI
-- [ ] P7.4 🤖 Lighthouse mobile ≥ 95
-- [ ] P7.5 👤 Test trên thiết bị thật
-- [ ] P7.6 🤖 Cập nhật PROGRESS / TASKLIST
+**Trạng thái: code xong, đã kiểm tra local; còn P7.5 (anh test thiết bị thật)**
+- [x] P7.1 🤖 `Seo.astro` (title, description, canonical, robots, Open Graph, Twitter card) + JSON-LD (`src/lib/seo.ts`: Person + WebSite ở Home, CreativeWork ở trang dự án); ảnh OG `public/og/default.png` (1200×630); sitemap giữ nguyên
+- [x] P7.2 🤖 Playwright (`tests/e2e/`, desktop + Pixel 7): mọi route, link/asset đúng base và trả 200, nav + `aria-current`, theme, menu mobile, copy email, résumé, gallery, prev/next, trang 404, JSON-LD — chạy trên `dist/` qua `scripts/serve-dist.mjs` (giả lập GitHub Pages)
+- [x] P7.3 🤖 axe (WCAG 2.0/2.1/2.2 A–AA + best-practice) cho 9 trang × 2 theme × 2 thiết bị → 0 lỗi (đã sửa: tên link logo khớp chữ hiển thị); CI chạy check + build + e2e khi push `dev` và khi mở PR
+- [x] P7.4 🤖 Lighthouse mobile: Performance 98–100, Accessibility 100, Best practices 100, CLS 0; SEO 63–66 chỉ vì `noindex` (đạt khi bỏ ở P8.1)
+- [ ] P7.5 👤 Test trên thiết bị thật (điện thoại + máy tính, cả 2 theme)
+- [x] P7.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 8 — Launch
 - [ ] P8.1 🤖 Bỏ `noindex`; đặt `SHOW_DRAFTS = false` (`src/lib/projects.ts`); kiểm tra cuối

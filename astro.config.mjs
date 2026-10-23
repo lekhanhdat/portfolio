@@ -19,6 +19,8 @@ export default defineConfig({
   output: 'static',
   build: {
     format: 'directory',
+    // The whole stylesheet is ~7 KB gzipped: inlining saves a render-blocking request (LCP).
+    inlineStylesheets: 'always',
   },
   // Self-hosted woff2 files from the installed @fontsource-variable packages (latin + latin-ext
   // only): no network at build or runtime. The `local` provider avoids file:// fetches that

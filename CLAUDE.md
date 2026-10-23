@@ -15,7 +15,7 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
     4. Factory Energy Management System — web + mobile (MIND Technology; vai trò: mobile)
   - Khi gộp chung: Travel đứng đầu, sau đó theo thứ tự company ở trên.
 - Stack: **Astro 7 + React 19 (render tĩnh; island chỉ khi thật cần) + TypeScript 6 strict + Tailwind v4 + MDX + Content Collections**, Node ≥ 22.23.4 (`.nvmrc`), pnpm 12.
-- Lệnh chính: `pnpm dev` · `pnpm build` · `pnpm preview` · `pnpm check` (astro check + eslint + prettier) · `pnpm check:confidential` · `pnpm format`. Pre-commit hook (`.githooks/`, bật qua `pnpm install`) chạy guard từ khoá cấm.
+- Lệnh chính: `pnpm dev` · `pnpm build` · `pnpm preview` · `pnpm check` (astro check + eslint + prettier) · `pnpm check:confidential` · `pnpm test:e2e` (Playwright + axe trên `dist/`) · `pnpm format`. Pre-commit hook (`.githooks/`, bật qua `pnpm install`) chạy guard từ khoá cấm.
 - Deploy: **GitHub Pages** từ repo `lekhanhdat/portfolio` → `https://lekhanhdat.github.io/portfolio/` (`base: '/portfolio'`). Không dùng custom domain.
 - Ngôn ngữ: site bằng tiếng Anh; trao đổi và tài liệu kế hoạch bằng tiếng Việt.
 

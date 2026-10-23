@@ -20,23 +20,18 @@ export function Hero({ caseStudyHref }: HeroProps) {
   return (
     <section aria-labelledby="hero-heading" className="pt-14 pb-16 lg:pt-24 lg:pb-24">
       <Container>
-        <div data-reveal-group>
-          <p className="label-mono text-text-muted" data-reveal>
-            {profile.title} · React · TypeScript
-          </p>
-          <h1
-            id="hero-heading"
-            className="mt-5 max-w-[20ch] text-display font-semibold text-text"
-            data-reveal
-          >
+        {/* No reveal here: above-the-fold text must paint immediately (LCP). */}
+        <div>
+          <p className="label-mono text-text-muted">{profile.title} · React · TypeScript</p>
+          <h1 id="hero-heading" className="mt-5 max-w-[20ch] text-display font-semibold text-text">
             I build clear, reliable interfaces for data-heavy web applications.
           </h1>
-          <p className="mt-6 max-w-[60ch] text-text-muted" data-reveal>
+          <p className="mt-6 max-w-[60ch] text-text-muted">
             Frontend engineer in {profile.location} with {totalExperience} of experience building
             enterprise data platforms, manufacturing monitoring dashboards, and an AI-assisted
             travel product I built end to end with React and TypeScript.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-3" data-reveal>
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <LinkButton href={`#${sectionIds.companyProjects}`}>
               View company projects
               <ArrowRight

@@ -12,6 +12,8 @@ import { CaseStudyFooter } from '@/components/projects/CaseStudyFooter';
 import type { PersonalProject } from '@/lib/projects';
 import { profile } from '@/data/profile';
 import { resolveGallery, resolveShowcase } from '@/lib/image';
+import { projectJsonLd } from '@/lib/seo';
+import { personalProjectPath } from '@/lib/projects';
 
 interface Props {
   project: PersonalProject;
@@ -35,7 +37,19 @@ const toc = [
 ];
 ---
 
-<BaseLayout title={`${data.title} — Case study — ${profile.name}`} description={data.summary}>
+<BaseLayout
+  title={`${data.title} — Case study — ${profile.name}`}
+  description={data.summary}
+  type="article"
+  jsonLd={[
+    projectJsonLd({
+      title: data.title,
+      summary: data.summary,
+      path: personalProjectPath(project.id),
+      keywords: data.stack,
+    }),
+  ]}
+>
   <article class="mx-auto w-full max-w-page px-5 py-10 sm:px-8 lg:px-12 lg:py-16">
     <CaseStudyHeader project={project} showcase={showcase} />
 

@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 6 — Media: code xong, chờ anh duyệt ảnh (P6.3)** · Tiếp theo: **Phase 7 — Quality**
+> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 7 — Quality: code xong, chờ anh test thiết bị thật (P7.5)** · Tiếp theo: **Phase 8 — Launch**
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -11,8 +11,9 @@
 | 3 Home | ✅ Đã deploy và duyệt |
 | 4 Projects System | ✅ Đã duyệt |
 | 5 Content | ✅ Đã duyệt |
-| 6 Media | 🟡 Code xong + kiểm tra local; chờ duyệt (P6.3) |
-| 7–8 | ⏳ |
+| 6 Media | ✅ Đã duyệt |
+| 7 Quality | 🟡 Code xong + test xanh; chờ anh test thiết bị thật (P7.5) |
+| 8 Launch | ⏳ |
 
 ## 2. Lịch sử
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
@@ -84,6 +85,16 @@
   - `resume.pdf` thay bằng bản mới (chỉ thêm dòng link Portfolio).
   - Kiểm tra: `pnpm check` 0/0/0; build 10 trang; guard pass; 65 URL ảnh / link ảnh trả 200; mọi `<img>` có alt; không tràn ngang ở 360 / 768 / 1440 (Home, `/personal-projects/`, case study).
 
+- **Phase 7 (2026-10-23):**
+  - SEO: `src/components/seo/Seo.astro` + `src/lib/seo.ts`; OG/Twitter card cho mọi trang; JSON-LD Person + WebSite (Home), CreativeWork (5 trang dự án); 404 không canonical, không JSON-LD; ảnh OG 1200×630 (21 KB) tạo một lần bằng sharp theo token màu dark.
+  - Test: Playwright 1.64 + `@axe-core/playwright` 4.14 (devDeps, D41). `scripts/serve-dist.mjs` phục vụ `dist/` như GitHub Pages (base `/portfolio/`, 404.html, status 404) — không đụng `pnpm preview` đang chạy. Scripts: `pnpm test:e2e`, `pnpm test` (build + e2e).
+  - Kết quả: 71 passed / 5 skipped (test chỉ dành cho desktop hoặc mobile) trên desktop + Pixel 7; axe 0 vi phạm ở 9 trang × 2 theme.
+  - Sửa a11y: link logo header dùng chữ hiển thị làm tên ("LKD Le Khanh Dat — home"), bỏ `aria-label` lệch (WCAG 2.5.3).
+  - Hiệu năng: bỏ reveal ở Hero (chữ trên màn hình đầu hiện ngay), `fetchpriority="high"` cho ảnh showcase đầu trang, nhúng CSS vào HTML (`inlineStylesheets: 'always'`, CSS ~7 KB gzip) → hết request chặn render.
+  - Lighthouse mobile (`pnpm dlx lighthouse@12`, không cài vào project): Perf 98–100 · A11y 100 · Best practices 100 · CLS 0 · LCP 1,65–1,95s ở trang chữ, 2,1–2,3s ở 2 trang mở đầu bằng ảnh dashboard. SEO 63–66 chỉ do `noindex`.
+  - CI (`ci.yml`): chạy khi push `dev` và PR; thêm cài Chromium + `pnpm test:e2e`, upload `test-results/` khi lỗi (`upload-artifact@v7`).
+  - Xoá file thừa: `tests/e2e/.gitkeep`, kết quả Lighthouse/test tạm.
+
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
 |---|---|---|
@@ -127,6 +138,10 @@
 | D38 | Ảnh cho component React tạo sẵn bằng `getImage()` ở trang `.astro` rồi truyền props (`ResponsiveImage`) — `<Image>` là component Astro, không render trong React | ✅ Phase 5 |
 | D39 | Résumé: nút chính mở PDF ở tab mới (xem được, trình duyệt có sẵn nút tải); Contact có thêm "Download PDF" (`download="Le-Khanh-Dat-Resume.pdf"`) | ✅ Phase 5 |
 | D40 | Gallery không dùng lightbox: ảnh link tới bản gốc (tab mới) — giữ site 0 React runtime, bàn phím và screen reader dùng được sẵn | ✅ Phase 6 |
+| D41 | Thêm devDeps `@playwright/test` + `@axe-core/playwright` (P7.2–P7.3, đã có trong PLAN). Lighthouse chạy qua `pnpm dlx`, không thêm dependency | ✅ Phase 7 |
+| D42 | Nhúng CSS vào HTML (`build.inlineStylesheets: 'always'`) — stylesheet ~7 KB gzip; bỏ một request chặn render, giảm FCP/LCP | ✅ Phase 7 |
+| D43 | CI chạy cả khi push `dev` (không chỉ PR) — anh push `dev` theo từng Phase và chỉ merge `main` ở cuối (D34) | ✅ Phase 7 |
+| D44 | Hero không dùng reveal-on-scroll — nội dung màn hình đầu phải hiện ngay (LCP); reveal giữ cho các section bên dưới | ✅ Phase 7 |
 
 ## 4. Open Questions
 | # | Câu hỏi | Mặc định nếu không trả lời |
@@ -148,9 +163,9 @@
 - Nút Résumé (header, Hero, Contact) tự hiện khi `profile.resumePath` được đặt (cần U.M6).
 
 ## 6. Next Steps
-1. 👤 Duyệt ảnh trên local (P6.3): Home (băng Travel), `/portfolio/personal-projects/`, case study (header + gallery).
-2. 👤 Chạy kiểm tra local → commit + push `dev`.
-3. 🤖 Phase 7 — Quality: SEO/OG/JSON-LD, Playwright, axe, Lighthouse.
+1. 👤 Chạy kiểm tra local (lệnh bên dưới, thêm `pnpm test`) → commit + push `dev`; CI sẽ chạy cả e2e.
+2. 👤 P7.5: test trên điện thoại và máy tính thật (cả 2 theme, menu, gallery, résumé).
+3. 🤖 Phase 8 — Launch: bỏ `noindex`, `SHOW_DRAFTS = false`, kiểm tra cuối; anh merge `main`, Search Console, cập nhật LinkedIn/GitHub.
 
 ### Kiểm tra local trước khi push
 ```bash
@@ -158,6 +173,7 @@ pnpm install          # lần đầu hoặc khi lockfile đổi
 pnpm check            # astro check + eslint + prettier
 pnpm check:confidential
 pnpm build
+pnpm test:e2e         # Playwright + axe (lần đầu: pnpm exec playwright install chromium)
 pnpm preview          # mở http://localhost:4321/portfolio/
 ```
 

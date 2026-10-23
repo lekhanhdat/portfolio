@@ -350,7 +350,7 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 ├─ PLAN.md · TASKLIST.md · PROGRESS.md · CLAUDE.md          ✅ commit (public-safe, chỉ dùng mã C1–C4)
 ├─ input/ · PROJECT_CONTENT.md · private/                   🔒 gitignored
 ├─ public/  resume.pdf · favicon.svg · og/ · fonts/
-├─ scripts/check-confidential.mjs · .githooks/pre-commit · private/confidential-terms.txt (🔒)
+├─ scripts/check-confidential.mjs · scripts/serve-dist.mjs · .githooks/pre-commit · private/confidential-terms.txt (🔒)
 ├─ src/
 │  ├─ pages/
 │  │  ├─ index.astro
@@ -374,7 +374,7 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 │  ├─ content.config.ts
 │  ├─ data/           profile.ts · experience.ts · skills.ts · education.ts · navigation.ts
 │  ├─ assets/images/  personal/da-nang-smart-tourism/… · profile/…
-│  ├─ lib/            cn.ts · with-base.ts · projects.ts (đọc collection) · seo.ts
+│  ├─ lib/            cn.ts · with-base.ts · projects.ts (đọc collection) · image.ts · seo.ts
 │  ├─ scripts/        theme.ts · header.ts · mobile-nav.ts · reveal.ts · active-section.ts · copy-email.ts
 │  └─ styles/         global.css
 ├─ tests/e2e/

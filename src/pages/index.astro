@@ -5,6 +5,7 @@ import { profile } from '@/data/profile';
 import { getCompanyProjects, getPersonalProjects } from '@/lib/projects';
 import { resolveShowcase, toResponsiveImage } from '@/lib/image';
 import portraitImage from '@/assets/images/profile/portrait.jpg';
+import { personJsonLd, websiteJsonLd } from '@/lib/seo';
 
 const companyProjects = await getCompanyProjects();
 const [personalProject] = await getPersonalProjects();
@@ -16,6 +17,8 @@ const showcase = await resolveShowcase(personalProject);
 <BaseLayout
   title={`${profile.name} — ${profile.title}`}
   description={`${profile.name} is a ${profile.title} in ${profile.location} building data-heavy web applications with React and TypeScript.`}
+  type="profile"
+  jsonLd={[personJsonLd(), websiteJsonLd()]}
 >
   <HomePage
     companyProjects={companyProjects}

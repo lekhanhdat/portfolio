@@ -18,6 +18,7 @@ interface ProjectShowcaseProps {
  */
 export function ProjectShowcase({ images, eager = false, className }: ProjectShowcaseProps) {
   const loading = eager ? 'eager' : 'lazy';
+  const fetchPriority = eager ? 'high' : 'auto';
 
   return (
     <div className={cn('relative pb-10 lg:pb-12', className)}>
@@ -31,6 +32,7 @@ export function ProjectShowcase({ images, eager = false, className }: ProjectSho
             height={images.dashboard.image.height}
             alt={images.dashboard.alt}
             loading={loading}
+            fetchPriority={fetchPriority}
             decoding="async"
             className="block h-auto w-full"
           />

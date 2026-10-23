@@ -7,6 +7,8 @@ import { BriefFooter } from '@/components/projects/BriefFooter';
 import type { PagerLink } from '@/components/projects/PrevNextNav';
 import type { CompanyProject } from '@/lib/projects';
 import { profile } from '@/data/profile';
+import { projectJsonLd } from '@/lib/seo';
+import { companyProjectPath } from '@/lib/projects';
 
 interface Props {
   project: CompanyProject;
@@ -17,7 +19,19 @@ interface Props {
 const { project, prev, next } = Astro.props;
 ---
 
-<BaseLayout title={`${project.data.title} — ${profile.name}`} description={project.data.summary}>
+<BaseLayout
+  title={`${project.data.title} — ${profile.name}`}
+  description={project.data.summary}
+  type="article"
+  jsonLd={[
+    projectJsonLd({
+      title: project.data.title,
+      summary: project.data.summary,
+      path: companyProjectPath(project.id),
+      keywords: project.data.stack,
+    }),
+  ]}
+>
   <!-- Same classes as <Container>: the slot holds Astro markup, which must not go into React. -->
   <article class="mx-auto w-full max-w-page px-5 py-10 sm:px-8 lg:px-12 lg:py-16">
     <BriefHeader project={project} />
