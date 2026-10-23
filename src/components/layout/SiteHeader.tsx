@@ -45,7 +45,8 @@ export function SiteHeader({ showNav = true }: SiteHeaderProps) {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="rounded-md px-3 py-2 text-sm text-text-muted transition-colors hover:text-text"
+                    data-nav-link
+                    className="rounded-md px-3 py-2 text-sm text-text-muted transition-colors hover:text-text aria-[current=true]:text-text aria-[current=true]:underline aria-[current=true]:decoration-accent aria-[current=true]:underline-offset-8"
                   >
                     {item.label}
                   </a>

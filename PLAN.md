@@ -1,6 +1,6 @@
 # PLAN — Personal Portfolio của Le Khanh Dat (v3)
 
-> Trạng thái: **Phase 0 — Research & Planning (rev. 3, chờ duyệt lần cuối)** · Cập nhật: 2026-10-22
+> Trạng thái: **v3 đã duyệt** — đang triển khai theo Phase (xem PROGRESS.md) · Cập nhật: 2026-10-23
 > Liên quan: [TASKLIST.md](TASKLIST.md) · [PROGRESS.md](PROGRESS.md) · [CLAUDE.md](CLAUDE.md) · [PROJECT_CONTENT.md](PROJECT_CONTENT.md) (🔒 private)
 > v3 áp dụng 16 xác nhận của người dùng (PROGRESS §3), gồm:
 > - URL `lekhanhdat.github.io/portfolio`;
@@ -307,7 +307,7 @@ Capture / pick ─▶ Preview ─▶ Upload (/detect, timeout) ─▶ Visual sea
               ─▶ match curated objects ─▶ description: database ▸ local ▸ LLM fallback ─▶ result modal
 ```
 - Wording: dùng "grounds answers in curated local data to reduce hallucinations"; không dùng "eliminates".
-- Ở Phase 5, đối chiếu lại source mới nhất để mô tả chính xác điểm nối giữa chat UI và RAG (PROJECT_CONTENT §1.6b).
+- RAG đã hoàn thành trong app (xác nhận 2026-10-23). Khi viết phần này, nhắc người dùng cung cấp ảnh minh hoạ.
 
 ### 5.4 Company projects — bảo mật
 - Chỉ dùng nội dung ✅/👤.
@@ -356,22 +356,24 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 │  │  ├─ index.astro
 │  │  ├─ company-projects/index.astro · [slug].astro
 │  │  ├─ personal-projects/index.astro · [slug].astro
+│  │  ├─ styleguide.astro  (noindex, ngoài sitemap)
 │  │  └─ 404.astro
 │  ├─ layouts/        BaseLayout.astro · ProjectLayout.astro · CaseStudyLayout.astro
 │  ├─ components/
-│  │  ├─ ui/          Button, Tag, Badge, SpecList, Callout, Container, Section, SectionHeader, MediaPlaceholder
+│  │  ├─ ui/          Button, Tag, Badge, SpecList, Callout, Container, Section, SectionHeader, MediaPlaceholder, BrandIcon
 │  │  ├─ layout/      SiteHeader, MobileNav, ThemeToggle, SkipLink, SiteFooter  (hành vi: src/scripts/*.ts)
-│  │  ├─ sections/    Hero, Summary, Experience, CompanyProjects, PersonalProject, Skills, Education, Contact
+│  │  ├─ sections/    HomePage, Hero, Summary, Experience, CompanyProjects, PersonalProject, Skills, Education, Contact, NotFound
 │  │  ├─ projects/    ProjectCard, ProjectIndexTable, SchematicFigure, DeviceFrame, FlowSteps, ScreenshotGallery*, CaseStudyToc*
+│  │  ├─ styleguide/  StyleguideContent
 │  │  └─ seo/         Seo.astro, JsonLd.astro
 │  ├─ content/
 │  │  ├─ company-projects/*.mdx
 │  │  └─ personal-projects/*.mdx
 │  ├─ content.config.ts
-│  ├─ data/           profile.ts · experience.ts · skills.ts · education.ts · navigation.ts
+│  ├─ data/           profile.ts · experience.ts · projects.ts · skills.ts · education.ts · navigation.ts
 │  ├─ assets/images/  personal/da-nang-smart-tourism/… · profile/…
 │  ├─ lib/            cn.ts · with-base.ts · seo.ts
-│  ├─ scripts/        reveal.ts
+│  ├─ scripts/        theme.ts · header.ts · mobile-nav.ts · reveal.ts · active-section.ts · copy-email.ts
 │  └─ styles/         global.css
 ├─ tests/e2e/
 ├─ .github/workflows/ ci.yml · deploy.yml
@@ -457,7 +459,6 @@ D:\Project\Portfolio  (repo lekhanhdat/portfolio)
 | Lỗi link do thiếu `base` | Helper `withBase()`; test link trong Playwright |
 | Trang 404 mất CSS/ảnh khi mở từ URL lồng sâu | Dùng đường dẫn tuyệt đối có base; test ở Phase 7 |
 | Lộ tên khách hàng | Tên mô tả; checklist trước khi publish; grep tên khách hàng trong `src/` ở CI |
-| Mô tả RAG và chat UI lệch với source | Đối chiếu lại source ở Phase 5 |
 | Mobile lấn át định vị Web | Thứ tự section, dashboard trước, wording thống nhất |
 | Astro 7 cần Node 22 | 👤 cài Node 22 LTS |
 
