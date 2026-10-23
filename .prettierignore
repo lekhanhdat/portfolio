@@ -6,3 +6,6 @@ input/
 private/
 # Planning docs are hand-written Vietnamese notes; keep their formatting as authored.
 *.md
+
+# Google Search Console verification: must stay byte-for-byte as issued.
+public/google*.html

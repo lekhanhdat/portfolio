@@ -95,12 +95,12 @@
 - [x] P7.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 8 — Launch
-**Trạng thái: code sẵn sàng launch; chờ anh merge `main` (P8.0) rồi làm P8.2–P8.3**
+**Trạng thái: 🚀 LIVE từ 2026-10-23 (PR #4); còn P8.2 Search Console, P8.3 LinkedIn**
 - [x] P8.1 🤖 Bỏ `noindex` ở mọi trang thật (404 + styleguide vẫn `noindex`); `SHOW_DRAFTS = false`; bỏ badge Draft; workflow deploy chạy thêm e2e + axe trước khi deploy; kiểm tra cuối: check 0/0/0, build 10 trang, 73 test pass, guard pass, sitemap 8 URL
-- [ ] P8.0 👤 Push `dev` → PR `dev` → `main` → merge (deploy tự chạy) → mở site live kiểm tra nhanh
+- [x] P8.0 👤 Push `dev` → PR `dev` → `main` → merge (deploy tự chạy) → mở site live kiểm tra nhanh
 - [ ] P8.2 👤 Google Search Console: thêm property dạng **URL prefix** `https://lekhanhdat.github.io/portfolio/`, xác minh (meta tag — gửi tôi chuỗi `content` để thêm vào `<head>`; hoặc file HTML → bỏ vào `public/`), rồi submit sitemap `https://lekhanhdat.github.io/portfolio/sitemap-index.xml`
-- [ ] P8.3 👤 Cập nhật link trên LinkedIn, GitHub profile, CV; bật Open to Work trên LinkedIn
-- [ ] P8.4 🤖 Ghi ngày launch (= ngày anh merge `main`) vào PROGRESS
+- [~] P8.3 👤 GitHub profile ✅ (website), CV ✅, LinkedIn Open to Work ✅; còn: thêm link portfolio trên LinkedIn (Contact info + Featured)
+- [x] P8.4 🤖 Ghi ngày launch: **2026-10-23** (merge PR #4 vào `main`; site live đã kiểm tra)
 
 ---
 
