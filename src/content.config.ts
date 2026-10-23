@@ -43,7 +43,7 @@ const personalProjects = defineCollection({
         repos: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
         demo: z.object({ label: z.string(), url: z.url(), note: z.string().optional() }).optional(),
       }),
-      /** Screens shown as placeholders until the real captures arrive (Phase 6). */
+      /** Screens in the case study gallery; an item without an image shows a placeholder. */
       gallery: z
         .array(
           z.object({
@@ -54,6 +54,13 @@ const personalProjects = defineCollection({
           }),
         )
         .default([]),
+      /** Browser + phone pair on Home, the index and the case study header. */
+      showcase: z
+        .object({
+          dashboard: z.object({ image: image(), alt: z.string() }),
+          mobile: z.object({ image: image(), alt: z.string() }),
+        })
+        .optional(),
     }),
 });
 

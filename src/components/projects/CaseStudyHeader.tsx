@@ -4,9 +4,15 @@ import { Badge } from '@/components/ui/Badge';
 import { SpecList } from '@/components/ui/SpecList';
 import type { PersonalProject } from '@/lib/projects';
 import { withBase } from '@/lib/with-base';
+import type { ShowcaseImages } from '@/lib/image';
+
+interface CaseStudyHeaderProps {
+  project: PersonalProject;
+  showcase?: ShowcaseImages;
+}
 
 /** Top of the personal project case study (PLAN §5.3, row 1). No period field by design. */
-export function CaseStudyHeader({ project }: { project: PersonalProject }) {
+export function CaseStudyHeader({ project, showcase }: CaseStudyHeaderProps) {
   const { data } = project;
 
   return (
@@ -23,7 +29,7 @@ export function CaseStudyHeader({ project }: { project: PersonalProject }) {
         <h1 className="mt-5 text-display font-semibold">{data.title}</h1>
         <p className="mt-5 max-w-prose text-text-muted">{data.tagline}</p>
       </div>
-      <ProjectShowcase className="lg:col-span-6" />
+      <ProjectShowcase images={showcase} eager className="lg:col-span-6" />
       <SpecList
         className="lg:col-span-12"
         columns={3}

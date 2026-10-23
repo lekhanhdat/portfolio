@@ -78,11 +78,12 @@
 - [x] P5.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 6 — Media
-- [x] P6.0 🤖 Sơ đồ 3 luồng AI từ slide (IMG-F1 semantic search, IMG-F2 RAG bản tiếng Anh, IMG-F3 AI camera giữ nguyên slide) → `src/assets/images/personal/da-nang-smart-tourism/`, đã gắn vào case study (làm sớm, 2026-10-23)
-- [ ] P6.1 🤖 Thay placeholder bằng ảnh thật (U.M*) qua `astro:assets` (trường `gallery[].image` đã có trong schema; render ảnh ở layout `.astro`); sơ đồ từ slide (IMG-F*, IMG-A1)
-- [ ] P6.2 🤖 Alt text chính thức; poster và captions cho video
-- [ ] P6.3 👤 Duyệt ảnh (không lộ dữ liệu thật hay tên khách hàng)
-- [ ] P6.4 🤖 Cập nhật PROGRESS / TASKLIST
+**Trạng thái: code xong, đã kiểm tra local; chờ anh duyệt ảnh (P6.3)**
+- [x] P6.0 🤖 Sơ đồ 3 luồng AI từ slide (IMG-F1…F3)
+- [x] P6.1 🤖 11 ảnh Travel (5 dashboard + 6 mobile) → `src/assets/images/personal/da-nang-smart-tourism/`; showcase (browser + phone) ở Home, `/personal-projects/`, header case study; gallery case study (bấm mở bản đầy đủ, không dùng lightbox JS)
+- [x] P6.2 🤖 Alt text tiếng Anh cho mọi ảnh; nhãn gallery cập nhật theo ảnh thật (Map + Route thay cho Donation QR). Không có video (U.M5 tuỳ chọn)
+- [ ] P6.3 👤 Duyệt ảnh (không lộ dữ liệu nhạy cảm)
+- [x] P6.4 🤖 Cập nhật PROGRESS / TASKLIST; `resume.pdf` thay bằng bản mới (thêm link Portfolio)
 
 ## Phase 7 — Quality
 - [ ] P7.1 🤖 `<Seo>`, JSON-LD, sitemap, OG (meta robots; không có robots.txt cho project site)
@@ -114,8 +115,8 @@
 
 **Media (trước Phase 6)**
 - [x] U.M1 Portrait 4:5 (≥ 1200×1500)
-- [ ] U.M2 Dashboard Travel: 5–6 ảnh chụp 1440×900 @2x
-- [ ] U.M3 Mobile Travel: 8–10 ảnh 1080×2340
+- [x] U.M2 Dashboard Travel: 5 ảnh (1920×~925)
+- [x] U.M3 Mobile Travel: 6 ảnh
 - [x] U.M4 Sơ đồ từ slide: semantic search, RAG, camera (kiến trúc: chỉ mô tả bằng chữ, D37)
 - [ ] U.M5 Video demo 60–90 giây (tuỳ chọn)
 - [x] U.M6 `resume.pdf` (bản CV Sep 2026, giữ nguyên — anh đồng ý public SĐT)

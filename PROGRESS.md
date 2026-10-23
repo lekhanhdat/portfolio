@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 5 — Content: ✅ đã duyệt** · Tiếp theo: **Phase 6 — Media** (chờ anh cung cấp ảnh Travel)
+> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 6 — Media: code xong, chờ anh duyệt ảnh (P6.3)** · Tiếp theo: **Phase 7 — Quality**
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -10,8 +10,9 @@
 | 2 Design System | ✅ PR #2 · đã deploy và duyệt |
 | 3 Home | ✅ Đã deploy và duyệt |
 | 4 Projects System | ✅ Đã duyệt |
-| 5 Content | ✅ Đã duyệt (chờ anh push `dev`) |
-| 6–8 | ⏳ |
+| 5 Content | ✅ Đã duyệt |
+| 6 Media | 🟡 Code xong + kiểm tra local; chờ duyệt (P6.3) |
+| 7–8 | ⏳ |
 
 ## 2. Lịch sử
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
@@ -76,6 +77,13 @@
   - Kiểm tra: `pnpm check` 0/0/0; build 10 trang; guard pass; portrait tải WebP 320px; `resume.pdf` 200 `application/pdf`; không tràn ngang ở 360 / 768 (Home, case study, brief).
   - Sau duyệt (2026-10-23): đổi chức danh toàn project → "Frontend Software Engineer" (code, MDX, docs, `package.json`; vai trò: Frontend engineer / Mobile engineer / Lead engineer); Résumé: header + Hero "View résumé" mở PDF ở tab mới, Contact thêm "Download PDF"; bỏ `draft` ở 5 MDX. Build không còn chữ "developer" và badge Draft.
 
+- **Phase 6 (2026-10-23):**
+  - 11 ảnh Travel anh cung cấp: 5 dashboard (overview, locations, form modal, reviews, transactions) + 6 mobile (home, AI search, map, route, AI camera, chat assistant).
+  - Schema: thêm `showcase` (ảnh browser + phone); `gallery[].image` có ảnh thật. `src/lib/image.ts`: `resolveShowcase()`, `resolveGallery()` tạo WebP nhiều kích thước ở trang `.astro`, truyền props xuống React (D38). Placeholder vẫn tự hiện nếu entry chưa có ảnh.
+  - Gallery: mỗi ảnh là link mở bản gốc ở tab mới — thay cho lightbox, không cần React island (D40).
+  - `resume.pdf` thay bằng bản mới (chỉ thêm dòng link Portfolio).
+  - Kiểm tra: `pnpm check` 0/0/0; build 10 trang; guard pass; 65 URL ảnh / link ảnh trả 200; mọi `<img>` có alt; không tràn ngang ở 360 / 768 / 1440 (Home, `/personal-projects/`, case study).
+
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
 |---|---|---|
@@ -118,6 +126,7 @@
 | D37 | Không dùng sơ đồ kiến trúc slide 8; mục Architecture chỉ mô tả bằng chữ | ✅ Chốt (2026-10-23) |
 | D38 | Ảnh cho component React tạo sẵn bằng `getImage()` ở trang `.astro` rồi truyền props (`ResponsiveImage`) — `<Image>` là component Astro, không render trong React | ✅ Phase 5 |
 | D39 | Résumé: nút chính mở PDF ở tab mới (xem được, trình duyệt có sẵn nút tải); Contact có thêm "Download PDF" (`download="Le-Khanh-Dat-Resume.pdf"`) | ✅ Phase 5 |
+| D40 | Gallery không dùng lightbox: ảnh link tới bản gốc (tab mới) — giữ site 0 React runtime, bàn phím và screen reader dùng được sẵn | ✅ Phase 6 |
 
 ## 4. Open Questions
 | # | Câu hỏi | Mặc định nếu không trả lời |
@@ -139,9 +148,9 @@
 - Nút Résumé (header, Hero, Contact) tự hiện khi `profile.resumePath` được đặt (cần U.M6).
 
 ## 6. Next Steps
-1. 👤 Chạy kiểm tra local → commit + push `dev`.
-2. 👤 Gửi ảnh Travel cho Phase 6: 5 ảnh dashboard (1440×900 @2x: overview, bảng locations đang lọc, form modal, reviews, transactions) + 6 ảnh mobile (1080×2340: home, kết quả search, map route, kết quả AI camera, chatbot, donation QR); video demo tuỳ chọn. Dữ liệu demo, không lộ email/giao dịch thật.
-3. 🤖 Phase 6 — Media khi có ảnh.
+1. 👤 Duyệt ảnh trên local (P6.3): Home (băng Travel), `/portfolio/personal-projects/`, case study (header + gallery).
+2. 👤 Chạy kiểm tra local → commit + push `dev`.
+3. 🤖 Phase 7 — Quality: SEO/OG/JSON-LD, Playwright, axe, Lighthouse.
 
 ### Kiểm tra local trước khi push
 ```bash

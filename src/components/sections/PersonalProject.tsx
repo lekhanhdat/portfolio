@@ -8,9 +8,15 @@ import { ProjectShowcase } from '@/components/projects/ProjectShowcase';
 import { personalProjectPath, type PersonalProject as Project } from '@/lib/projects';
 import { sectionIds } from '@/data/navigation';
 import { withBase } from '@/lib/with-base';
+import type { ShowcaseImages } from '@/lib/image';
+
+interface PersonalProjectProps {
+  project: Project;
+  showcase?: ShowcaseImages;
+}
 
 /** Full-width band on the surface tone so the end-to-end project stands apart. */
-export function PersonalProject({ project }: { project: Project }) {
+export function PersonalProject({ project, showcase }: PersonalProjectProps) {
   const id = sectionIds.personalProject;
   const { data } = project;
   const [mainRepo] = data.links.repos;
@@ -66,7 +72,7 @@ export function PersonalProject({ project }: { project: Project }) {
           )}
         </div>
 
-        <ProjectShowcase className="lg:col-span-7" />
+        <ProjectShowcase images={showcase} className="lg:col-span-7" />
       </Container>
     </section>
   );

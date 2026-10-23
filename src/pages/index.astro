@@ -3,13 +3,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { HomePage } from '@/components/sections/HomePage';
 import { profile } from '@/data/profile';
 import { getCompanyProjects, getPersonalProjects } from '@/lib/projects';
-import { toResponsiveImage } from '@/lib/image';
+import { resolveShowcase, toResponsiveImage } from '@/lib/image';
 import portraitImage from '@/assets/images/profile/portrait.jpg';
 
 const companyProjects = await getCompanyProjects();
 const [personalProject] = await getPersonalProjects();
 if (!personalProject) throw new Error('Home needs at least one personal project entry.');
 const portrait = await toResponsiveImage(portraitImage, [320, 480, 640]);
+const showcase = await resolveShowcase(personalProject);
 ---
 
 <BaseLayout
@@ -20,5 +21,6 @@ const portrait = await toResponsiveImage(portraitImage, [320, 480, 640]);
     companyProjects={companyProjects}
     personalProject={personalProject}
     portrait={portrait}
+    showcase={showcase}
   />
 </BaseLayout>

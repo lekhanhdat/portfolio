@@ -11,6 +11,7 @@ import { ScreenshotGallery } from '@/components/projects/ScreenshotGallery';
 import { CaseStudyFooter } from '@/components/projects/CaseStudyFooter';
 import type { PersonalProject } from '@/lib/projects';
 import { profile } from '@/data/profile';
+import { resolveGallery, resolveShowcase } from '@/lib/image';
 
 interface Props {
   project: PersonalProject;
@@ -21,6 +22,8 @@ const { project, headings } = Astro.props;
 const { data } = project;
 const ids = { glance: 'at-a-glance', gallery: 'gallery', links: 'links' };
 const hasGallery = data.gallery.length > 0;
+const showcase = await resolveShowcase(project);
+const gallery = await resolveGallery(project);
 
 const toc = [
   { id: ids.glance, text: 'At a glance' },
@@ -34,7 +37,7 @@ const toc = [
 
 <BaseLayout title={`${data.title} — Case study — ${profile.name}`} description={data.summary}>
   <article class="mx-auto w-full max-w-page px-5 py-10 sm:px-8 lg:px-12 lg:py-16">
-    <CaseStudyHeader project={project} />
+    <CaseStudyHeader project={project} showcase={showcase} />
 
     <div class="mt-16 grid gap-12 lg:mt-20 lg:grid-cols-12">
       <div class="min-w-0 lg:col-span-8">
@@ -52,7 +55,7 @@ const toc = [
 
     {hasGallery && (
       <div class="mt-16 border-t border-border pt-6 scroll-mt-20">
-        <ScreenshotGallery id={ids.gallery} items={data.gallery} />
+        <ScreenshotGallery id={ids.gallery} items={gallery} />
       </div>
     )}
 
