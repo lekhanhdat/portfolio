@@ -7,7 +7,7 @@ import { cn } from '@/lib/cn';
 
 /** Cards show the core of the stack; the full list lives on the brief. */
 const CARD_STACK_SIZE = 5;
-const COMPACT_STACK_SIZE = 3;
+const COMPACT_STACK_SIZE = 2;
 
 interface ProjectCardProps {
   project: CompanyProject;
@@ -69,18 +69,27 @@ export function ProjectCard({
       </Heading>
       <p className="label-mono mt-1 text-text-muted">Role · {data.myRole}</p>
       <p className="mt-3 text-sm text-text-muted">{data.summary}</p>
-      <div className="mt-auto flex flex-wrap items-end justify-between gap-x-4 gap-y-3 pt-5">
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 pt-5">
         <TagList items={data.stack.slice(0, compact ? COMPACT_STACK_SIZE : CARD_STACK_SIZE)} />
-        {/* Compact cards say it once in the section intro instead. */}
-        {!compact && <Badge variant="confidential">Confidential</Badge>}
+        {/* Compact cards state confidentiality once in the section intro and keep one footer row. */}
+        {compact ? (
+          <ArrowRight
+            aria-hidden="true"
+            className="size-4 text-accent transition-transform duration-200 group-hover:translate-x-0.5"
+          />
+        ) : (
+          <Badge variant="confidential">Confidential</Badge>
+        )}
       </div>
-      <p
-        aria-hidden="true"
-        className="mt-4 flex items-center gap-1.5 text-sm font-medium text-accent"
-      >
-        Read brief
-        <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-      </p>
+      {!compact && (
+        <p
+          aria-hidden="true"
+          className="mt-4 flex items-center gap-1.5 text-sm font-medium text-accent"
+        >
+          Read brief
+          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+        </p>
+      )}
     </article>
   );
 }

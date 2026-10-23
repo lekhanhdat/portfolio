@@ -32,10 +32,7 @@ export function Hero({ caseStudyHref, portrait }: HeroProps) {
       <Container className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-8">
           <p className="label-mono text-text-muted">{profile.title} · React · TypeScript</p>
-          <h1
-            id="hero-heading"
-            className="mt-4 max-w-[22ch] text-[clamp(2.5rem,1.75rem+2.6vw,3.75rem)] leading-[1.05] font-semibold tracking-[-0.03em] text-text"
-          >
+          <h1 id="hero-heading" className="mt-4 max-w-[22ch] text-display font-semibold text-text">
             I build clear, reliable interfaces for data-heavy web applications.
           </h1>
           <p className="mt-6 max-w-[62ch] text-text-muted">

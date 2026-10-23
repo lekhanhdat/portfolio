@@ -8,7 +8,7 @@ import { SectionHeader } from './SectionHeader';
  * snapping to its top (snap behavior: global.css, html[data-snap]).
  */
 export const fullPageSectionClasses =
-  'flex min-h-[calc(100svh-4rem)] snap-start flex-col justify-center py-10 lg:py-12';
+  'flex min-h-[calc(100svh-4rem)] snap-start flex-col justify-center py-10 lg:py-8';
 
 interface SectionProps {
   id: string;
@@ -63,7 +63,7 @@ export function Section({
           />
           {action}
         </div>
-        {children && <div className={fullPage ? 'mt-8' : 'mt-10 lg:mt-14'}>{children}</div>}
+        {children && <div className={fullPage ? 'mt-6 lg:mt-7' : 'mt-10 lg:mt-14'}>{children}</div>}
       </Container>
     </section>
   );

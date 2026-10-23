@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { TagList } from '@/components/ui/Tag';
 import { experience, totalExperience } from '@/data/experience';
@@ -26,7 +27,7 @@ export function Experience({ projects }: { projects: readonly CompanyProject[] }
       }
     >
       {/* Cells over a border-colored background, same panel language as SpecList. */}
-      <ol className="grid gap-px overflow-hidden rounded-lg border border-border bg-border lg:grid-cols-2">
+      <ol className="grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-2">
         {experience.map((job) => (
           <li key={job.company} className="flex flex-col bg-surface p-5 sm:p-6" data-reveal>
             <p className="label-mono text-text-muted">
@@ -39,24 +40,28 @@ export function Experience({ projects }: { projects: readonly CompanyProject[] }
                 <span className="font-medium text-text">{job.role}</span> · {job.description}
               </p>
 
-              <ul className="mt-4 list-disc space-y-1.5 pl-5 text-[0.9375rem] marker:text-border-strong">
+              <ul className="mt-3.5 list-disc space-y-1 pl-5 text-sm leading-relaxed marker:text-border-strong">
                 {job.highlights.map((highlight) => (
                   <li key={highlight}>{highlight}</li>
                 ))}
               </ul>
 
-              <TagList items={job.stack} className="mt-4" />
+              <TagList items={job.stack} className="mt-3.5" />
 
-              <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-                <span className="label-mono text-text-muted">Projects</span>
-                <ul className="flex flex-wrap gap-2" aria-label={`${job.company} projects`}>
+              <div className="mt-4 border-t border-border pt-3">
+                <p className="label-mono text-text-muted">Projects</p>
+                <ul className="mt-1.5" aria-label={`${job.company} projects`}>
                   {job.projects.map((slug) => (
                     <li key={slug}>
                       <a
                         href={withBase(companyProjectPath(slug))}
-                        className="inline-flex min-h-9 items-center rounded-md border border-border-control px-3 text-sm transition-colors hover:border-accent hover:text-accent"
+                        className="group inline-flex min-h-7 items-center gap-1.5 text-sm font-medium transition-colors hover:text-accent"
                       >
                         {titleOf(slug)}
+                        <ArrowRight
+                          aria-hidden="true"
+                          className="size-3.5 text-text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent"
+                        />
                       </a>
                     </li>
                   ))}

@@ -68,7 +68,7 @@
 
 @theme {
   /* Fluid type scale: 360px → 1280px viewport */
-  --text-display: clamp(2.75rem, 2.05rem + 3.1vw, 4.5rem);
+  --text-display: clamp(2.5rem, 1.75rem + 2.6vw, 3.75rem);
   --text-display--line-height: 1.05;
   --text-display--letter-spacing: -0.03em;
   --text-h2: clamp(1.875rem, 1.6rem + 1.2vw, 2.5rem);
@@ -104,6 +104,20 @@
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     scroll-padding-top: 5rem; /* sticky header height + breathing room */
+  }
+
+  /*
+   * Desktop density follows the screen height: every size is in rem, so the root size scales
+   * the whole design (type, spacing, header, container) like a browser zoom. Tall screens
+   * (800px and up) get the full 100%; short laptops shrink towards 13px so each Home section
+   * still fits one screen. The bounds are in rem, so the user's own font-size setting keeps
+   * applying, and media queries are unaffected (they use the initial font size).
+   * Mobile and tablet keep 100%.
+   */
+  @media (min-width: 64rem) {
+    html {
+      font-size: clamp(0.8125rem, 2vh, 1rem);
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {

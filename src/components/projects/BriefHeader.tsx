@@ -10,17 +10,26 @@ export function BriefHeader({ project }: { project: CompanyProject }) {
   const { data } = project;
 
   return (
-    <header>
-      <BackLink href={withBase('/company-projects/')} label="Company projects" />
-      <div className="mt-6 flex flex-wrap gap-2">
-        <Badge>{data.company}</Badge>
-        <Badge>{data.platforms.join(' + ')}</Badge>
-        <Badge variant="confidential">Confidential</Badge>
+    // Same arrangement as the case study header: text left, figure right, facts full width.
+    <header className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+      <div className="lg:col-span-6">
+        <BackLink href={withBase('/company-projects/')} label="Company projects" />
+        <div className="mt-6 flex flex-wrap gap-2">
+          <Badge>{data.company}</Badge>
+          <Badge>{data.platforms.join(' + ')}</Badge>
+          <Badge variant="confidential">Confidential</Badge>
+        </div>
+        <h1 className="mt-5 max-w-[20ch] text-display font-semibold">{data.title}</h1>
+        <p className="mt-5 max-w-prose text-text-muted">{data.summary}</p>
       </div>
-      <h1 className="mt-5 max-w-[24ch] text-display font-semibold">{data.title}</h1>
-      <p className="mt-5 max-w-prose text-text-muted">{data.summary}</p>
+      <SchematicFigure
+        variant={data.schematic}
+        title={`Abstract diagram of ${data.title}`}
+        caption="Abstract diagram — not a screenshot of the product"
+        className="lg:col-span-6"
+      />
       <SpecList
-        className="mt-10"
+        className="lg:col-span-12"
         columns={4}
         items={[
           { label: 'Company', value: data.company },
@@ -28,12 +37,6 @@ export function BriefHeader({ project }: { project: CompanyProject }) {
           { label: 'Domain', value: data.domain },
           { label: 'Platform', value: data.platforms.join(' + ') },
         ]}
-      />
-      <SchematicFigure
-        variant={data.schematic}
-        title={`Abstract diagram of ${data.title}`}
-        caption="Abstract diagram — not a screenshot of the product"
-        className="mt-10 max-w-prose"
       />
     </header>
   );
