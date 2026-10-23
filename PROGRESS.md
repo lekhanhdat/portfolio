@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 8 — Launch: code sẵn sàng, chờ anh merge `main`** · Sau đó: Search Console + cập nhật profile
+> Cập nhật: **2026-10-23** · 🚀 **LIVE từ 2026-10-23** tại https://lekhanhdat.github.io/portfolio/ · Còn: Search Console (P8.2), link portfolio trên LinkedIn (P8.3)
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -13,7 +13,7 @@
 | 5 Content | ✅ Đã duyệt |
 | 6 Media | ✅ Đã duyệt |
 | 7 Quality | ✅ Hoàn thành (anh đã test thiết bị thật) |
-| 8 Launch | 🟡 Code sẵn sàng; chờ merge `main` (P8.0), Search Console (P8.2), profile (P8.3) |
+| 8 Launch | 🚀 Live 2026-10-23 (PR #4); còn P8.2, P8.3 (LinkedIn) |
 
 ## 2. Lịch sử
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
@@ -101,6 +101,7 @@
   - `deploy.yml`: chạy thêm Playwright + axe trước khi upload — test đỏ thì không deploy.
   - Kiểm tra cuối: `pnpm check` 0/0/0; build 10 trang; 73 passed / 5 skipped; guard pass; sitemap 8 URL.
   - Chưa đo lại Lighthouse sau khi bỏ `noindex` (lệnh bị chặn trong phiên); trước đó audit SEO duy nhất trượt là `is-crawlable` do `noindex`.
+  - **Launch 2026-10-23:** anh merge PR #4 (`dev` → `main`). Kiểm tra site live: 8 trang + `resume.pdf` + sitemap + ảnh OG trả 200; đường dẫn sai trả 404; trang thật không có meta robots.
 
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
@@ -172,11 +173,9 @@
 - Nút Résumé (header, Hero, Contact) tự hiện khi `profile.resumePath` được đặt (cần U.M6).
 
 ## 6. Next Steps
-1. 👤 Chạy kiểm tra local → commit + push `dev` (CI chạy check + build + e2e).
-2. 👤 P8.0: PR `dev` → `main` → merge. Workflow deploy chạy guard + check + build + e2e rồi mới đăng lên Pages; mở `https://lekhanhdat.github.io/portfolio/` kiểm tra nhanh.
-3. 👤 P8.2: Search Console (URL prefix `https://lekhanhdat.github.io/portfolio/`) → xác minh → submit `sitemap-index.xml`. Nếu chọn xác minh bằng meta tag, gửi tôi chuỗi `content`.
-4. 👤 P8.3: cập nhật LinkedIn / GitHub profile / CV, bật Open to Work.
-5. 🤖 P8.4: ghi ngày launch khi anh báo đã merge.
+1. 👤 P8.2: Google Search Console — property URL prefix `https://lekhanhdat.github.io/portfolio/`, xác minh bằng file HTML (bỏ vào `public/`) hoặc meta tag (gửi Claude chuỗi `content`), rồi submit `sitemap-index.xml`.
+2. 👤 P8.3: LinkedIn — thêm link portfolio vào Contact info (Website · Portfolio) và mục Featured.
+3. Sau launch: sửa nội dung trên `dev` → kiểm tra local → merge `main` khi muốn cập nhật site.
 
 ### Đo Lighthouse (tuỳ chọn)
 ```bash
