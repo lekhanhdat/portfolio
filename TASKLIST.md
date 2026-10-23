@@ -55,7 +55,7 @@
 - [x] P3.10 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 4 — Projects System
-**Trạng thái: code xong, đã kiểm tra local; chờ anh commit + duyệt (P4.9)**
+**Trạng thái: ✅ HOÀN THÀNH (2026-10-23, đã duyệt)**
 - [x] P4.1 🤖 `content.config.ts`: collections `company-projects`, `personal-projects` (loader `glob`, schema Zod 4; id = tên file = slug; `draft` mặc định `true`)
 - [x] P4.2 🤖 `ProjectIndexTable` (bảng từ md, danh sách ở mobile); `ProjectCard` có link "Read brief" (stretched link)
 - [x] P4.3 🤖 `/company-projects/` index + `[slug]`: `BriefHeader` (badges, SpecList, Schematic) + MDX + `BriefFooter` (Tech stack, confidentiality Callout, prev/next C1 → C4)
@@ -64,17 +64,21 @@
 - [x] P4.6 🤖 Anchor Home về kebab-case (`#company-projects`, `#personal-project`, theo yêu cầu 2026-10-23). Link nav: Company/Personal → trang index (ở Home vẫn là anchor), `aria-current="page"`; Hero "See the case study", dòng Thesis, chip Experience → trang chi tiết
 - [x] P4.7 🤖 Kiểm tra từ khoá cấm trên CI: guard đã quét toàn bộ file (gồm `src/`) ở cả `ci.yml` và `deploy.yml` — không cần thêm bước
 - [x] P4.8 🤖 Cập nhật PROGRESS / TASKLIST
-- [ ] P4.9 👤 Duyệt các trang dự án trên site live (bố cục + câu chữ brief/case study)
+- [x] P4.9 👤 Duyệt các trang dự án ở local (bố cục + câu chữ brief/case study)
 
 ## Phase 5 — Content
-- [ ] P5.1 🤖 Nhắc anh cung cấp ảnh minh hoạ RAG (tính năng đã hoàn thành) trước khi viết phần AI workflows
-- [ ] P5.2 🤖 Case study Travel đầy đủ (PLAN §5.3); bỏ `draft` khi anh duyệt. Đã làm sớm ở Phase 4: số liệu 9,3 triệu kèm link Báo Đà Nẵng; mục Challenges & lessons (bản nháp từ lịch sử commit, chờ anh xác nhận)
-- [ ] P5.3 🤖 Briefs: rà lại 4 brief C1–C4 đã có khung; bỏ `draft` khi anh duyệt
-- [ ] P5.4 🤖 Copy EN: Summary, Experience bullets, Contact
-- [ ] P5.5 👤 Duyệt nội dung (bảo mật và tính trung thực)
-- [ ] P5.6 🤖 Cập nhật PROGRESS / TASKLIST
+**Trạng thái: ✅ HOÀN THÀNH (2026-10-23, đã duyệt)**
+- [x] P5.1 🤖 Ảnh minh hoạ RAG: đã có (slide 10, bản tiếng Anh)
+- [x] P5.2 🤖 Case study Travel: số liệu 9,3 triệu + nguồn; 3 sơ đồ AI; Architecture chỉ mô tả bằng chữ (At launch / Now, không dùng ảnh slide 8); Challenges & lessons
+- [x] P5.3 🤖 4 brief C1–C4 rút gọn, tổng quát theo D35 (bỏ chi tiết UI quá cụ thể)
+- [x] P5.4 🤖 Copy EN Summary / Experience / Contact / meta: rà lại theo CV mới (Sep 2026, nội dung trùng bản cũ) — không cần sửa
+- [x] P5.4b 🤖 Ảnh chân dung (IMG-01, crop 4:5, bỏ EXIF) + `public/resume.pdf`; nút Résumé hiện ở header, Hero, Contact (tên file tải về `Le-Khanh-Dat-Resume.pdf`)
+- [x] P5.5 👤 Duyệt nội dung → đã bỏ `draft` ở 5 file MDX
+- [x] P5.7 🤖 Đổi chức danh toàn project sang "Frontend Software Engineer" (không dùng "Developer"); Résumé: xem (tab mới) + tải PDF
+- [x] P5.6 🤖 Cập nhật PROGRESS / TASKLIST
 
 ## Phase 6 — Media
+- [x] P6.0 🤖 Sơ đồ 3 luồng AI từ slide (IMG-F1 semantic search, IMG-F2 RAG bản tiếng Anh, IMG-F3 AI camera giữ nguyên slide) → `src/assets/images/personal/da-nang-smart-tourism/`, đã gắn vào case study (làm sớm, 2026-10-23)
 - [ ] P6.1 🤖 Thay placeholder bằng ảnh thật (U.M*) qua `astro:assets` (trường `gallery[].image` đã có trong schema; render ảnh ở layout `.astro`); sơ đồ từ slide (IMG-F*, IMG-A1)
 - [ ] P6.2 🤖 Alt text chính thức; poster và captions cho video
 - [ ] P6.3 👤 Duyệt ảnh (không lộ dữ liệu thật hay tên khách hàng)
@@ -106,13 +110,13 @@
 
 **Nội dung (trước Phase 5)**
 - [x] U.4 Q-T7: anh giao Claude tự viết từ lịch sử commit (2026-10-23) → đã có bản nháp 4 mục, anh duyệt ở P5.5
-- [ ] U.5 Q-N1…Q-N5 (PROGRESS §4)
+- [ ] U.5 Q-N1…Q-N4 (PROGRESS §4) — đều có mặc định, không chặn
 
 **Media (trước Phase 6)**
-- [ ] U.M1 Portrait 4:5 (≥ 1200×1500)
+- [x] U.M1 Portrait 4:5 (≥ 1200×1500)
 - [ ] U.M2 Dashboard Travel: 5–6 ảnh chụp 1440×900 @2x
 - [ ] U.M3 Mobile Travel: 8–10 ảnh 1080×2340
-- [ ] U.M4 Sơ đồ từ slide: semantic search, RAG, camera, kiến trúc (PNG/SVG ≥ 1920px)
+- [x] U.M4 Sơ đồ từ slide: semantic search, RAG, camera (kiến trúc: chỉ mô tả bằng chữ, D37)
 - [ ] U.M5 Video demo 60–90 giây (tuỳ chọn)
-- [ ] U.M6 `resume.pdf` bản public (khuyến nghị bỏ số điện thoại; title "Frontend Software Developer")
+- [x] U.M6 `resume.pdf` (bản CV Sep 2026, giữ nguyên — anh đồng ý public SĐT)
 - [ ] U.M7 (Tuỳ chọn) ảnh dự án công ty nếu được phép, không có tên hay logo khách hàng

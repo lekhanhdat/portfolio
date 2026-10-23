@@ -18,7 +18,7 @@ export const experience: readonly Experience[] = [
   {
     company: 'AvePoint',
     description: 'AvePoint Vietnam · Data management software for Microsoft 365 and cloud',
-    role: 'Frontend Software Developer',
+    role: 'Frontend Software Engineer',
     location: 'Da Nang',
     period: { start: 'Feb 2026', end: 'Sep 2026' },
     highlights: [
@@ -33,7 +33,7 @@ export const experience: readonly Experience[] = [
   {
     company: 'MIND Technology',
     description: 'Industrial IoT and MES solutions',
-    role: 'Frontend Software Developer',
+    role: 'Frontend Software Engineer',
     location: 'Da Nang',
     period: { start: 'Feb 2025', end: 'Jan 2026' },
     highlights: [

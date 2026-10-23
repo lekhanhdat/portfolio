@@ -1,4 +1,4 @@
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { LinkButton } from '@/components/ui/Button';
 import { SpecList } from '@/components/ui/SpecList';
@@ -32,7 +32,7 @@ export function Hero({ caseStudyHref }: HeroProps) {
             I build clear, reliable interfaces for data-heavy web applications.
           </h1>
           <p className="mt-6 max-w-[60ch] text-text-muted" data-reveal>
-            Frontend developer in {profile.location} with {totalExperience} of experience building
+            Frontend engineer in {profile.location} with {totalExperience} of experience building
             enterprise data platforms, manufacturing monitoring dashboards, and an AI-assisted
             travel product I built end to end with React and TypeScript.
           </p>
@@ -48,9 +48,9 @@ export function Hero({ caseStudyHref }: HeroProps) {
               See the case study
             </LinkButton>
             {profile.resumePath && (
-              <LinkButton href={withBase(profile.resumePath)} variant="ghost" download>
-                <Download aria-hidden="true" className="size-4" />
-                Download résumé
+              <LinkButton href={withBase(profile.resumePath)} variant="ghost" external>
+                <FileText aria-hidden="true" className="size-4" />
+                View résumé
               </LinkButton>
             )}
             <SocialLinks className="sm:ml-2" />

@@ -3,11 +3,11 @@
 Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` → `PROGRESS.md` → mục Phase hiện tại trong `TASKLIST.md` → `PLAN.md` (khi cần chi tiết) → `PROJECT_CONTENT.md` (khi viết nội dung dự án).
 
 ## 1. Project Context
-- Portfolio của **Le Khanh Dat — Frontend Software Developer** (React · TypeScript), Da Nang, Vietnam, **1.5+ years**.
+- Portfolio của **Le Khanh Dat — Frontend Software Engineer** (React · TypeScript), Da Nang, Vietnam, **1.5+ years**.
   - **Open to work:** onsite hoặc remote; Da Nang / Ho Chi Minh City / Ha Noi.
 - Định hướng: **Web Frontend**. Có kinh nghiệm Mobile và Full-stack nhưng không được làm lu mờ định vị này.
 - Dự án — tên hiển thị là tên mô tả, **không nêu tên khách hàng**:
-  - **Personal:** Da Nang Smart Tourism (web admin + mobile + API/AI; Lead developer end to end).
+  - **Personal:** Da Nang Smart Tourism (web admin + mobile + API/AI; Lead engineer end to end).
   - **Company, theo thứ tự:**
     1. Data Lifecycle Management Platform (AvePoint)
     2. Factory Manufacturing Monitoring Platform (MIND Technology)

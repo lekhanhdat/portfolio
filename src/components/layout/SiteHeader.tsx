@@ -1,4 +1,4 @@
-import { Download } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { buttonClasses } from '@/components/ui/Button';
 import { ThemeToggle } from './ThemeToggle';
@@ -85,10 +85,12 @@ export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
                 size: 'sm',
                 className: 'ml-2 hidden sm:inline-flex',
               })}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <Download aria-hidden="true" className="size-4" />
+              <FileText aria-hidden="true" className="size-4" />
               Résumé
+              <span className="sr-only"> (PDF, opens in a new tab)</span>
             </a>
           )}
           {showNav && <MobileNav items={navItems} />}

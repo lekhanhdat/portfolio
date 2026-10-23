@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Personal portfolio of Le Khanh Dat — Frontend Software Developer",
+  "description": "Personal portfolio of Le Khanh Dat — Frontend Software Engineer",
   "packageManager": "pnpm@12.15.0",
   "engines": {
     "node": ">=22.23.4"

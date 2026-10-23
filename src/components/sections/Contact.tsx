@@ -1,4 +1,4 @@
-import { Copy, Download, Mail } from 'lucide-react';
+import { Copy, Download, FileText, Mail } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { LinkButton } from '@/components/ui/Button';
 import { SpecList } from '@/components/ui/SpecList';
@@ -58,10 +58,20 @@ export function Contact() {
               GitHub
             </LinkButton>
             {profile.resumePath && (
-              <LinkButton href={withBase(profile.resumePath)} variant="secondary" download>
-                <Download aria-hidden="true" className="size-4" />
-                Résumé
-              </LinkButton>
+              <>
+                <LinkButton href={withBase(profile.resumePath)} variant="secondary" external>
+                  <FileText aria-hidden="true" className="size-4" />
+                  View résumé
+                </LinkButton>
+                <LinkButton
+                  href={withBase(profile.resumePath)}
+                  variant="secondary"
+                  download={profile.resumeFileName}
+                >
+                  <Download aria-hidden="true" className="size-4" />
+                  Download PDF
+                </LinkButton>
+              </>
             )}
           </div>
         </div>

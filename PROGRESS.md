@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 4 — Projects System: code xong, chờ anh commit + duyệt (P4.9)** · Tiếp theo: **Phase 5 — Content**
+> Cập nhật: **2026-10-23** · Phase hiện tại: **Phase 5 — Content: ✅ đã duyệt** · Tiếp theo: **Phase 6 — Media** (chờ anh cung cấp ảnh Travel)
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -9,8 +9,9 @@
 | 1 Foundation | ✅ PR #1 · live tại https://lekhanhdat.github.io/portfolio/ |
 | 2 Design System | ✅ PR #2 · đã deploy và duyệt |
 | 3 Home | ✅ Đã deploy và duyệt |
-| 4 Projects System | 🟡 Code xong + kiểm tra local; chờ commit/deploy + duyệt (P4.9) |
-| 5–8 | ⏳ |
+| 4 Projects System | ✅ Đã duyệt |
+| 5 Content | ✅ Đã duyệt (chờ anh push `dev`) |
+| 6–8 | ⏳ |
 
 ## 2. Lịch sử
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
@@ -59,16 +60,26 @@
     - Audit `dist/`: không có link nội bộ / anchor hỏng; mỗi trang 1 `h1`; mọi trang `noindex`; nav đánh dấu đúng trang.
     - Không tràn ngang ở 360 / 768 / 1440 trên Home, 2 index, brief, case study.
     - TOC case study đánh dấu đúng cả 12 mục; ảnh chụp brief và case study hiển thị đúng bố cục.
+  - Đưa sơ đồ AI vào tài nguyên (2026-10-23, D36): 3 file `flow-*.png` trong `src/assets/images/personal/da-nang-smart-tourism/`, chèn bằng `<Image>` của `astro:assets` ngay trong MDX (không qua React). Build pass; trang chỉ tải WebP 13–72 KB mỗi sơ đồ.
   - Bổ sung theo yêu cầu (2026-10-23):
     - Anchor Home về kebab-case: `#company-projects`, `#personal-project` (khớp PLAN §4.1).
     - Case study: thêm số liệu "nearly 9.3 million visitor stays…" kèm link Báo Đà Nẵng (đã đối chiếu bài gốc ngày 05/11/2024, nguồn Cục Thống kê Đà Nẵng).
     - Mục Challenges & lessons (4 mục) viết từ lịch sử commit + tài liệu trong các repo Travel (đọc read-only): đồng bộ index tìm kiếm, giới hạn của data backend, gọi AI chậm/tốn phí, đưa dự án lên hạ tầng mới. Không nêu credential, mã project cloud hay số tiền.
     - Audit lại `dist/`: không link/anchor hỏng; check, build, guard pass.
 
+- **Phase 5 (2026-10-23):**
+  - Ảnh chân dung: crop 4:5 (1200×1500), bỏ EXIF → `src/assets/images/profile/portrait.jpg`; React nhận ảnh đã tối ưu qua `getImage()` (`src/lib/image.ts`), xuất WebP 320/480/640.
+  - Résumé: `public/resume.pdf` (CV Sep 2026); `profile.resumePath` bật nút Résumé ở header, Hero, Contact.
+  - Case study: Architecture mô tả bằng chữ (At launch: 4 lớp; Now: Cloud Run + Neon) thay cho placeholder IMG-A1; nhãn link sơ đồ gọn lại.
+  - 4 brief C1–C4 rút gọn, tổng quát (D35): bỏ chi tiết như thao tác timeline, hướng điều hướng, phiên bản API, guard tài khoản.
+  - Copy Summary / Experience / Contact: đối chiếu CV mới — nội dung CV không đổi, không cần sửa.
+  - Kiểm tra: `pnpm check` 0/0/0; build 10 trang; guard pass; portrait tải WebP 320px; `resume.pdf` 200 `application/pdf`; không tràn ngang ở 360 / 768 (Home, case study, brief).
+  - Sau duyệt (2026-10-23): đổi chức danh toàn project → "Frontend Software Engineer" (code, MDX, docs, `package.json`; vai trò: Frontend engineer / Mobile engineer / Lead engineer); Résumé: header + Hero "View résumé" mở PDF ở tab mới, Contact thêm "Download PDF"; bỏ `draft` ở 5 MDX. Build không còn chữ "developer" và badge Draft.
+
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
 |---|---|---|
-| D1 | Danh xưng **Frontend Software Developer**; không dùng "Junior" | ✅ Chốt |
+| D1 | Danh xưng **Frontend Software Engineer** (đổi từ "…Developer" ngày 2026-10-23); không dùng "Junior", không dùng "Developer" | ✅ Chốt |
 | D2 | Concept "Spec Sheet" (tokens, Geist, motion tiết chế) | ✅ Duyệt cùng Phase 2 |
 | D3 | **Astro 7 + React 19 + TS + Tailwind v4 + MDX**, Node 22, pnpm | ✅ Chốt (U#6, U#9) |
 | D4 | Repo `lekhanhdat/portfolio` → **`https://lekhanhdat.github.io/portfolio/`** (`base: '/portfolio'`); không dùng custom domain | ✅ Chốt (U#1) |
@@ -77,7 +88,7 @@
 | D7 | Home: Company Projects trước Personal Project (giữ định vị Web) | Đề xuất — có thể đảo (áp dụng ở Phase 3) |
 | D8 | Tên mô tả, không nêu tên khách hàng (bảng ở PROJECT_CONTENT §0) | ✅ Chốt (U#7) |
 | D9 | Mục "Factory Manufacturing Monitoring" trong CV = chủ yếu C2, có gộp C3 → bullet CV được tính 👤 cho hai dự án | ✅ Chốt (U#8) |
-| D10 | Travel: vai trò "Lead developer — end to end"; README features đã hoàn thành (trừ offline maps); RAG hoạt động; demo dashboard có link | ✅ Chốt (U#11, #13, #14) |
+| D10 | Travel: vai trò "Lead engineer — end to end"; README features đã hoàn thành (trừ offline maps); RAG hoạt động; demo dashboard có link | ✅ Chốt (U#11, #13, #14) |
 | D11 | Link các repo GitHub bình thường | ✅ Chốt (U#3) |
 | D12 | AvePoint: giữ MSSQL/PostgreSQL; **không nhắc tên sản phẩm của AvePoint** | ✅ Chốt (U#15) |
 | D13 | Luồng AI dùng sơ đồ từ slide (anh cung cấp sau); trong lúc chờ dùng `FlowSteps` HTML | ✅ Chốt (U#5) |
@@ -101,6 +112,12 @@
 | D31 | Layout `.astro` bọc slot MDX bằng thẻ HTML thường (cùng class với `Container`), không đặt slot trong component React — tuân CLAUDE.md §3 | ✅ Phase 4 |
 | D32 | Prose MDX dùng CSS `.prose-content` tự viết (≈15 quy tắc) thay cho `@tailwindcss/typography` — không thêm dependency cho vài phần tử | ✅ Phase 4 |
 | D33 | Mục Challenges & lessons của Travel do Claude viết từ lịch sử commit và tài liệu repo (anh giao, 2026-10-23); giữ `draft` tới khi anh duyệt | ✅ Phase 4 |
+| D34 | Mỗi Phase chỉ push lên `dev` và anh kiểm tra ở local; **chỉ merge `main` một lần khi hoàn thành toàn bộ dự án** | ✅ Chốt (2026-10-23) |
+| D35 | **Chỉ Travel được trình bày sâu** (case study, ảnh thật, sơ đồ). Dự án công ty giữ brief ngắn, tổng quát, chỉ dùng SchematicFigure — vì chính sách bảo mật | ✅ Chốt (2026-10-23) |
+| D36 | Sơ đồ AI từ slide: semantic search (slide 9); RAG dùng **bản tiếng Anh** (slide 10); AI camera **giữ nguyên ảnh slide 11** (anh quyết). Caption ghi "from my thesis presentation"; riêng camera ghi thêm "the steps below describe the current implementation" vì ảnh ghi OpenAI Vision còn source dùng Google Lens + GPT-4o-mini. Ảnh resize 1920px PNG (~0,75–1 MB), Astro xuất WebP 720/1080/1440; bấm vào để xem bản đầy đủ | ✅ Chốt (2026-10-23) |
+| D37 | Không dùng sơ đồ kiến trúc slide 8; mục Architecture chỉ mô tả bằng chữ | ✅ Chốt (2026-10-23) |
+| D38 | Ảnh cho component React tạo sẵn bằng `getImage()` ở trang `.astro` rồi truyền props (`ResponsiveImage`) — `<Image>` là component Astro, không render trong React | ✅ Phase 5 |
+| D39 | Résumé: nút chính mở PDF ở tab mới (xem được, trình duyệt có sẵn nút tải); Contact có thêm "Download PDF" (`download="Le-Khanh-Dat-Resume.pdf"`) | ✅ Phase 5 |
 
 ## 4. Open Questions
 | # | Câu hỏi | Mặc định nếu không trả lời |
@@ -109,8 +126,9 @@
 | Q-N2 | Không ghi tên GVHD, không đặt "Graduation thesis" làm badge; chỉ có 1 dòng trong Context ("Began as my graduation thesis at VKU…") và 1 link ở Education. Đồng ý? | Áp dụng đề xuất (Education đã có dòng "Thesis: Da Nang Smart Tourism →") |
 | Q-N3 | Có tạo tài khoản demo read-only cho dashboard không? | Không; chỉ ghi "Live dashboard · Admin login required" |
 | Q-N4 | Có link thêm repo `travel-admin-frontend` và `travel-admin-backend` không? | Có (đã áp dụng ở case study; cả 3 repo public, kiểm tra 2026-10-23) |
-| Q-N5 | Chức danh hiển thị ở cả 2 công ty là "Frontend Software Developer"? | Có (đang dùng ở Experience) |
+| Q-N5 | ~~Chức danh ở cả 2 công ty~~ | ✅ "Frontend Software Engineer" (D1) |
 | Q-T7 | ~~2–4 thách thức kỹ thuật thật của Travel + lessons learned~~ | ✅ Đã có bản nháp từ lịch sử commit (D33); anh duyệt ở P5.5 |
+| Q-N6 | ~~`resume.pdf` có SĐT và title "Software Engineer"~~ | ✅ Giữ nguyên, cho xem và tải bình thường (anh đồng ý public SĐT) |
 
 ## 5. Ghi chú
 - Repo `lekhanhdat/portfolio`: Public. Quy trình: làm trên **`dev`** → anh commit + PR → merge vào `main` → tự động deploy.
@@ -121,9 +139,9 @@
 - Nút Résumé (header, Hero, Contact) tự hiện khi `profile.resumePath` được đặt (cần U.M6).
 
 ## 6. Next Steps
-1. 👤 Chạy kiểm tra local (lệnh ở cuối file này) → commit vào `dev` → PR/merge vào `main` để deploy.
-2. 👤 Duyệt trên site live (P4.9): `/portfolio/company-projects/` + 4 brief, `/portfolio/personal-projects/` + case study (đọc kỹ mục Challenges & lessons).
-3. 🤖 Sau khi duyệt: Phase 5 — Content. Không có thông tin nào bắt buộc phải cung cấp trước; Q-N1…Q-N5 có mặc định. Ở P5.1 tôi sẽ nhắc anh gửi ảnh minh hoạ RAG (cần ở Phase 6, không chặn Phase 5).
+1. 👤 Chạy kiểm tra local → commit + push `dev`.
+2. 👤 Gửi ảnh Travel cho Phase 6: 5 ảnh dashboard (1440×900 @2x: overview, bảng locations đang lọc, form modal, reviews, transactions) + 6 ảnh mobile (1080×2340: home, kết quả search, map route, kết quả AI camera, chatbot, donation QR); video demo tuỳ chọn. Dữ liệu demo, không lộ email/giao dịch thật.
+3. 🤖 Phase 6 — Media khi có ảnh.
 
 ### Kiểm tra local trước khi push
 ```bash

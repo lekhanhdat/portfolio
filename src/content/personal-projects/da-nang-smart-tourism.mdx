@@ -4,7 +4,7 @@ summary: An AI-assisted travel platform with a web admin dashboard, a mobile app
 tagline: An AI-assisted travel platform for Da Nang — a web dashboard for administrators and a mobile app for visitors, built end to end.
 order: 1
 platforms: [Web, Mobile, AI]
-myRole: Lead developer — end to end
+myRole: Lead engineer — end to end
 domain: Smart tourism
 stack:
   - React
@@ -70,11 +70,14 @@ gallery:
   - surface: mobile
     label: Donation QR
     alt: Donation screen with a payment QR code
-draft: true
+draft: false
 ---
 
+import { Image } from 'astro:assets';
 import { FlowSteps } from '@/components/projects/FlowSteps';
-import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
+import flowSemanticSearch from '@/assets/images/personal/da-nang-smart-tourism/flow-semantic-search.png';
+import flowRagAssistant from '@/assets/images/personal/da-nang-smart-tourism/flow-rag-assistant.png';
+import flowAiCamera from '@/assets/images/personal/da-nang-smart-tourism/flow-ai-camera.png';
 
 ## Context & problem
 
@@ -85,13 +88,6 @@ Da Nang recorded nearly 9.3 million visitor stays at accommodation establishment
 Visitors to Da Nang switch between many apps to find places, events and directions, get little cultural context about what they are looking at, and face language barriers without help outside office hours. The project brings these needs into one product: a mobile app for visitors and a web dashboard for the people who curate its content.
 
 ## Solution & ecosystem
-
-<MediaPlaceholder
-  id="IMG-A1"
-  ratio="16/9"
-  label="System architecture diagram"
-  alt="System architecture diagram of the dashboard, mobile app, APIs and AI services"
-/>
 
 The mobile app and the dashboard share one curated dataset of places, festivals and cultural objects. A FastAPI service handles semantic search, the chat assistant, image recognition and payments; an Express API serves the dashboard.
 
@@ -119,6 +115,24 @@ A React Native and TypeScript app for visitors.
 
 ## AI workflows
 
+<figure className="not-prose my-8">
+  <a
+    href={flowSemanticSearch.src}
+    className="block overflow-hidden rounded-lg border border-border bg-white"
+    aria-label="Open the semantic search diagram at full size"
+  >
+    <Image
+      src={flowSemanticSearch}
+      alt="Diagram: a natural-language query is embedded with OpenAI, matched in a FAISS vector store by cosine similarity, and returns places such as Ban Co Peak, Tien Sa Lighthouse and Rang Beach"
+      widths={[720, 1080, 1440]}
+      sizes="(min-width: 1024px) 720px, 100vw"
+    />
+  </a>
+  <figcaption className="label-mono mt-3 text-text-muted">
+    Diagram · Semantic search — from my thesis presentation
+  </figcaption>
+</figure>
+
 <FlowSteps
   label="Semantic search"
   steps={[
@@ -137,6 +151,24 @@ A React Native and TypeScript app for visitors.
   ]}
   note="Empty results, errors or a disabled AI feature fall back to keyword search on the device."
 />
+
+<figure className="not-prose my-8">
+  <a
+    href={flowRagAssistant.src}
+    className="block overflow-hidden rounded-lg border border-border bg-white"
+    aria-label="Open the RAG assistant diagram at full size"
+  >
+    <Image
+      src={flowRagAssistant}
+      alt="Diagram: a question about a ticket price is matched in the local knowledge base, combined into a context-rich prompt, and answered by GPT-4o-mini with the reference price and a reminder to check the official website"
+      widths={[720, 1080, 1440]}
+      sizes="(min-width: 1024px) 720px, 100vw"
+    />
+  </a>
+  <figcaption className="label-mono mt-3 text-text-muted">
+    Diagram · RAG assistant — from my thesis presentation
+  </figcaption>
+</figure>
 
 <FlowSteps
   label="RAG assistant"
@@ -159,6 +191,25 @@ A React Native and TypeScript app for visitors.
   ]}
   note="Grounding answers in curated local data reduces hallucinations."
 />
+
+<figure className="not-prose my-8">
+  <a
+    href={flowAiCamera.src}
+    className="block overflow-hidden rounded-lg border border-border bg-white"
+    aria-label="Open the AI camera diagram at full size"
+  >
+    <Image
+      src={flowAiCamera}
+      alt="Diagram: six steps from capturing or picking an image, through backend image analysis and location identification, a fallback check and description lookup, to displaying the result"
+      widths={[720, 1080, 1440]}
+      sizes="(min-width: 1024px) 720px, 100vw"
+    />
+  </a>
+  <figcaption className="label-mono mt-3 text-text-muted">
+    Diagram · AI camera — from my thesis presentation; the steps below describe the current
+    implementation
+  </figcaption>
+</figure>
 
 <FlowSteps
   label="AI camera"
@@ -187,7 +238,14 @@ A React Native and TypeScript app for visitors.
 
 ## Architecture
 
-At launch, the mobile app and the dashboard ran against a FastAPI service and an Express API, with NocoDB as the data store. The backend is now being migrated to Google Cloud Run and Neon PostgreSQL, with features re-enabled step by step behind feature flags.
+**At launch**, the system had four layers:
+
+- **Clients:** the React Native mobile app and the React admin dashboard.
+- **APIs:** a FastAPI service (Python) for search, the chat assistant, image recognition and payments, and an Express API (Node.js) for the dashboard.
+- **Data:** NocoDB for places, festivals, objects, users and transactions, and FAISS indexes for semantic search.
+- **External services:** OpenAI, Mapbox, PayOS, SerpAPI, SendGrid and Azure Translator.
+
+**Now**, the backend is being migrated to Google Cloud Run with Neon PostgreSQL. The core catalog API already runs there; AI, payment and account features are being re-enabled step by step behind feature flags.
 
 ## Engineering decisions
 

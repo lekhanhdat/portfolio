@@ -3,7 +3,7 @@ title: Factory Energy Management System
 summary: Energy monitoring for a factory, with web and mobile clients on one backend. I built the mobile app — consumption and cost charts, telemetry, assets, alarms and reports.
 order: 4
 platforms: [Web, Mobile]
-myRole: Mobile app developer
+myRole: Mobile engineer
 domain: Energy management · Industrial IoT
 stack:
   - React Native
@@ -17,28 +17,26 @@ stack:
 company: MIND Technology
 visibility: confidential
 schematic: mobile-web-pair
-draft: true
+draft: false
 ---
 
 ## Overview
 
-An energy management system for a factory: consumption, electricity cost, telemetry, assets, alarms and reports. A web app and a mobile app share one backend. I was the main developer of the mobile app; my work on the web app was limited to small changes.
+An energy management system for a factory: consumption, electricity cost, telemetry, assets, alarms and reports. A web app and a mobile app share one backend. I was the main engineer on the mobile app.
 
 ## My contributions
 
-- Home screen with yearly consumption and cost charts.
-- Factory views: monitoring parameters, chart modals, telemetry line charts with date selection, and time-range cards.
-- Assets and devices with detail pages, server-side search, filtering and pagination, and device–asset relationships.
-- Alarms with time and type filters (moved to server-side filtering) and reports by date range.
-- User management with role-based permissions, including a guard against deleting your own account.
-- Authentication: token refresh handling with a warning when refresh fails, and the migration from API v1 to v2.
+- Built consumption and cost charts, factory monitoring views and telemetry charts with date selection.
+- Built asset and device screens with server-side search, filtering and pagination.
+- Built alarm and report screens with time and type filters.
+- Implemented role-based user management and authentication with token refresh.
 
 ## Product scope
 
-The web app includes a dashboard, energy monitoring, an energy flow tree, alarms, reports and settings. The mobile app brings monitoring, assets, alarms and reports to phones.
+The system covers energy consumption and cost monitoring, assets, alarms and reports, on the web and on mobile.
 
 ## Engineering highlights
 
-- Built on Expo SDK 54 and React Native 0.81 with the New Architecture and React Compiler.
+- Built on Expo and React Native with the New Architecture.
 - Server state with TanStack Query and forms with React Hook Form.
-- Push notifications with expo-notifications.
+- Server-side filtering and pagination for asset, device and alarm lists.
