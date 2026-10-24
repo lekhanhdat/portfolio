@@ -20,6 +20,7 @@ const { project, prev, next } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<ProjectLayout project={project} prev={prev} next={next}>
-  <Content />
+<ProjectLayout project={project}>
+  {/* prev / next reach BriefFooter inside the MDX as `props`. */}
+  <Content prev={prev} next={next} />
 </ProjectLayout>

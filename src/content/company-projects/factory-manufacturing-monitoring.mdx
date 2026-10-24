@@ -22,6 +22,10 @@ schematic: production-monitoring
 draft: false
 ---
 
+import { BriefFooter } from '@/components/projects/BriefFooter';
+
+<div className="page-section">
+
 ## Overview
 
 An Industrial IoT / MES web platform for factory production monitoring: OEE, output, cameras, equipment alarms and product data. I was the main frontend contributor.
@@ -38,8 +42,16 @@ An Industrial IoT / MES web platform for factory production monitoring: OEE, out
 
 Production monitoring, OEE, cameras, equipment alarms, product data and reporting.
 
+</div>
+
+<div className="page-section">
+
 ## Engineering highlights
 
 - TanStack Query for server state: caching, refetching, request cancellation and payload mapping.
 - Server-side data operations instead of client-side filtering.
 - Responsive layouts from desktop to mobile, with loading, error and disabled states.
+
+<BriefFooter stack={frontmatter.stack} prev={props.prev} next={props.next} />
+
+</div>

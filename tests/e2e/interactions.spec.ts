@@ -132,8 +132,11 @@ test('résumé opens as a PDF and can be downloaded', async ({ page, request }) 
 
 test('case study gallery links every screen to its full-size image', async ({ page, request }) => {
   await page.goto('personal-projects/da-nang-smart-tourism/');
-  const gallery = page.getByRole('region', { name: 'Gallery' });
-  const links = gallery.getByRole('link');
+  // Two screens: web admin dashboard, then mobile app.
+  const galleries = page.getByRole('region', { name: /^Gallery:/ });
+  await expect(galleries).toHaveCount(2);
+  // Screens only: the last gallery screen also holds the project links.
+  const links = galleries.locator('figure').getByRole('link');
   await expect(links).toHaveCount(11);
   for (const href of await links.evaluateAll((items) =>
     items.map((item) => item.getAttribute('href') ?? ''),
@@ -151,4 +154,28 @@ test('the back-to-top button appears after scrolling and returns to the top', as
   await button.click();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
   await expect(page.locator('body > footer')).toHaveCount(0);
+});
+
+test.describe('screen-by-screen project pages', () => {
+  test.skip(({ isMobile }) => isMobile, 'The table of contents shows from lg up');
+
+  test('a table-of-contents link brings its whole screen into view', async ({ page }) => {
+    await page.goto('personal-projects/da-nang-smart-tourism/');
+    await expect(page.locator('html')).toHaveAttribute('data-snap', '');
+    await page
+      .getByRole('navigation', { name: 'On this page' })
+      .getByRole('link', { name: 'Mobile app', exact: true })
+      .click();
+    await expect(page).toHaveURL(/#mobile-app$/);
+    // Mobile app shares its screen with Web admin dashboard, so that heading is visible too.
+    await expect(
+      page.getByRole('heading', { name: 'Web admin dashboard', level: 2, exact: true }),
+    ).toBeInViewport();
+  });
+
+  test('the company index is three screens', async ({ page }) => {
+    await page.goto('company-projects/');
+    await expect(page.locator('main .page-section')).toHaveCount(3);
+    await expect(page.locator('main .page-section').first().locator('table')).toBeVisible();
+  });
 });

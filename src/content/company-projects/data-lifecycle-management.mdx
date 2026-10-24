@@ -22,6 +22,10 @@ schematic: records-governance
 draft: false
 ---
 
+import { BriefFooter } from '@/components/projects/BriefFooter';
+
+<div className="page-section">
+
 ## Overview
 
 A large-scale enterprise platform for data governance and records management. I worked on the React and TypeScript frontend alongside product, QA and backend engineers.
@@ -37,8 +41,16 @@ A large-scale enterprise platform for data governance and records management. I 
 
 Permissions, data classification, approval workflows, rule enforcement and scheduled jobs for enterprise customers.
 
+</div>
+
+<div className="page-section">
+
 ## Engineering highlights
 
 - Reusable components shared across features, not one-off screens.
 - Consistent async and error states across tables, dialogs and forms.
 - Internationalized UI with locale-aware dates and times.
+
+<BriefFooter stack={frontmatter.stack} prev={props.prev} next={props.next} />
+
+</div>

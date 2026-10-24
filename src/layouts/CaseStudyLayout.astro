@@ -1,14 +1,14 @@
 ---
-// Personal project case study (PLAN §5.3). Prose column with a sticky table of contents
-// from lg up; the gallery breaks out to the full container width below it.
+// Personal project case study (PLAN §5.3), one screen per topic. The header is the first
+// screen; the MDX file splits its content into .page-section screens (At a glance is
+// rendered there too, from frontmatter) beside a sticky table of contents from lg; the two
+// gallery screens close the page at full container width.
 // The slot holds Astro markup, so it sits in plain HTML wrappers rather than React components.
 import type { MarkdownHeading } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { CaseStudyHeader } from '@/components/projects/CaseStudyHeader';
 import { CaseStudyToc } from '@/components/projects/CaseStudyToc';
-import { AtAGlance } from '@/components/projects/AtAGlance';
-import { ScreenshotGallery } from '@/components/projects/ScreenshotGallery';
-import { CaseStudyFooter } from '@/components/projects/CaseStudyFooter';
+import { CaseStudyEnd } from '@/components/projects/CaseStudyEnd';
 import type { PersonalProject } from '@/lib/projects';
 import { profile } from '@/data/profile';
 import { resolveGallery, resolveShowcase } from '@/lib/image';
@@ -22,17 +22,25 @@ interface Props {
 
 const { project, headings } = Astro.props;
 const { data } = project;
-const ids = { glance: 'at-a-glance', gallery: 'gallery', links: 'links' };
-const hasGallery = data.gallery.length > 0;
+// "at-a-glance" is the id the MDX file gives <AtAGlance />.
+const ids = {
+  glance: 'at-a-glance',
+  dashboard: 'gallery',
+  mobile: 'gallery-mobile',
+  links: 'links',
+};
 const showcase = await resolveShowcase(project);
 const gallery = await resolveGallery(project);
+const hasDashboard = gallery.some((shot) => shot.surface === 'dashboard');
+const hasMobile = gallery.some((shot) => shot.surface === 'mobile');
 
 const toc = [
   { id: ids.glance, text: 'At a glance' },
   ...headings
     .filter((heading) => heading.depth === 2)
     .map(({ slug, text }) => ({ id: slug, text })),
-  ...(hasGallery ? [{ id: ids.gallery, text: 'Gallery' }] : []),
+  ...(hasDashboard ? [{ id: ids.dashboard, text: 'Gallery · Web dashboard' }] : []),
+  ...(hasMobile ? [{ id: ids.mobile, text: 'Gallery · Mobile app' }] : []),
   { id: ids.links, text: 'Links' },
 ];
 ---
@@ -41,6 +49,7 @@ const toc = [
   title={`${data.title} — Case study — ${profile.name}`}
   description={data.summary}
   type="article"
+  snap
   jsonLd={[
     projectJsonLd({
       title: data.title,
@@ -50,15 +59,14 @@ const toc = [
     }),
   ]}
 >
-  <article class="mx-auto w-full max-w-page px-5 py-10 sm:px-8 lg:px-12 lg:py-16">
-    <CaseStudyHeader project={project} showcase={showcase} />
+  <article class="mx-auto w-full max-w-page px-5 sm:px-8 lg:px-12">
+    <div class="page-section">
+      <CaseStudyHeader project={project} showcase={showcase} />
+    </div>
 
-    <div class="mt-16 grid gap-12 lg:mt-20 lg:grid-cols-12">
-      <div class="min-w-0 lg:col-span-8">
-        <AtAGlance id={ids.glance} surfaces={data.surfaces} />
-        <div class="prose-content mt-14">
-          <slot />
-        </div>
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="prose-content min-w-0 lg:col-span-8">
+        <slot />
       </div>
       <aside class="hidden lg:col-span-3 lg:col-start-10 lg:block">
         <div class="sticky top-24">
@@ -67,14 +75,6 @@ const toc = [
       </aside>
     </div>
 
-    {hasGallery && (
-      <div class="mt-16 border-t border-border pt-6 scroll-mt-20">
-        <ScreenshotGallery id={ids.gallery} items={gallery} />
-      </div>
-    )}
-
-    <div class="mt-16 border-t border-border pt-6">
-      <CaseStudyFooter id={ids.links} links={data.links} />
-    </div>
+    <CaseStudyEnd ids={ids} gallery={gallery} links={data.links} />
   </article>
 </BaseLayout>

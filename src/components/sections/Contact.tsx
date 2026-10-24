@@ -19,7 +19,7 @@ export function Contact() {
       title={availability.open ? `Open to ${profile.title} roles` : 'Get in touch'}
       intro={
         availability.open
-          ? `${availability.arrangements} · ${availability.locations.join(' · ')}`
+          ? `${availability.arrangements} | ${availability.locations.join(' · ')}`
           : undefined
       }
       fullPage

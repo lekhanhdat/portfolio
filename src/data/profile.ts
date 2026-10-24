@@ -17,6 +17,6 @@ export const profile = {
     label: 'Open to work',
     roles: 'Frontend roles',
     arrangements: 'Onsite or remote',
-    locations: ['Da Nang', 'Ho Chi Minh City', 'Ha Noi'],
+    locations: ['Da Nang', 'Ho Chi Minh', 'Ha Noi'],
   },
 } as const;

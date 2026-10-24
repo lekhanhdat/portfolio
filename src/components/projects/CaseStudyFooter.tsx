@@ -9,11 +9,11 @@ interface CaseStudyFooterProps {
   links: PersonalProject['data']['links'];
 }
 
-/** Links to the live demo and repositories, then onward to the company projects. */
+/** Links to the live demo and repositories, with the way onward to the company projects beside them. */
 export function CaseStudyFooter({ id, links }: CaseStudyFooterProps) {
   return (
-    <>
-      <section aria-labelledby={id} className="max-w-prose">
+    <div className="grid gap-8 border-t border-border pt-8 lg:grid-cols-[1fr_auto] lg:items-end">
+      <section aria-labelledby={id}>
         <h2 id={id} className="text-h3 font-semibold">
           Links
         </h2>
@@ -37,7 +37,7 @@ export function CaseStudyFooter({ id, links }: CaseStudyFooterProps) {
         )}
       </section>
 
-      <nav aria-label="Next" className="mt-16 border-t border-border pt-8">
+      <nav aria-label="Next">
         <a
           href={withBase('/company-projects/')}
           className="group inline-flex flex-col gap-1 rounded-lg border border-border p-4 transition-colors hover:border-accent"
@@ -52,6 +52,6 @@ export function CaseStudyFooter({ id, links }: CaseStudyFooterProps) {
           <span className="font-medium group-hover:text-accent">Company projects</span>
         </a>
       </nav>
-    </>
+    </div>
   );
 }
