@@ -42,7 +42,7 @@ export function SiteHeader({ currentPath, showNav = true }: SiteHeaderProps) {
         {/* The name comes from the visible text (WCAG 2.5.3); "home" is added for screen readers. */}
         <a
           href={withBase('/')}
-          className="mr-auto text-sm font-medium text-text transition-colors hover:text-accent"
+          className="mr-auto text-base font-medium text-text transition-colors hover:text-accent"
         >
           {profile.name}
           <span className="sr-only"> — home</span>

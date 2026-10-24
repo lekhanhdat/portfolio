@@ -116,6 +116,7 @@
 - [x] P9.10 🤖 Header "Company Projects" luôn mở trang index; 4 sơ đồ riêng cho C1–C4 (D45)
 - [x] P9.11 🤖 Bỏ footer toàn site; nút "Back to top" nổi ở mọi trang (D46)
 - [x] P9.12 🤖 Cân đối lại tỉ lệ ở zoom 100%: mật độ theo chiều cao màn hình (D47), làm gọn Experience / Company / Education, thang tiêu đề chung, brief header 2 cột
+- [x] P9.13 🤖 Trang dự án theo màn hình: company index 3 màn, mỗi brief 3 màn, case study 11 màn (AI workflows tách 3 mục)
 - [ ] P9.7 👤 Duyệt trên local (`pnpm build` + `pnpm preview`), rồi commit + push `dev`
 ---
 

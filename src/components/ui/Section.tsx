@@ -3,12 +3,8 @@ import { cn } from '@/lib/cn';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 
-/**
- * One Home "slide": at least one viewport tall below the 4rem header, content centered,
- * snapping to its top (snap behavior: global.css, html[data-snap]).
- */
-export const fullPageSectionClasses =
-  'flex min-h-[calc(100svh-4rem)] snap-start flex-col justify-center py-10 lg:py-8';
+/** One full screen of a page; the rules live in global.css (.page-section). */
+export const fullPageSectionClasses = 'page-section';
 
 interface SectionProps {
   id: string;

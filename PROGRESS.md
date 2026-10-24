@@ -127,6 +127,15 @@
     - Làm gọn section dài: padding section full-page `lg:py-8`; Experience 2 cột từ `md`, dự án dạng danh sách link thay cho chip; card công ty compact 2 tag + mũi tên chung một hàng; ảnh Education giới hạn 23rem và nằm cạnh nhau dưới `lg`; header cao đúng 4rem (bỏ 1px viền dư dưới vạch snap).
     - Thang tiêu đề: `--text-display` tối đa 3.75rem cho mọi `h1` (Intro, index, brief, case study). Brief header 2 cột như case study: chữ trái, sơ đồ phải, bảng thông tin bên dưới.
     - Đo bằng Playwright: mỗi section Home vừa 1 màn hình ở 1920×940, 1536×730, 1440×900, 1440×790, 1366×650, 1280×720, 1024×768; tablet 768×1024 chỉ Personal project dư 16px; mobile cuộn tự do (proximity). Không tràn ngang. `pnpm check` 0/0/0; build 10 trang; e2e 78 passed / 8 skipped; guard pass.
+  - Vòng 4 — trang dự án chia theo màn hình (2026-10-24):
+    - Class dùng chung `.page-section` (global.css) cho Home và trang dự án; `snap` bật ở company index, 4 brief, case study.
+    - `/company-projects/`: 3 màn — Hero + Project index; 2 dự án; 2 dự án.
+    - 4 brief: 3 màn — Hero (layout); Overview + My contributions + Product scope; Engineering highlights + Tech stack + Confidentiality + Prev/Next. MDX bọc nhóm bằng `<div className="page-section">`; `BriefFooter` render trong MDX (stack từ `frontmatter`, prev/next qua props của `<Content />`).
+    - Case study: 11 màn — Hero; At a glance (render trong MDX từ `frontmatter.surfaces`) + Context + Solution; Web admin dashboard | Mobile app (2 cột); Semantic search; RAG chatbot; AI-powered object recognition camera (mỗi màn: sơ đồ + workflow); Architecture | Engineering decisions (2 cột); Challenges (2 câu chuyện đầu); 2 câu chuyện còn lại + What I'd improve; Gallery web dashboard (3 cột); Gallery mobile + Links + Next. "AI workflows" tách thành 3 mục.
+    - `FlowSteps` có `layout="row"` (các bước nằm ngang từ md). Sơ đồ semantic search và camera được cắt bớt viền trắng (giữ lề 24px, không đổi nội dung); chiều cao sơ đồ giới hạn theo màn hình.
+    - `snap-anchors.ts`: link mục lục tới tiêu đề nằm giữa một màn sẽ cuộn tới đầu màn đó (tránh snap nhảy sang màn sau).
+    - Sửa CSS prose: `figure`/`aside` có class `not-prose` không còn bị cộng margin.
+    - Đo: mọi màn của 3 loại trang vừa 1 màn hình ở 1920×940 và 1440×900; ở 1536×730 / 1366×650 còn 2 màn chữ của case study dư ≤ 25px và màn cuối index dư 7px (vẫn cuộn được trong màn); tablet dọc dùng snap nhẹ nên màn dài cuộn tự do. `pnpm check` 0/0/0; build 10 trang; e2e 80 passed / 10 skipped; guard pass.
 
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |

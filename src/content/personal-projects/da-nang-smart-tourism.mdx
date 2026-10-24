@@ -92,10 +92,15 @@ draft: false
 ---
 
 import { Image } from 'astro:assets';
+import { AtAGlance } from '@/components/projects/AtAGlance';
 import { FlowSteps } from '@/components/projects/FlowSteps';
 import flowSemanticSearch from '@/assets/images/personal/da-nang-smart-tourism/flow-semantic-search.png';
 import flowRagAssistant from '@/assets/images/personal/da-nang-smart-tourism/flow-rag-assistant.png';
 import flowAiCamera from '@/assets/images/personal/da-nang-smart-tourism/flow-ai-camera.png';
+
+<div className="page-section">
+
+<AtAGlance id="at-a-glance" surfaces={frontmatter.surfaces} />
 
 ## Context & problem
 
@@ -107,6 +112,13 @@ Da Nang recorded nearly 9.3 million visitor stays in the first ten months of 202
 
 Both apps share one curated dataset of places, festivals and cultural objects. A FastAPI service handles semantic search, the chat assistant, image recognition and payments; an Express API serves the dashboard.
 
+</div>
+
+<div className="page-section">
+
+<div className="grid gap-x-10 gap-y-8 md:grid-cols-2">
+<div>
+
 ## Web admin dashboard
 
 React, TypeScript and Ant Design.
@@ -116,6 +128,9 @@ React, TypeScript and Ant Design.
 - Modal forms, delete confirmations and visibility toggles.
 - JWT auth with an admin role; Express API with rate limiting and security headers.
 - Retries with exponential backoff and staggered loading to stay within rate limits.
+
+</div>
+<div>
 
 ## Mobile app
 
@@ -129,9 +144,16 @@ React Native and TypeScript.
 - **Multilingual:** Vietnamese and English, with Azure Translator and cached translations.
 - **Donate:** PayOS QR donations with transaction history.
 
-## AI workflows
+</div>
+</div>
 
-<figure className="not-prose my-8">
+</div>
+
+<div className="page-section">
+
+## Semantic search
+
+<figure className="not-prose mt-5">
   <a
     href={flowSemanticSearch.src}
     className="block overflow-hidden rounded-lg border border-border bg-white"
@@ -142,6 +164,7 @@ React Native and TypeScript.
       alt="Diagram: a natural-language query is embedded with OpenAI, matched in a FAISS vector store by cosine similarity, and returns places such as Ban Co Peak, Tien Sa Lighthouse and Rang Beach"
       widths={[720, 1080, 1440]}
       sizes="(min-width: 1024px) 720px, 100vw"
+      class="mx-auto h-auto max-h-[max(14rem,calc(100svh-37rem))] w-auto"
     />
   </a>
   <figcaption className="label-mono mt-3 text-text-muted">
@@ -150,6 +173,7 @@ React Native and TypeScript.
 </figure>
 
 <FlowSteps
+  layout="row"
   label="Semantic search"
   steps={[
     { title: 'Query', detail: 'The visitor types a natural-language query in AI search mode.' },
@@ -168,26 +192,34 @@ React Native and TypeScript.
   note="Empty results, errors or a disabled AI feature fall back to keyword search on the device."
 />
 
-<figure className="not-prose my-8">
+</div>
+
+<div className="page-section">
+
+## RAG chatbot
+
+<figure className="not-prose mt-5">
   <a
     href={flowRagAssistant.src}
     className="block overflow-hidden rounded-lg border border-border bg-white"
-    aria-label="Open the RAG assistant diagram at full size"
+    aria-label="Open the RAG chatbot diagram at full size"
   >
     <Image
       src={flowRagAssistant}
       alt="Diagram: a question about a ticket price is matched in the local knowledge base, combined into a context-rich prompt, and answered by GPT-4o-mini with the reference price and a reminder to check the official website"
       widths={[720, 1080, 1440]}
       sizes="(min-width: 1024px) 720px, 100vw"
+      class="mx-auto h-auto max-h-[max(14rem,calc(100svh-37rem))] w-auto"
     />
   </a>
   <figcaption className="label-mono mt-3 text-text-muted">
-    Diagram · RAG assistant — from my thesis presentation
+    Diagram · RAG chatbot — from my thesis presentation
   </figcaption>
 </figure>
 
 <FlowSteps
-  label="RAG assistant"
+  layout="row"
+  label="RAG chatbot"
   steps={[
     { title: 'Message', detail: 'The visitor asks a question in the chat.' },
     {
@@ -208,7 +240,13 @@ React Native and TypeScript.
   note="Grounding answers in curated local data reduces hallucinations."
 />
 
-<figure className="not-prose my-8">
+</div>
+
+<div className="page-section">
+
+## AI-powered object recognition camera
+
+<figure className="not-prose mt-5">
   <a
     href={flowAiCamera.src}
     className="block overflow-hidden rounded-lg border border-border bg-white"
@@ -219,6 +257,7 @@ React Native and TypeScript.
       alt="Diagram: six steps from capturing or picking an image, through backend image analysis and location identification, a fallback check and description lookup, to displaying the result"
       widths={[720, 1080, 1440]}
       sizes="(min-width: 1024px) 720px, 100vw"
+      class="mx-auto h-auto max-h-[max(14rem,calc(100svh-37rem))] w-auto"
     />
   </a>
   <figcaption className="label-mono mt-3 text-text-muted">
@@ -228,6 +267,7 @@ React Native and TypeScript.
 </figure>
 
 <FlowSteps
+  layout="row"
   label="AI camera"
   steps={[
     {
@@ -252,6 +292,13 @@ React Native and TypeScript.
   ]}
 />
 
+</div>
+
+<div className="page-section">
+
+<div className="grid gap-x-10 gap-y-8 md:grid-cols-2">
+<div>
+
 ## Architecture
 
 **At launch**, four layers:
@@ -263,6 +310,9 @@ React Native and TypeScript.
 
 **Now**, migrating to Google Cloud Run with Neon PostgreSQL. The core catalog API already runs there; AI, payment and account features return step by step behind feature flags.
 
+</div>
+<div>
+
 ## Engineering decisions
 
 - **Plan for slow AI calls:** client timeouts, loading states and retries.
@@ -270,6 +320,13 @@ React Native and TypeScript.
 - **Degrade gracefully:** keyword search fallback and feature flags during the migration.
 - **Keep the dashboard fast:** server-side filtering, backoff retries and staggered requests.
 - **Translate data, not only the UI:** pre-translated content plus cached runtime translation.
+
+</div>
+</div>
+
+</div>
+
+<div className="page-section">
 
 ## Challenges & lessons
 
@@ -284,6 +341,10 @@ React Native and TypeScript.
 - **Problem:** the no-code database returned at most 100 records per page, so some places never reached the app; the dashboard hit rate limits with parallel heavy requests.
 - **Fix:** full pagination, a short-lived device cache, API rate limiting and timeouts, backoff retries and staggered loading.
 - **Lesson:** learn a data source's limits first, and make clients retry, back off and spread requests.
+
+</div>
+
+<div className="page-section">
 
 ### Making slow, paid AI calls dependable
 
@@ -302,3 +363,5 @@ React Native and TypeScript.
 - Move every AI and third-party call behind the backend.
 - Consolidate authentication in the backend.
 - Finish the migration and add tests for the AI workflows.
+
+</div>

@@ -101,7 +101,7 @@ export function Hero({ caseStudyHref, portrait }: HeroProps) {
             />
             {availability.open && (
               <p className="mt-3 text-sm text-text-muted">
-                {availability.arrangements} · {availability.locations.join(' · ')}
+                {availability.arrangements} | {availability.locations.join(' · ')}
               </p>
             )}
           </div>

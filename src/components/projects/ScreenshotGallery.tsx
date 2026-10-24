@@ -1,53 +1,70 @@
+import type { ReactNode } from 'react';
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import type { GalleryShot } from '@/lib/image';
 import { cn } from '@/lib/cn';
 
 interface ScreenshotGalleryProps {
-  id: string;
+  /** Heading ids of the two screens, used by the table of contents. */
+  ids: { dashboard: string; mobile: string };
   items: readonly GalleryShot[];
+  /** Shown under the phone screens, on the same screen (the case study's links). */
+  footer?: ReactNode;
 }
 
 /**
- * Dashboard screens in a two-column grid, phone screens in rows of up to six. Each capture
- * links to its full-size file instead of a JavaScript lightbox: same result, no runtime.
+ * Two screens: dashboard captures three to a row, then phone captures six to a row with the
+ * footer below. Each capture links to its full-size file instead of a JavaScript lightbox:
+ * same result, no runtime.
  */
-export function ScreenshotGallery({ id, items }: ScreenshotGalleryProps) {
+export function ScreenshotGallery({ ids, items, footer }: ScreenshotGalleryProps) {
   const dashboard = items.filter((item) => item.surface === 'dashboard');
   const mobile = items.filter((item) => item.surface === 'mobile');
 
   return (
-    <section aria-labelledby={id}>
-      <h2 id={id} className="text-h3 font-semibold">
-        Gallery
-      </h2>
-      <p className="mt-2 text-sm text-text-muted">Select a screen to open it at full size.</p>
-
+    <>
       {dashboard.length > 0 && (
-        <>
-          <h3 className="label-mono mt-8 text-text-muted">Web admin dashboard</h3>
-          <ul className="mt-4 grid gap-6 md:grid-cols-2">
+        <section aria-labelledby={ids.dashboard} className="page-section">
+          <GalleryHeading id={ids.dashboard} title="Gallery: web admin dashboard" />
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {dashboard.map((item, index) => (
               <li key={item.label}>
                 <Screen item={item} placeholderId={`IMG-D${index + 1}`} />
               </li>
             ))}
           </ul>
-        </>
+        </section>
       )}
 
-      {mobile.length > 0 && (
-        <>
-          <h3 className="label-mono mt-12 text-text-muted">Mobile app</h3>
-          <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {mobile.map((item, index) => (
-              <li key={item.label}>
-                <Screen item={item} placeholderId={`IMG-M${index + 1}`} />
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </section>
+      <section
+        aria-labelledby={mobile.length > 0 ? ids.mobile : undefined}
+        className="page-section"
+      >
+        {mobile.length > 0 && (
+          <>
+            <GalleryHeading id={ids.mobile} title="Gallery: mobile app" />
+            <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+              {mobile.map((item, index) => (
+                <li key={item.label}>
+                  <Screen item={item} placeholderId={`IMG-M${index + 1}`} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {footer && <div className={cn(mobile.length > 0 && 'mt-10')}>{footer}</div>}
+      </section>
+    </>
+  );
+}
+
+function GalleryHeading({ id, title }: { id: string; title: string }) {
+  return (
+    <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+      <h2 id={id} className="text-h3 font-semibold">
+        {title}
+      </h2>
+      <p className="text-sm text-text-muted">Select a screen to open it at full size.</p>
+    </div>
   );
 }
 
@@ -70,7 +87,11 @@ function Screen({ item, placeholderId }: { item: GalleryShot; placeholderId: str
           <img
             src={image.src}
             srcSet={image.srcSet}
-            sizes={isPhone ? '(min-width: 1024px) 180px, 45vw' : '(min-width: 768px) 560px, 100vw'}
+            sizes={
+              isPhone
+                ? '(min-width: 1024px) 180px, (min-width: 640px) 30vw, 45vw'
+                : '(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw'
+            }
             width={image.width}
             height={image.height}
             alt={item.alt}

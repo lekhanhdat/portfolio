@@ -23,6 +23,10 @@ schematic: digital-factory
 draft: false
 ---
 
+import { BriefFooter } from '@/components/projects/BriefFooter';
+
+<div className="page-section">
+
 ## Overview
 
 A production and OEE monitoring web application for a paper mill. I was one of the main frontend contributors.
@@ -38,8 +42,16 @@ A production and OEE monitoring web application for a paper mill. I was one of t
 
 Production and OEE monitoring, statistics, production orders, 2D/360°/3D factory views and user management.
 
+</div>
+
+<div className="page-section">
+
 ## Engineering highlights
 
 - Request cancellation on navigation, so stale data never renders.
 - Shared time-range controls across dashboard, OEE and statistics.
 - 3D and 360° scenes inside a monitoring dashboard.
+
+<BriefFooter stack={frontmatter.stack} prev={props.prev} next={props.next} />
+
+</div>

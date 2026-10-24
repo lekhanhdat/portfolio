@@ -9,6 +9,7 @@ const projects = await getCompanyProjects();
 
 <BaseLayout
   title={`Company projects — ${profile.name}`}
+  snap
   description="Enterprise data governance, manufacturing monitoring and energy management applications built at AvePoint and MIND Technology."
 >
   <CompanyProjectsIndex projects={projects} />

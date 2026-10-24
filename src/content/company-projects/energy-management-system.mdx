@@ -20,6 +20,10 @@ schematic: energy-mobile
 draft: false
 ---
 
+import { BriefFooter } from '@/components/projects/BriefFooter';
+
+<div className="page-section">
+
 ## Overview
 
 An energy management system for a factory, with web and mobile apps on one backend. I was the main engineer on the mobile app.
@@ -35,8 +39,16 @@ An energy management system for a factory, with web and mobile apps on one backe
 
 Energy consumption and cost monitoring, assets, alarms and reports, on web and mobile.
 
+</div>
+
+<div className="page-section">
+
 ## Engineering highlights
 
 - Expo and React Native with the New Architecture.
 - TanStack Query for server state, React Hook Form for forms.
 - Server-side filtering and pagination for assets, devices and alarms.
+
+<BriefFooter stack={frontmatter.stack} prev={props.prev} next={props.next} />
+
+</div>
