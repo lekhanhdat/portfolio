@@ -10,11 +10,11 @@ import { sectionIds } from '@/data/navigation';
 import { withBase } from '@/lib/with-base';
 import { fullPageSectionClasses } from '@/components/ui/Section';
 import { cn } from '@/lib/cn';
-import type { ShowcaseImages } from '@/lib/image';
+import type { ShowcaseMedia } from '@/lib/image';
 
 interface PersonalProjectProps {
   project: Project;
-  showcase?: ShowcaseImages;
+  showcase?: ShowcaseMedia;
 }
 
 /** Full-width band on the surface tone so the end-to-end project stands apart. */
@@ -74,7 +74,7 @@ export function PersonalProject({ project, showcase }: PersonalProjectProps) {
           )}
         </div>
 
-        <ProjectShowcase images={showcase} className="lg:col-span-7" />
+        <ProjectShowcase media={showcase} className="lg:col-span-7" />
       </Container>
     </section>
   );

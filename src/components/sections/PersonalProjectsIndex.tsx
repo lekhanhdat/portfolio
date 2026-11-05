@@ -5,12 +5,12 @@ import { SpecList } from '@/components/ui/SpecList';
 import { ProjectShowcase } from '@/components/projects/ProjectShowcase';
 import { personalProjectPath, type PersonalProject } from '@/lib/projects';
 import { withBase } from '@/lib/with-base';
-import type { ShowcaseImages } from '@/lib/image';
+import type { ShowcaseMedia } from '@/lib/image';
 
 interface PersonalProjectsIndexProps {
   projects: readonly PersonalProject[];
   /** Showcase images by project id. */
-  showcases: Readonly<Record<string, ShowcaseImages | undefined>>;
+  showcases: Readonly<Record<string, ShowcaseMedia | undefined>>;
 }
 
 export function PersonalProjectsIndex({ projects, showcases }: PersonalProjectsIndexProps) {
@@ -24,7 +24,7 @@ export function PersonalProjectsIndex({ projects, showcases }: PersonalProjectsI
       />
 
       <ul className="mt-12 space-y-8 lg:mt-16">
-        {projects.map((project, index) => {
+        {projects.map((project) => {
           const { data } = project;
           const href = withBase(personalProjectPath(project.id));
           const headingId = `project-${project.id}-title`;
@@ -62,11 +62,7 @@ export function PersonalProjectsIndex({ projects, showcases }: PersonalProjectsI
                     <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                   </p>
                 </div>
-                <ProjectShowcase
-                  images={showcases[project.id]}
-                  eager={index === 0}
-                  className="lg:col-span-7"
-                />
+                <ProjectShowcase media={showcases[project.id]} className="lg:col-span-7" />
               </article>
             </li>
           );

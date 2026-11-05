@@ -58,42 +58,50 @@ gallery:
     alt: Donation transactions with totals, status filter and payment status
     image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-transactions.png
   - surface: mobile
-    label: Home
-    alt: Mobile app home screen with search and recommended places
-    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-home.webp
+    label: Home · English
+    alt: Two phone screens of the app home in English, with search, recommended locations and popular locations
+    image: ../../assets/images/personal/da-nang-smart-tourism/app-home-en.png
   - surface: mobile
-    label: AI search results
-    alt: AI search results ranked by relevance, with a keyword tab
-    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-ai-search.webp
+    label: AI search · “beautiful beaches”
+    alt: Three phone screens of AI search results for “beautiful beaches” in the Vietnamese interface, listing beaches and then beachfront hotels
+    image: ../../assets/images/personal/da-nang-smart-tourism/app-ai-search.png
   - surface: mobile
-    label: Map
-    alt: Map of Da Nang with place markers and a traffic layer toggle
-    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-map.webp
+    label: Place details · English
+    alt: Two phone screens of the Dragon Bridge page in English, with description, opening hours, tips, photos and similar locations
+    image: ../../assets/images/personal/da-nang-smart-tourism/app-place-details-en.png
   - surface: mobile
     label: Route
-    alt: Route to a destination with distance, duration and two route options
-    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-map-route.webp
+    alt: Map with a route to the Dragon Bridge, its distance and duration, and an alternative route
+    image: ../../assets/images/personal/da-nang-smart-tourism/app-route.png
   - surface: mobile
     label: AI camera result
-    alt: Recognition result identifying the Dragon Bridge with its description
-    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-ai-camera.png
+    alt: AI camera result identifying a photo as the Dragon Bridge, with a short description in Vietnamese
+    image: ../../assets/images/personal/da-nang-smart-tourism/app-ai-camera.png
   - surface: mobile
     label: Chat assistant
-    alt: Chat assistant answering a question about local dishes
-    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-chat-assistant.png
+    alt: Chat assistant answering a question about local dishes with a formatted list, in Vietnamese
+    image: ../../assets/images/personal/da-nang-smart-tourism/app-chat-assistant.png
 showcase:
-  dashboard:
-    image: ../../assets/images/personal/da-nang-smart-tourism/dashboard-locations.png
-    alt: Travel admin dashboard showing the locations table filtered to beaches
-  mobile:
-    image: ../../assets/images/personal/da-nang-smart-tourism/mobile-home.webp
-    alt: Da Nang Smart Tourism app home screen
+  video:
+    src: /media/da-nang-smart-tourism/walkthrough.mp4
+    poster: ../../assets/images/personal/da-nang-smart-tourism/video-poster.jpg
+    title: Da Nang Smart Tourism — mobile app walkthrough, Vietnamese narration
+    subtitles:
+      - src: /media/da-nang-smart-tourism/captions-en.vtt
+        srcLang: en
+        label: English
+        default: true
+    captions:
+      src: /media/da-nang-smart-tourism/captions-vi.vtt
+      srcLang: vi
+      label: Tiếng Việt
 draft: false
 ---
 
 import { Image } from 'astro:assets';
 import { AtAGlance } from '@/components/projects/AtAGlance';
 import { FlowSteps } from '@/components/projects/FlowSteps';
+import { AppScreens } from '@/components/projects/ScreenshotGallery';
 import flowSemanticSearch from '@/assets/images/personal/da-nang-smart-tourism/flow-semantic-search.png';
 import flowRagAssistant from '@/assets/images/personal/da-nang-smart-tourism/flow-rag-assistant.png';
 import flowAiCamera from '@/assets/images/personal/da-nang-smart-tourism/flow-ai-camera.png';
@@ -111,6 +119,16 @@ Da Nang recorded nearly 9.3 million visitor stays in the first ten months of 202
 ## Solution & ecosystem
 
 Both apps share one curated dataset of places, festivals and cultural objects. A FastAPI service handles semantic search, the chat assistant, image recognition and payments; an Express API serves the dashboard.
+
+</div>
+
+<div className="page-section">
+
+## Product walkthrough
+
+The mobile app's main flows, in the order a visitor meets them; the video at the top of the page shows the same flows in motion.
+
+<AppScreens items={props.gallery} />
 
 </div>
 

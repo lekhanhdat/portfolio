@@ -46,29 +46,37 @@ export async function toResponsiveImage(
 const DASHBOARD_WIDTHS = [640, 960, 1280];
 const MOBILE_WIDTHS = [240, 360];
 
-export interface Shot {
-  image: ResponsiveImage;
-  alt: string;
+export interface VideoTrack {
+  src: string;
+  srcLang: string;
+  label: string;
+  default?: boolean;
 }
 
-export interface ShowcaseImages {
-  dashboard: Shot;
-  mobile: Shot;
+export interface ShowcaseVideo {
+  /** MP4 path inside public/ (not yet passed through withBase()). */
+  src: string;
+  /** Optimized poster URL, ready to use. */
+  poster: string;
+  title: string;
+  captions: VideoTrack;
+  subtitles: VideoTrack[];
+}
+
+export interface ShowcaseMedia {
+  video: ShowcaseVideo;
 }
 
 export async function resolveShowcase(
   project: PersonalProject,
-): Promise<ShowcaseImages | undefined> {
+): Promise<ShowcaseMedia | undefined> {
   const { showcase } = project.data;
   if (!showcase) return undefined;
   return {
-    dashboard: {
-      image: await toResponsiveImage(showcase.dashboard.image, DASHBOARD_WIDTHS),
-      alt: showcase.dashboard.alt,
-    },
-    mobile: {
-      image: await toResponsiveImage(showcase.mobile.image, MOBILE_WIDTHS),
-      alt: showcase.mobile.alt,
+    video: {
+      ...showcase.video,
+      // A single poster: the player is at most ~720px wide, so 1280px covers 2x screens.
+      poster: (await getImage({ src: showcase.video.poster, width: 1280, format: 'webp' })).src,
     },
   };
 }
@@ -87,8 +95,12 @@ export async function resolveGallery(project: PersonalProject): Promise<GalleryS
       surface,
       label,
       alt,
+      // Landscape captures (dashboards, phones framed on a 16:9 canvas) get wide candidates.
       image: image
-        ? await toResponsiveImage(image, surface === 'dashboard' ? DASHBOARD_WIDTHS : MOBILE_WIDTHS)
+        ? await toResponsiveImage(
+            image,
+            image.width > image.height ? DASHBOARD_WIDTHS : MOBILE_WIDTHS,
+          )
         : undefined,
     })),
   );

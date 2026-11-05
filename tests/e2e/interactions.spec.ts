@@ -132,11 +132,12 @@ test('résumé opens as a PDF and can be downloaded', async ({ page, request }) 
 
 test('case study gallery links every screen to its full-size image', async ({ page, request }) => {
   await page.goto('personal-projects/da-nang-smart-tourism/');
-  // Two screens: web admin dashboard, then mobile app.
-  const galleries = page.getByRole('region', { name: /^Gallery:/ });
-  await expect(galleries).toHaveCount(2);
-  // Screens only: the last gallery screen also holds the project links.
-  const links = galleries.locator('figure').getByRole('link');
+  // Dashboard captures close the page; phone captures sit in Product walkthrough.
+  await expect(page.getByRole('region', { name: /^Gallery:/ })).toHaveCount(1);
+  // Screens only: the gallery screen also holds the project links.
+  const links = page
+    .locator('article figure')
+    .getByRole('link', { name: /full size in a new tab/ });
   await expect(links).toHaveCount(11);
   for (const href of await links.evaluateAll((items) =>
     items.map((item) => item.getAttribute('href') ?? ''),
@@ -144,6 +145,27 @@ test('case study gallery links every screen to its full-size image', async ({ pa
     expect((await request.get(href)).status()).toBe(200);
   }
 });
+
+for (const path of ['', 'personal-projects/', 'personal-projects/da-nang-smart-tourism/']) {
+  test(`walkthrough video in the showcase has captions and loads on demand (/${path})`, async ({
+    page,
+    request,
+  }) => {
+    await page.goto(path);
+    const video = page.getByLabel(/mobile app walkthrough/);
+    await expect(video).toHaveCount(1);
+    await expect(video).toHaveAttribute('preload', 'none');
+    await expect(video).toHaveAttribute('poster', /\.(jpg|webp)$/);
+    const urls = await video.evaluate((element) => [
+      ...[...element.querySelectorAll('source, track')].map((child) => child.getAttribute('src')),
+      element.getAttribute('poster'),
+    ]);
+    await expect(video.locator('track[kind="captions"]')).toHaveAttribute('srclang', 'vi');
+    for (const url of urls) {
+      expect((await request.head(url ?? '')).status()).toBe(200);
+    }
+  });
+}
 
 test('the back-to-top button appears after scrolling and returns to the top', async ({ page }) => {
   await page.goto('company-projects/data-lifecycle-management/');

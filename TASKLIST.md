@@ -117,6 +117,7 @@
 - [x] P9.11 🤖 Bỏ footer toàn site; nút "Back to top" nổi ở mọi trang (D46)
 - [x] P9.12 🤖 Cân đối lại tỉ lệ ở zoom 100%: mật độ theo chiều cao màn hình (D47), làm gọn Experience / Company / Education, thang tiêu đề chung, brief header 2 cột
 - [x] P9.13 🤖 Trang dự án theo màn hình: company index 3 màn, mỗi brief 3 màn, case study 11 màn (AI workflows tách 3 mục)
+- [x] P9.14 🤖 Media Travel (2026-11-05): video giới thiệu thay toàn bộ showcase (dashboard + phone) (Home, `/personal-projects/`, header case study; phụ đề EN + VI); 6 ảnh khung iPhone 16:9 ở màn "Product walkthrough"
 - [ ] P9.7 👤 Duyệt trên local (`pnpm build` + `pnpm preview`), rồi commit + push `dev`
 ---
 
@@ -137,6 +138,6 @@
 - [x] U.M2 Dashboard Travel: 5 ảnh (1920×~925)
 - [x] U.M3 Mobile Travel: 6 ảnh
 - [x] U.M4 Sơ đồ từ slide: semantic search, RAG, camera (kiến trúc: chỉ mô tả bằng chữ, D37)
-- [ ] U.M5 Video demo 60–90 giây (tuỳ chọn)
+- [x] U.M5 Video demo 1:19 + 35 ảnh khung iPhone 16:9 (2026-11-05; đã chọn 6 ảnh, xem P9.14)
 - [x] U.M6 `resume.pdf` (bản CV Sep 2026, giữ nguyên — anh đồng ý public SĐT)
 - [ ] U.M7 (Tuỳ chọn) ảnh dự án công ty nếu được phép, không có tên hay logo khách hàng

@@ -1,8 +1,8 @@
 ---
 // Personal project case study (PLAN §5.3), one screen per topic. The header is the first
 // screen; the MDX file splits its content into .page-section screens (At a glance is
-// rendered there too, from frontmatter) beside a sticky table of contents from lg; the two
-// gallery screens close the page at full container width.
+// rendered there too, from frontmatter, as are the phone screens) beside a sticky table of contents from lg; the two
+// dashboard gallery closes the page at full container width.
 // The slot holds Astro markup, so it sits in plain HTML wrappers rather than React components.
 import type { MarkdownHeading } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -11,28 +11,27 @@ import { CaseStudyToc } from '@/components/projects/CaseStudyToc';
 import { CaseStudyEnd } from '@/components/projects/CaseStudyEnd';
 import type { PersonalProject } from '@/lib/projects';
 import { profile } from '@/data/profile';
-import { resolveGallery, resolveShowcase } from '@/lib/image';
+import { resolveShowcase, type GalleryShot } from '@/lib/image';
 import { projectJsonLd } from '@/lib/seo';
 import { personalProjectPath } from '@/lib/projects';
 
 interface Props {
   project: PersonalProject;
   headings: MarkdownHeading[];
+  /** Resolved once by the page: the MDX shows the phone screens, the end the dashboard. */
+  gallery: GalleryShot[];
 }
 
-const { project, headings } = Astro.props;
+const { project, headings, gallery } = Astro.props;
 const { data } = project;
 // "at-a-glance" is the id the MDX file gives <AtAGlance />.
 const ids = {
   glance: 'at-a-glance',
   dashboard: 'gallery',
-  mobile: 'gallery-mobile',
   links: 'links',
 };
 const showcase = await resolveShowcase(project);
-const gallery = await resolveGallery(project);
 const hasDashboard = gallery.some((shot) => shot.surface === 'dashboard');
-const hasMobile = gallery.some((shot) => shot.surface === 'mobile');
 
 const toc = [
   { id: ids.glance, text: 'At a glance' },
@@ -40,7 +39,6 @@ const toc = [
     .filter((heading) => heading.depth === 2)
     .map(({ slug, text }) => ({ id: slug, text })),
   ...(hasDashboard ? [{ id: ids.dashboard, text: 'Gallery · Web dashboard' }] : []),
-  ...(hasMobile ? [{ id: ids.mobile, text: 'Gallery · Mobile app' }] : []),
   { id: ids.links, text: 'Links' },
 ];
 ---
