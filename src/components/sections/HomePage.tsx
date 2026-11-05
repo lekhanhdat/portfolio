@@ -12,14 +12,14 @@ import {
   type PersonalProject as Project,
 } from '@/lib/projects';
 import { withBase } from '@/lib/with-base';
-import type { ResponsiveImage, ShowcaseImages } from '@/lib/image';
+import type { ResponsiveImage, ShowcaseMedia } from '@/lib/image';
 
 interface HomePageProps {
   companyProjects: readonly CompanyProject[];
   /** The featured personal project (Home shows one band). */
   personalProject: Project;
   portrait: ResponsiveImage;
-  showcase?: ShowcaseImages;
+  showcase?: ShowcaseMedia;
   graduationPhotos: readonly GraduationPhoto[];
 }
 

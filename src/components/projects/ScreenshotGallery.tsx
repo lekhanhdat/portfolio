@@ -4,27 +4,26 @@ import type { GalleryShot } from '@/lib/image';
 import { cn } from '@/lib/cn';
 
 interface ScreenshotGalleryProps {
-  /** Heading ids of the two screens, used by the table of contents. */
-  ids: { dashboard: string; mobile: string };
+  /** Heading id of the dashboard screen, used by the table of contents. */
+  id: string;
   items: readonly GalleryShot[];
-  /** Shown under the phone screens, on the same screen (the case study's links). */
+  /** Shown under the dashboard captures, on the same screen (the case study's links). */
   footer?: ReactNode;
 }
 
 /**
- * Two screens: dashboard captures three to a row, then phone captures six to a row with the
- * footer below. Each capture links to its full-size file instead of a JavaScript lightbox:
- * same result, no runtime.
+ * Last screen of the case study: dashboard captures three to a row, with the footer below.
+ * Each capture links to its full-size file instead of a JavaScript lightbox: same result,
+ * no runtime. Phone captures render earlier, in the MDX, through <AppScreens />.
  */
-export function ScreenshotGallery({ ids, items, footer }: ScreenshotGalleryProps) {
+export function ScreenshotGallery({ id, items, footer }: ScreenshotGalleryProps) {
   const dashboard = items.filter((item) => item.surface === 'dashboard');
-  const mobile = items.filter((item) => item.surface === 'mobile');
 
   return (
-    <>
+    <section aria-labelledby={dashboard.length > 0 ? id : undefined} className="page-section">
       {dashboard.length > 0 && (
-        <section aria-labelledby={ids.dashboard} className="page-section">
-          <GalleryHeading id={ids.dashboard} title="Gallery: web admin dashboard" />
+        <>
+          <GalleryHeading id={id} title="Gallery: web admin dashboard" />
           <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {dashboard.map((item, index) => (
               <li key={item.label}>
@@ -32,28 +31,40 @@ export function ScreenshotGallery({ ids, items, footer }: ScreenshotGalleryProps
               </li>
             ))}
           </ul>
-        </section>
+        </>
       )}
+      {footer && <div className={cn(dashboard.length > 0 && 'mt-10')}>{footer}</div>}
+    </section>
+  );
+}
 
-      <section
-        aria-labelledby={mobile.length > 0 ? ids.mobile : undefined}
-        className="page-section"
-      >
-        {mobile.length > 0 && (
-          <>
-            <GalleryHeading id={ids.mobile} title="Gallery: mobile app" />
-            <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-              {mobile.map((item, index) => (
-                <li key={item.label}>
-                  <Screen item={item} placeholderId={`IMG-M${index + 1}`} />
-                </li>
-              ))}
-            </ul>
-          </>
+/**
+ * Phone captures inside the case study text (Product walkthrough): six to a row for bare
+ * portrait screens, fewer when they are framed on a 16:9 canvas.
+ */
+export function AppScreens({ items }: { items: readonly GalleryShot[] }) {
+  const mobile = items.filter((item) => item.surface === 'mobile');
+  if (mobile.length === 0) return null;
+  const landscape = mobile.some((item) => item.image && isLandscape(item.image));
+
+  return (
+    <div className="not-prose mt-5">
+      <ul
+        className={cn(
+          'grid',
+          landscape
+            ? 'gap-4 sm:grid-cols-2 lg:grid-cols-3'
+            : 'grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6',
         )}
-        {footer && <div className={cn(mobile.length > 0 && 'mt-10')}>{footer}</div>}
-      </section>
-    </>
+      >
+        {mobile.map((item, index) => (
+          <li key={item.label}>
+            <Screen item={item} placeholderId={`IMG-M${index + 1}`} />
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-sm text-text-muted">Select a screen to open it at full size.</p>
+    </div>
   );
 }
 
@@ -68,9 +79,14 @@ function GalleryHeading({ id, title }: { id: string; title: string }) {
   );
 }
 
+function isLandscape(image: { width: number; height: number }) {
+  return image.width > image.height;
+}
+
 function Screen({ item, placeholderId }: { item: GalleryShot; placeholderId: string }) {
-  const isPhone = item.surface === 'mobile';
   const { image } = item;
+  // A portrait phone screen gets phone styling; framed 16:9 captures size like dashboards.
+  const isPhone = item.surface === 'mobile' && !(image && isLandscape(image));
 
   return (
     <figure>
@@ -104,7 +120,7 @@ function Screen({ item, placeholderId }: { item: GalleryShot; placeholderId: str
       ) : (
         <MediaPlaceholder
           id={placeholderId}
-          ratio={isPhone ? '9/19.5' : '16/10'}
+          ratio={item.surface === 'mobile' ? '9/19.5' : '16/10'}
           label={item.label}
           alt={item.alt}
         />

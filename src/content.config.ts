@@ -37,6 +37,14 @@ const companyProjects = defineCollection({
   }),
 });
 
+/** A WebVTT file inside public/. */
+const track = z.object({
+  src: z.string(),
+  srcLang: z.string(),
+  label: z.string(),
+  default: z.boolean().optional(),
+});
+
 const personalProjects = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/personal-projects' }),
   schema: ({ image }) =>
@@ -59,11 +67,20 @@ const personalProjects = defineCollection({
           }),
         )
         .default([]),
-      /** Browser + phone pair on Home, the index and the case study header. */
+      /** Walkthrough video on Home, the index and the case study header. */
       showcase: z
         .object({
-          dashboard: z.object({ image: image(), alt: z.string() }),
-          mobile: z.object({ image: image(), alt: z.string() }),
+          video: z.object({
+            /** MP4 path inside public/. */
+            src: z.string(),
+            poster: image(),
+            /** Accessible name of the player. */
+            title: z.string(),
+            /** Captions in the narration's language (WCAG 1.2.2). */
+            captions: track,
+            /** Translations of the narration. */
+            subtitles: z.array(track).default([]),
+          }),
         })
         .optional(),
     }),

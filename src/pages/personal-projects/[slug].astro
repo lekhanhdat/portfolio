@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { render } from 'astro:content';
 import CaseStudyLayout from '@/layouts/CaseStudyLayout.astro';
 import { getPersonalProjects } from '@/lib/projects';
+import { resolveGallery } from '@/lib/image';
 
 export const getStaticPaths = (async () => {
   const projects = await getPersonalProjects();
@@ -11,8 +12,10 @@ export const getStaticPaths = (async () => {
 
 const { project } = Astro.props;
 const { Content, headings } = await render(project);
+const gallery = await resolveGallery(project);
 ---
 
-<CaseStudyLayout project={project} headings={headings}>
-  <Content />
+<CaseStudyLayout project={project} headings={headings} gallery={gallery}>
+  {/* The phone screens reach <AppScreens /> inside the MDX as `props.gallery`. */}
+  <Content gallery={gallery} />
 </CaseStudyLayout>

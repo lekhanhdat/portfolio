@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-10-23** · 🚀 **LIVE từ 2026-10-23** tại https://lekhanhdat.github.io/portfolio/ · Còn: Search Console (P8.2), link portfolio trên LinkedIn (P8.3)
+> Cập nhật: **2026-11-05** · 🚀 **LIVE từ 2026-10-23** tại https://lekhanhdat.github.io/portfolio/ · Còn: Search Console (P8.2), link portfolio trên LinkedIn (P8.3)
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -136,6 +136,11 @@
     - `snap-anchors.ts`: link mục lục tới tiêu đề nằm giữa một màn sẽ cuộn tới đầu màn đó (tránh snap nhảy sang màn sau).
     - Sửa CSS prose: `figure`/`aside` có class `not-prose` không còn bị cộng margin.
     - Đo: mọi màn của 3 loại trang vừa 1 màn hình ở 1920×940 và 1440×900; ở 1536×730 / 1366×650 còn 2 màn chữ của case study dư ≤ 25px và màn cuối index dư 7px (vẫn cuộn được trong màn); tablet dọc dùng snap nhẹ nên màn dài cuộn tự do. `pnpm check` 0/0/0; build 10 trang; e2e 80 passed / 10 skipped; guard pass.
+  - Vòng 5 — video và ảnh mới cho Travel (2026-11-05):
+    - **Showcase = video** (thay cả cặp ảnh dashboard + phone), dùng chung `ProjectShowcase` ở Home (Personal project), `/personal-projects/` và header case study; video hiển thị đủ khung 16:9 (≈620px ở Home, 1440). Ở index, player có `z-10` để bấm được, không bị link phủ cả card chặn. Bỏ `showcase.dashboard` khỏi schema; `dashboard-locations.png` vẫn dùng ở gallery. Xoá `mobile-home.webp`.
+    - Dữ liệu video ở frontmatter `showcase.video` (src, poster, title, captions, subtitles; schema Zod). `<video>` gốc của trình duyệt (`ProjectVideo.tsx`), `preload="none"`: 24 MB chỉ tải khi bấm phát; poster WebP 1280px qua `getImage`. Giữ nguyên file anh dựng (H.264 1080p, 2,4 Mbps, đã `faststart`). Phụ đề `captions-vi.vtt` (từ `.srt`) và `captions-en.vtt` (Claude dịch, bật mặc định) — anh xem lại bản dịch.
+    - **Product walkthrough** (màn sau Context/Solution, có trong mục lục): 6 ảnh khung iPhone 16:9 chọn từ 35 ảnh — Home (EN), AI search "biển đẹp", Place details (EN), Route, AI camera result, Chat assistant. `AppScreens` nhận ảnh đã resolve qua `props.gallery` của `<Content />`. Màn "Gallery: mobile app" cũ bị bỏ; màn cuối còn Gallery dashboard + Links. Đã loại ảnh có thông tin cá nhân, màn trống và màn phụ. Xoá 5 ảnh mobile cũ.
+    - Test: video ở 3 trang (preload none, track captions `vi`, video/phụ đề/poster trả 200); test gallery sửa theo bố cục mới. `pnpm check` 0/0/0; build 10 trang; e2e 86 passed / 10 skipped (axe 0 vi phạm); guard pass. 1440×900: mọi màn vừa 1 màn hình (Home, index, case study); 390px không tràn ngang.
 
 ## 3. Decision Log
 | # | Quyết định | Trạng thái |
@@ -191,6 +196,7 @@
 | D44 | Hero không dùng reveal-on-scroll — nội dung màn hình đầu phải hiện ngay (LCP); reveal giữ cho các section bên dưới | ✅ Phase 7 |
 | D45 | Launch: trang thật index được; 404 + styleguide giữ `noindex`; entry draft bị loại khỏi build (`SHOW_DRAFTS = false`) | ✅ Phase 8 |
 | D46 | `deploy.yml` chạy e2e + axe trước khi deploy — `main` chỉ được merge một lần (D34) nên cổng chặn cuối nằm ở workflow deploy | ✅ Phase 8 |
+| D48 | Video Travel là toàn bộ showcase, thay cả ảnh dashboard + phone (Home, index, case study): `<video>` gốc, không thư viện player/island; file để trong `public/media/` (astro:assets không xử lý video), `preload="none"` + poster; phụ đề VI (captions) + EN (subtitles). Ảnh app 16:9 nằm ở màn Product walkthrough | ✅ Phase 9 |
 
 ## 4. Open Questions
 | # | Câu hỏi | Mặc định nếu không trả lời |
