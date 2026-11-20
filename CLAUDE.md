@@ -1,6 +1,8 @@
 # CLAUDE.md — Portfolio Le Khanh Dat
 
-Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` → `PROGRESS.md` → mục Phase hiện tại trong `TASKLIST.md` → `PLAN.md` (khi cần chi tiết) → `PROJECT_CONTENT.md` (khi viết nội dung dự án).
+Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` → `PROGRESS.md` → mục Phase hiện tại trong `TASKLIST.md` → `PLAN.md` (khi cần chi tiết).
+
+**Dọn local 2026-11-20:** `input/` và `PROJECT_CONTENT.md` đã được xóa theo yêu cầu người dùng; không tạo lại hoặc coi đây là nguồn bắt buộc. Nội dung website hiện nằm trong `src/content/` và `src/data/`. `private/confidential-terms.txt` vẫn cần cho kiểm tra bảo mật local; giữ file này ngoài Git.
 
 ## 1. Project Context
 - Portfolio của **Le Khanh Dat — Frontend Software Engineer** (React · TypeScript), Da Nang, Vietnam, **1.5+ years**.
@@ -21,24 +23,24 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
 
 ## 2. Project Rules (bắt buộc)
 1. **Một Phase mỗi lần.** Cuối Phase: cập nhật TASKLIST + PROGRESS → dừng → chờ duyệt.
-2. **Không bịa.** Chỉ dùng CV, source đã xác minh, nguồn công khai, hoặc xác nhận của người dùng (ghi trong PROGRESS Decision Log / PROJECT_CONTENT). Thiếu dữ liệu → `draft: true` hoặc `[TBD]` + Open Question.
+2. **Không bịa.** Chỉ dùng source đã xác minh, nguồn công khai, hoặc xác nhận của người dùng (ghi thông tin public-safe trong PROGRESS Decision Log). Thiếu dữ liệu → `draft: true` hoặc `[TBD]` + Open Question.
 3. **Phân loại nội dung:** ✅ product · 👤 personal · ❓ cần xác nhận · 🔒 confidential. Site chỉ dùng ✅/👤. Phân biệt rõ "I built…" và "The product includes…".
 4. **Bảo mật company:**
    - Source công ty chỉ đọc, không chạy.
    - Không copy code, cấu hình, URL, credentials, dữ liệu hay tài liệu nội bộ.
    - Không ảnh hay logo khi chưa được phép; mặc định dùng SchematicFigure; mỗi trang có confidentiality note.
-   - **Không nêu tên khách hàng** (danh sách trong `PROJECT_CONTENT.md`, private) ở bất kỳ đâu trong repo: `src/`, docs, slug, alt, metadata, tên file, commit message.
+   - **Không nêu tên khách hàng** (guard local dùng `private/confidential-terms.txt`) ở bất kỳ đâu trong repo: `src/`, docs, slug, alt, metadata, tên file, commit message.
    - **Không nhắc tên sản phẩm của AvePoint.**
 5. **Thời gian:** site chỉ hiển thị tổng "1.5+ years" và thời gian theo công ty (theo CV). **Không** có thời gian theo dự án.
 6. Không dùng "Junior"; không phóng đại (không skill bars, không superlatives, không số liệu tự tạo).
 7. **Repo public:**
    - **Được commit:** `PLAN.md`, `TASKLIST.md`, `PROGRESS.md`, `CLAUDE.md`. Các file này phải luôn "public-safe": chỉ dùng mã C1–C4, không tên khách hàng, không chi tiết source/kiến trúc nội bộ, không số liệu commit, không lỗ hổng bảo mật, không thông tin cá nhân ngoài những gì đã có trên site.
    - **Không bao giờ commit:** `input/`, `PROJECT_CONTENT.md`, `private/`, `.env*` (đã có trong `.gitignore`).
-   - Mọi chi tiết nhạy cảm ghi vào `PROJECT_CONTENT.md`.
+   - Không đưa chi tiết nhạy cảm vào tài liệu public hoặc tái tạo hồ sơ nguồn đã dọn.
    - **Claude KHÔNG commit, KHÔNG push, KHÔNG merge, KHÔNG amend/reset commit.** Người dùng tự làm toàn bộ thao tác git ghi lịch sử. Claude chỉ để thay đổi ở working tree, hoặc stage (`git add`) khi được yêu cầu, rồi báo danh sách file và gợi ý commit message. Lệnh git chỉ đọc (`status`, `diff`, `log`) thì được dùng.
    - Trước khi người dùng commit: Claude chạy `git status` + `pnpm check:confidential` để báo kết quả.
-   - Làm việc trên branch `dev`; `main` = production (merge vào `main` sẽ deploy).
-8. **Travel:** phân biệt "at launch" và "now — migrating to Cloud Run + Neon PostgreSQL"; DevOps chỉ nói ngắn. Luồng AI phải khớp source (PROJECT_CONTENT §1.6). Không dùng "eliminates hallucinations".
+   - `main` = production (push hoặc merge vào `main` sẽ deploy). Khi cần nhánh làm việc riêng, tạo nhánh theo task; không còn dùng nhánh `dev` cố định.
+8. **Travel:** phân biệt "at launch" và "now — migrating to Cloud Run + Neon PostgreSQL"; DevOps chỉ nói ngắn. Luồng AI phải khớp source đã xác minh. Không dùng "eliminates hallucinations".
 9. Không overengineering: không backend, DB, CMS, global state, animation hay 3D library. Dependency mới phải có lý do và ghi vào Decision Log.
 
 ## 3. Architecture & Conventions
@@ -69,11 +71,10 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
 | `PLAN.md` | Claude; **người dùng duyệt** khi đổi chiến lược/thiết kế/stack | Kế hoạch tổng thể (ít thay đổi) |
 | `TASKLIST.md` | Claude cập nhật mỗi Phase; người dùng tick các việc 👤 (hoặc báo để Claude tick) | Checklist thực thi |
 | `PROGRESS.md` | Claude cập nhật mỗi Phase; người dùng trả lời Open Questions | Trạng thái, quyết định, câu hỏi mở — **file người dùng nên theo dõi chính** |
-| `PROJECT_CONTENT.md` | Claude; người dùng xác nhận/sửa dữ kiện | Nguồn sự thật nội dung dự án, gồm cả ánh xạ C1–C4 → tên nội bộ (🔒 **không commit**; người dùng tự backup) |
-| `input/` | Người dùng bỏ tài liệu nguồn vào | Claude chỉ đọc |
+| `private/confidential-terms.txt` | Người dùng quản lý | Từ khóa cho guard local (🔒 **không commit**) |
 | `.gitignore` | Claude (đã tạo); người dùng không cần sửa | Chặn `input/`, `PROJECT_CONTENT.md`, `private/`, `.env*` |
 
-**Commit hay không:** PLAN / TASKLIST / PROGRESS / CLAUDE → ✅ commit (giữ bối cảnh khi đổi máy). `PROJECT_CONTENT.md`, `input/` → ❌ không commit; backup qua OneDrive/Google Drive hoặc một repo **private** riêng (vd. `portfolio-private`).
+**Commit hay không:** PLAN / TASKLIST / PROGRESS / CLAUDE → ✅ commit (giữ bối cảnh khi đổi máy). `private/` → ❌ không commit. Các đường dẫn nguồn đã dọn vẫn được chặn trong `.gitignore` để tránh vô tình đưa lại lên repo public.
 | `src/`, config, workflows (từ Phase 1) | Claude viết; người dùng review qua site live/diff | Mã nguồn portfolio |
 
 ## 7. Cập nhật tiến độ & bối cảnh
@@ -81,6 +82,6 @@ Bối cảnh cho mọi Claude session. **Đọc theo thứ tự:** `CLAUDE.md` �
 - **Trong session:**
   - Task đang làm `[~]`, xong `[x]`, bị chặn `[!]` kèm lý do.
   - Quyết định mới → Decision Log.
-  - Thông tin mới từ người dùng → đóng Open Question; cập nhật PROJECT_CONTENT (❓ → ✅/👤); cập nhật PLAN nếu ảnh hưởng chiến lược.
+  - Thông tin mới từ người dùng → đóng Open Question; cập nhật nội dung public-safe trong `src/content/`, `src/data/` và PROGRESS; cập nhật PLAN nếu ảnh hưởng chiến lược.
 - **Cuối Phase:** cập nhật TASKLIST + PROGRESS (ngày, việc đã làm, kết quả check/build/test, version, tồn đọng, Next Steps) → dừng.
 - Các file này là nguồn sự thật duy nhất; không dựa vào trí nhớ của hội thoại cũ.

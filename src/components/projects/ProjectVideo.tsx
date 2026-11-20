@@ -9,7 +9,7 @@ interface ProjectVideoProps {
 
 /**
  * Native <video> with controls: no player library and no island. preload="none" keeps the
- * ~24 MB file off the network until the visitor presses play; the poster holds the 16:9 space.
+ * video file off the network until the visitor presses play; the poster holds the 16:9 space.
  */
 export function ProjectVideo({ video, className }: ProjectVideoProps) {
   const { src, poster, title, captions, subtitles } = video;

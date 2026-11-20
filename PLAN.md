@@ -1,7 +1,9 @@
 # PLAN — Personal Portfolio của Le Khanh Dat (v3)
 
 > Trạng thái: **v3 đã duyệt** — đang triển khai theo Phase (xem PROGRESS.md) · Cập nhật: 2026-10-23
-> Liên quan: [TASKLIST.md](TASKLIST.md) · [PROGRESS.md](PROGRESS.md) · [CLAUDE.md](CLAUDE.md) · [PROJECT_CONTENT.md](PROJECT_CONTENT.md) (🔒 private)
+> Liên quan: [TASKLIST.md](TASKLIST.md) · [PROGRESS.md](PROGRESS.md) · [CLAUDE.md](CLAUDE.md)
+>
+> Dọn local 2026-11-20: `input/` và `PROJECT_CONTENT.md` đã xóa theo yêu cầu người dùng. Các tham chiếu đến hai mục này bên dưới mô tả giai đoạn chuẩn bị ban đầu, không còn là yêu cầu hiện tại. Nội dung dùng cho website nằm trong `src/content/` và `src/data/`; giữ `private/confidential-terms.txt` để guard local hoạt động.
 > v3 áp dụng 16 xác nhận của người dùng (PROGRESS §3), gồm:
 > - URL `lekhanhdat.github.io/portfolio`;
 > - timeline theo CV, ghi tổng "1.5+ years";

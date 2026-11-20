@@ -127,7 +127,7 @@
 - [x] U.1b Nâng Node lên v22.23.4 (đạt yêu cầu ≥ 22.23.4 của Astro 7.4)
 - [x] U.1c pnpm 12.15.0 qua corepack
 - [x] U.2 Repo `lekhanhdat/portfolio` đã Public
-- [ ] U.3 Backup `PROJECT_CONTENT.md` + `input/` (cloud drive hoặc repo private riêng) — hai mục này không lên repo public
+- [x] U.3 Đã bỏ yêu cầu backup `PROJECT_CONTENT.md` + `input/`: người dùng yêu cầu xóa các tài liệu nguồn local này ngày 2026-11-20.
 
 **Nội dung (trước Phase 5)**
 - [x] U.4 Q-T7: anh giao Claude tự viết từ lịch sử commit (2026-10-23) → đã có bản nháp 4 mục, anh duyệt ở P5.5

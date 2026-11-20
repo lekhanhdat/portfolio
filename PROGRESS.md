@@ -1,6 +1,6 @@
 # PROGRESS — Portfolio Le Khanh Dat
 
-> Cập nhật: **2026-11-05** · 🚀 **LIVE từ 2026-10-23** tại https://lekhanhdat.github.io/portfolio/ · Còn: Search Console (P8.2), link portfolio trên LinkedIn (P8.3)
+> Cập nhật: **2026-11-20** · 🚀 **LIVE từ 2026-10-23** tại https://lekhanhdat.github.io/portfolio/ · Còn: Search Console (P8.2), link portfolio trên LinkedIn (P8.3)
 
 ## 1. Tiến độ
 | Phase | Trạng thái |
@@ -17,6 +17,8 @@
 | 9 Polish | ✅ Xong trên `dev`, chờ duyệt |
 
 ## 2. Lịch sử
+- **2026-11-20 — Media Danavi và dọn local:** thay 6 ảnh mobile bằng giao diện redesign, thay thumbnail và xác nhận walkthrough khớp video mới, đồng bộ phụ đề Việt/Anh theo video mới. Giữ ảnh dashboard và sơ đồ vì bộ mới không có bản thay thế. Xóa `input/`, `PROJECT_CONTENT.md` theo yêu cầu; giữ `private/confidential-terms.txt` cho guard local. Nhánh `dev` đã xóa ở local và GitHub; CI chạy push trên các nhánh ngoài `main`, deployment tiếp tục dùng `main`.
+  - Kiểm tra: typecheck 0 lỗi/cảnh báo; lint, format, build 10 trang và guard pass; Playwright 86 pass, 10 skip. Sáu ảnh mobile và thumbnail đều 1920×1080; 13 cue ở mỗi track Việt/Anh khớp SRT, nằm trong thời lượng video 74,43 giây. Dọn lại build/cache/test output sau kiểm tra.
 - **rev. 1:** phân tích CV; kế hoạch dùng Next.js + Vercel.
 - **rev. 2:** đọc slide; phân tích read-only 7 codebase; xác minh luồng AI và thông tin công ty; chuyển sang Astro + GitHub Pages; tạo PROJECT_CONTENT.md.
 - **rev. 3:** áp dụng 16 xác nhận của người dùng.
